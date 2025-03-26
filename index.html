@@ -19,11 +19,51 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            color: #000000; /* Black text */
+            color: #000000;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            width: 100%;
+            background: #FDFCDF; 
+            color: #000000;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+        }
+
+        .navbar .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .navbar .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-links a {
+            color: #000000;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #8B4513; /* Brown hover effect */
         }
 
         .header {
             text-align: center;
+            margin-top: 80px; /* Adjusted for fixed navbar */
             margin-bottom: 3rem;
         }
 
@@ -53,15 +93,12 @@
             text-align: center;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            /* Border removed */
+            gap: 10px; /* Adds spacing between buttons */
         }
 
         .btn {
-            display: inline-block;
+            display: block; /* Makes buttons appear in different rows */
             padding: 12px 24px;
-            margin-bottom: 10px;
             font-size: 1.1rem;
             font-weight: 600;
             text-decoration: none;
@@ -71,6 +108,7 @@
             transition: all 0.3s ease;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             border: 1px solid #000000;
+            text-align: center;
         }
 
         .btn:hover {
@@ -80,9 +118,9 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
         }
 
-   
         @media (max-width: 480px) {
             .header {
+                margin-top: 100px;
                 margin-bottom: 2rem;
             }
 
@@ -109,13 +147,24 @@
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>Chibai</h1>
-        <h2>Inpui</h2>
+
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <div class="logo">Inpui</div>
+        <div class="nav-links">
+            
+        </div>
     </div>
+
+    <div class="header">
+        <h1>Chibai!</h1>
+        
+    </div>
+
     <div class="content">
         <a href="/translation-tool.html" class="btn">LPi Translation tih vel na</a>
         <a href="/maimai.html" class="btn">MaiMai</a>
     </div>
+
 </body>
 </html>
