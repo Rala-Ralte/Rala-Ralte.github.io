@@ -42,24 +42,25 @@
             text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
             letter-spacing: 0.5px;
         }
-
-        .content {
-            background: #4a3c31; /* Dark, aged wood tone */
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Stronger shadow for vintage feel */
-            width: 100%;
-            max-width: 500px;
-            text-align: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: 1px solid #6b4e31; /* Subtle border for texture */
-        }
+.content {
+    background: #4a3c31; /* Dark, aged wood tone */
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #6b4e31;
+}
 
         .btn {
             display: inline-block;
             padding: 12px 24px;
+			margin-bottom: 10px;
             font-size: 1.1rem;
             font-weight: 600;
             text-decoration: none;
