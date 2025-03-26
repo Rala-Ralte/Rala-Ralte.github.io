@@ -10,12 +10,31 @@
       background: linear-gradient(135deg, #fffacd, #87ceeb);
       color: #333;
     }
+
+    /* Home Menu */
+    .home-menu {
+      position: absolute;
+      top: 10px;
+      left: 20px;
+      font-size: 1.5em;
+      color: #ff4500;
+      text-shadow: 2px 2px 4px #ffd700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.1s ease;
+    }
+
+    .home-menu:active {
+      transform: scale(0.95);
+    }
+
     h1 {
       color: #ff4500;
       text-shadow: 2px 2px 4px #ffd700;
       text-align: center;
       font-size: 2.5em;
     }
+
     table {
       width: 100%;
       border-collapse: collapse;
@@ -25,17 +44,20 @@
       border-radius: 15px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
+
     th, td {
       border: 2px solid #ffb6c1;
       padding: 10px;
       width: 50%;
     }
+
     th {
       background-color: #ffd700;
       text-align: center;
       color: #ff4500;
       font-size: 1.2em;
     }
+
     textarea {
       width: 100%;
       height: 60px;
@@ -47,12 +69,14 @@
       background: #f0fff0;
       border-radius: 10px;
     }
+
     .fixed-cell {
       background-color: #ffebcd;
       font-weight: bold;
       text-align: center;
       color: #ff69b4;
     }
+
     button {
       margin-top: 15px;
       padding: 12px 20px;
@@ -65,15 +89,18 @@
       box-shadow: 0 4px #ff1493;
       transition: all 0.3s ease;
     }
+
     button:hover {
       background: #ff1493;
       transform: translateY(-2px);
       box-shadow: 0 6px #c71585;
     }
+
     button:active {
       transform: translateY(2px);
       box-shadow: 0 2px #c71585;
     }
+
     #fileInput {
       margin: 10px 0;
       padding: 10px;
@@ -81,6 +108,7 @@
       border-radius: 10px;
       border: 2px solid #32cd32;
     }
+
     /* Sunshine effect */
     body::before {
       content: '';
@@ -96,7 +124,12 @@
   </style>
 </head>
 <body>
+
+  <!-- Home Menu -->
+  <a href="/index.html" class="home-menu">Inpui</a>
+
   <h1>Lianpuii Translation</h1>
+
   <input type="file" id="fileInput" accept=".tsv">
   <button id="saveProgress">Save Progress</button>
   <button id="downloadFile">Download as TSV</button>
@@ -209,5 +242,6 @@
     document.getElementById("saveProgress").addEventListener("click", saveProgress);
     document.getElementById("downloadFile").addEventListener("click", downloadFile);
   </script>
+
 </body>
 </html>
