@@ -21,7 +21,16 @@
       text-shadow: 2px 2px 4px #ffd700;
       cursor: pointer;
       text-decoration: none;
-      transition: transform 0.1s ease;
+      transition: transform 0.1s ease, background 0.3s ease, border 0.3s ease;
+      padding: 8px 12px;
+      border: 2px solid #ff4500; /* Added Border */
+      border-radius: 10px; /* Rounded edges */
+    }
+
+    .home-menu:hover {
+      background: #ffd700;
+      color: #000;
+      border-color: #ff4500;
     }
 
     .home-menu:active {
@@ -126,7 +135,7 @@
 <body>
 
   <!-- Home Menu -->
-  <a href="/index.html" class="home-menu">Inpui</a>
+  <a href="/index.html" class="home-menu">Inpui kalna</a>
 
   <h1>Lianpuii Translation</h1>
 
