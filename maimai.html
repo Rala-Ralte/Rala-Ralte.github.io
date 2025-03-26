@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Volume Control Simulator</title>
+  <style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding-top: 50px;
+    background-color: #fdf6e9; /* Warm cream background */
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  h1 {
+    color: #8b5523; /* Warm brown */
+    font-size: 2em;
+    margin-bottom: 25px;
+    font-weight: normal; /* Lighter weight for minimalism */
+  }
+
+  #volume-display {
+    font-size: 1.4em;
+    color: #a66a2e; /* Soft warm brown */
+    margin-bottom: 20px;
+    font-weight: 500; /* Medium weight for balance */
+  }
+
+  .progress-container {
+    width: 80%;
+    max-width: 350px; /* Slightly narrower for minimalism */
+    background-color: #e8d8b9; /* Warm beige */
+    border-radius: 4px;
+    margin: 20px auto;
+    height: 16px; /* Thinner bar */
+    position: relative;
+  }
+
+  .progress-bar {
+    height: 100%;
+    width: 0%;
+    background-color: #d68c45; /* Warm orange */
+    border-radius: 4px;
+    transition: width 0.1s ease-in-out;
+  }
+
+  .controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px; /* Slightly more spacing for breathing room */
+    margin-top: 20px;
+  }
+
+  .control-container {
+    text-align: center;
+    min-width: 90px; /* Slightly smaller */
+  }
+
+  .control-img {
+    width: 90px;
+    height: auto;
+    cursor: pointer;
+    border-radius: 5px; /* Soft rounding */
+    transition: opacity 0.2s ease; /* Subtle hover effect */
+  }
+
+  .control-img:hover {
+    opacity: 0.85; /* Minimal hover effect */
+  }
+
+  .control-caption {
+    font-size: 1.1em;
+    margin-top: 5px;
+    color: #8b5523; /* Matching warm brown */
+    font-weight: 500;
+  }
+
+  @media (max-width: 600px) {
+    .controls {
+      flex-direction: column;
+      gap: 20px;
+    }
+    .control-img {
+      width: 80px; /* Slightly smaller on mobile */
+    }
+    h1 {
+      font-size: 1.8em;
+    }
+    #volume-display {
+      font-size: 1.2em;
+    }
+    .progress-container {
+      width: 90%;
+    }
+  }
+</style>
+</head>
+<body>
+  <h1>Mai mai</h1>
+  <div id="volume-display">Volume: 0%</div>
+  <div class="progress-container">
+    <div id="progress-bar" class="progress-bar"></div>
+  </div>
+  
+  <div class="controls">
+    <div class="control-container">
+      <img id="brake" src="brake.webp" alt="Brake" class="control-img">
+      <div class="control-caption">Brake</div>
+    </div>
+
+    <div class="control-container">
+      <img id="accelerator" src="acc.webp" alt="Accelerator" class="control-img">
+      <div class="control-caption">Accelerator</div>
+    </div>
+  </div>
+
+  <script>
+    let currentVolume = 0;
+    const maxVolume = 100;
+    const volumeDisplay = document.getElementById('volume-display');
+    const progressBar = document.getElementById('progress-bar');
+    let accelInterval, decelInterval, brakeInterval;
+
+    const accelRate = 0.5;
+    const decelRate = 0.2;
+    const brakeRate = 3; // Reduced from 5
+    const intervalTime = 50;
+
+    function updateDisplay() {
+      volumeDisplay.textContent = `Volume: ${Math.round(currentVolume)}%`;
+      progressBar.style.width = `${currentVolume}%`;
+    }
+
+    function clearIntervals() {
+      clearInterval(accelInterval);
+      clearInterval(decelInterval);
+      clearInterval(brakeInterval);
+    }
+
+    function startGradualDeceleration() {
+      decelInterval = setInterval(() => {
+        if (currentVolume > 0) {
+          currentVolume -= decelRate;
+          updateDisplay();
+        } else {
+          clearInterval(decelInterval);
+        }
+      }, intervalTime);
+    }
+
+    // Accelerator Logic
+    const acceleratorButton = document.getElementById('accelerator');
+    acceleratorButton.addEventListener('mousedown', () => {
+      clearIntervals();
+      accelInterval = setInterval(() => {
+        if (currentVolume < maxVolume) {
+          currentVolume += accelRate;
+          updateDisplay();
+        }
+      }, intervalTime);
+    });
+
+    acceleratorButton.addEventListener('mouseup', () => {
+      clearInterval(accelInterval);
+      startGradualDeceleration();
+    });
+
+    acceleratorButton.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      clearIntervals();
+      accelInterval = setInterval(() => {
+        if (currentVolume < maxVolume) {
+          currentVolume += accelRate;
+          updateDisplay();
+        }
+      }, intervalTime);
+    });
+
+    acceleratorButton.addEventListener('touchend', () => {
+      clearInterval(accelInterval);
+      startGradualDeceleration();
+    });
+
+    // Brake Logic
+    const brakeButton = document.getElementById('brake');
+    brakeButton.addEventListener('mousedown', () => {
+      clearIntervals();
+      brakeInterval = setInterval(() => {
+        if (currentVolume > 0) {
+          currentVolume = Math.max(0, currentVolume - brakeRate);
+          updateDisplay();
+        } else {
+          clearInterval(brakeInterval);
+        }
+      }, intervalTime);
+    });
+
+    brakeButton.addEventListener('mouseup', () => {
+      clearInterval(brakeInterval);
+      startGradualDeceleration();
+    });
+
+    brakeButton.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      clearIntervals();
+      brakeInterval = setInterval(() => {
+        if (currentVolume > 0) {
+          currentVolume = Math.max(0, currentVolume - brakeRate);
+          updateDisplay();
+        } else {
+          clearInterval(brakeInterval);
+        }
+      }, intervalTime);
+    });
+
+    brakeButton.addEventListener('touchend', () => {
+      clearInterval(brakeInterval);
+      startGradualDeceleration();
+    });
+  </script>
+</body>
+</html>
