@@ -9,7 +9,7 @@
     font-family: Arial, sans-serif;
     text-align: center;
     padding-top: 50px;
-    background-color: #fdf6e9; /* Warm cream background */
+    background-color: #fdf6e9; 
     margin: 0;
     min-height: 100vh;
     display: flex;
@@ -18,33 +18,33 @@
   }
 
   h1 {
-    color: #8b5523; /* Warm brown */
+    color: #8b5523; 
     font-size: 2em;
     margin-bottom: 25px;
-    font-weight: normal; /* Lighter weight for minimalism */
+    font-weight: normal; 
   }
 
   #volume-display {
     font-size: 1.4em;
-    color: #a66a2e; /* Soft warm brown */
+    color: #a66a2e;
     margin-bottom: 20px;
-    font-weight: 500; /* Medium weight for balance */
+    font-weight: 500; 
   }
 
   .progress-container {
     width: 80%;
-    max-width: 350px; /* Slightly narrower for minimalism */
-    background-color: #e8d8b9; /* Warm beige */
+    max-width: 350px; 
+    background-color: #e8d8b9; 
     border-radius: 4px;
     margin: 20px auto;
-    height: 16px; /* Thinner bar */
+    height: 16px; 
     position: relative;
   }
 
   .progress-bar {
     height: 100%;
     width: 0%;
-    background-color: #d68c45; /* Warm orange */
+    background-color: #d68c45; 
     border-radius: 4px;
     transition: width 0.1s ease-in-out;
   }
@@ -53,31 +53,31 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 15px; /* Slightly more spacing for breathing room */
+    gap: 15px; 
     margin-top: 20px;
   }
 
   .control-container {
     text-align: center;
-    min-width: 90px; /* Slightly smaller */
+    min-width: 90px;
   }
 
   .control-img {
     width: 90px;
     height: auto;
     cursor: pointer;
-    border-radius: 5px; /* Soft rounding */
-    transition: opacity 0.2s ease; /* Subtle hover effect */
+    border-radius: 5px; 
+    transition: opacity 0.2s ease; 
   }
 
   .control-img:hover {
-    opacity: 0.85; /* Minimal hover effect */
+    opacity: 0.85; 
   }
 
   .control-caption {
     font-size: 1.1em;
     margin-top: 5px;
-    color: #8b5523; /* Matching warm brown */
+    color: #8b5523; 
     font-weight: 500;
   }
 
@@ -87,7 +87,7 @@
       gap: 20px;
     }
     .control-img {
-      width: 80px; /* Slightly smaller on mobile */
+      width: 80px; 
     }
     h1 {
       font-size: 1.8em;
@@ -129,7 +129,7 @@
 
     const accelRate = 0.5;
     const decelRate = 0.2;
-    const brakeRate = 3; // Reduced from 5
+    const brakeRate = 3; 
     const intervalTime = 50;
 
     function updateDisplay() {
@@ -154,7 +154,7 @@
       }, intervalTime);
     }
 
-    // Accelerator Logic
+ 
     const acceleratorButton = document.getElementById('accelerator');
     acceleratorButton.addEventListener('mousedown', () => {
       clearIntervals();
@@ -187,7 +187,7 @@
       startGradualDeceleration();
     });
 
-    // Brake Logic
+   
     const brakeButton = document.getElementById('brake');
     brakeButton.addEventListener('mousedown', () => {
       clearIntervals();
