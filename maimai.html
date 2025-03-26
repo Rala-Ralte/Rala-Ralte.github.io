@@ -6,45 +6,77 @@
   <title>Mai Mai</title>
   <style>
   body {
-    font-family: Arial, sans-serif;
+    font-family: 'Georgia', serif;
     text-align: center;
     padding-top: 50px;
-    background-color: #fdf6e9; 
+    background-color: #FFFDF2;
     margin: 0;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
+    color: #000000;
+    position: relative; 
+  }
+
+  .nav {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+
+  .nav a {
+    color: #000000;
+    font-size: 1.2em;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.1s ease, background-color 0.2s ease;
+    padding: 8px 15px;
+    border-radius: 5px;
+    display: inline-block;
+  }
+
+  .nav a:hover {
+    color: #FFFFFF; 
+    background-color: #000000;
+    transform: scale(1.05);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  .nav a:active {
+    transform: scale(0.95); /* Click effect */
   }
 
   h1 {
-    color: #8b5523; 
+    color: #000000;
     font-size: 2em;
     margin-bottom: 25px;
-    font-weight: normal; 
+    font-weight: 700;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   }
 
   #volume-display {
     font-size: 1.4em;
-    color: #a66a2e;
+    color: #333333;
     margin-bottom: 20px;
-    font-weight: 500; 
+    font-weight: 500;
   }
 
   .progress-container {
     width: 80%;
-    max-width: 350px; 
-    background-color: #e8d8b9; 
+    max-width: 350px;
+    background-color: #E6E6E6;
     border-radius: 4px;
     margin: 20px auto;
-    height: 16px; 
+    height: 16px;
     position: relative;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   }
 
   .progress-bar {
     height: 100%;
     width: 0%;
-    background-color: #d68c45; 
+    background-color: #000000;
     border-radius: 4px;
     transition: width 0.1s ease-in-out;
   }
@@ -53,7 +85,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 15px; 
+    gap: 15px;
     margin-top: 20px;
   }
 
@@ -66,30 +98,32 @@
     width: 90px;
     height: auto;
     cursor: pointer;
-    border-radius: 5px; 
-    transition: opacity 0.2s ease; 
+    border-radius: 5px;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
 
   .control-img:hover {
-    opacity: 0.85; 
+    opacity: 0.85;
+    transform: translateY(-2px);
   }
 
   .control-caption {
     font-size: 1.1em;
     margin-top: 5px;
-    color: #8b5523; 
+    color: #000000;
     font-weight: 500;
   }
 
   @media (max-width: 600px) {
     .controls {
-      flex-direction: row;  
-    flex-wrap: nowrap;   
-    justify-content: center;
-    gap: 10px; 
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: center;
+      gap: 10px;
     }
     .control-img {
-      width: 80px; 
+      width: 80px;
     }
     h1 {
       font-size: 1.8em;
@@ -100,11 +134,21 @@
     .progress-container {
       width: 90%;
     }
+    .nav {
+      top: 15px;
+      right: 15px;
+    }
+    .nav a {
+      font-size: 1em;
+    }
   }
 </style>
 </head>
 <body>
-  <h1> iDea Mai mai</h1>
+  <div class="nav">
+    <a href="/index.html">Inpui</a>
+  </div>
+  <h1>iDea Mai mai</h1>
   <div id="volume-display">Volume: 0%</div>
   <div class="progress-container">
     <div id="progress-bar" class="progress-bar"></div>
@@ -131,7 +175,7 @@
 
     const accelRate = 0.5;
     const decelRate = 0.2;
-    const brakeRate = 3; 
+    const brakeRate = 3;
     const intervalTime = 50;
 
     function updateDisplay() {
@@ -156,7 +200,6 @@
       }, intervalTime);
     }
 
- 
     const acceleratorButton = document.getElementById('accelerator');
     acceleratorButton.addEventListener('mousedown', () => {
       clearIntervals();
@@ -189,7 +232,6 @@
       startGradualDeceleration();
     });
 
-   
     const brakeButton = document.getElementById('brake');
     brakeButton.addEventListener('mousedown', () => {
       clearIntervals();
@@ -225,6 +267,7 @@
       clearInterval(brakeInterval);
       startGradualDeceleration();
     });
+
   </script>
 </body>
 </html>
