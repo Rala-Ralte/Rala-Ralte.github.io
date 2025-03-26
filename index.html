@@ -12,14 +12,14 @@
         }
 
         body {
-            font-family: 'Georgia', serif; /* Vintage-inspired font */
+            font-family: 'Georgia', serif;
             min-height: 100vh;
-            background: linear-gradient(135deg, #3c2f2f 0%, #6b4e31 100%); /* Deep brown to vintage sepia */
+            background: #FFFDF2; 
             padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            color: #f4e4bc; /* Warm parchment-like text color */
+            color: #000000; /* Black text */
         }
 
         .header {
@@ -28,57 +28,59 @@
         }
 
         h1 {
-            color: #f4e4bc;
+            color: #000000;
             font-size: 2.8rem;
             font-weight: 700;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); /* Deeper shadow for vintage depth */
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); 
             letter-spacing: 1px;
         }
 
         h2 {
-            color: #d9b38c;
+            color: #333333; 
             font-size: 1.6rem;
             font-weight: 400;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
             letter-spacing: 0.5px;
         }
-.content {
-    background: #4a3c31; /* Dark, aged wood tone */
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    width: 100%;
-    max-width: 500px;
-    text-align: center;
-    display: flex;
-    flex-direction: column; /* Stack buttons vertically */
-    justify-content: center;
-    align-items: center;
-    border: 1px solid #6b4e31;
-}
+
+        .content {
+            background: #FFFDF2;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); 
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            /* Border removed */
+        }
 
         .btn {
             display: inline-block;
             padding: 12px 24px;
-			margin-bottom: 10px;
+            margin-bottom: 10px;
             font-size: 1.1rem;
             font-weight: 600;
             text-decoration: none;
-            background-color: #8a5522; /* Deep burnt orange */
-            color: #f4e4bc;
-            border-radius: 6px; /* Slightly rounded for a vintage button */
+            background-color: #000000; 
+            color: #FFFDF2;
+            border-radius: 6px;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-            border: 1px solid #a66933; /* Aged border */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            border: 1px solid #000000;
         }
 
         .btn:hover {
-            background-color: #6b4e31; /* Darker sepia on hover */
+            background-color: #333333;
+            color: #FFFDF2;
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
         }
 
-        /* Mobile Responsiveness */
+   
         @media (max-width: 480px) {
             .header {
                 margin-bottom: 2rem;
@@ -116,4 +118,4 @@
         <a href="/maimai.html" class="btn">MaiMai</a>
     </div>
 </body>
-</html>	
+</html>
