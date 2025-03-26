@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Translation Data Collection</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', Arial, sans-serif;
+      margin: 20px;
+      background: linear-gradient(135deg, #fffacd, #87ceeb);
+      color: #333;
+    }
+    h1 {
+      color: #ff4500;
+      text-shadow: 2px 2px 4px #ffd700;
+      text-align: center;
+      font-size: 2.5em;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      table-layout: fixed;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    th, td {
+      border: 2px solid #ffb6c1;
+      padding: 10px;
+      width: 50%;
+    }
+    th {
+      background-color: #ffd700;
+      text-align: center;
+      color: #ff4500;
+      font-size: 1.2em;
+    }
+    textarea {
+      width: 100%;
+      height: 60px;
+      resize: vertical;
+      border: 2px dashed #98fb98;
+      font-size: 14px;
+      padding: 8px;
+      box-sizing: border-box;
+      background: #f0fff0;
+      border-radius: 10px;
+    }
+    .fixed-cell {
+      background-color: #ffebcd;
+      font-weight: bold;
+      text-align: center;
+      color: #ff69b4;
+    }
+    button {
+      margin-top: 15px;
+      padding: 12px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background: #ff69b4;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      box-shadow: 0 4px #ff1493;
+      transition: all 0.3s ease;
+    }
+    button:hover {
+      background: #ff1493;
+      transform: translateY(-2px);
+      box-shadow: 0 6px #c71585;
+    }
+    button:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px #c71585;
+    }
+    #fileInput {
+      margin: 10px 0;
+      padding: 10px;
+      background: #98fb98;
+      border-radius: 10px;
+      border: 2px solid #32cd32;
+    }
+    /* Sunshine effect */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, #ffd700 20%, transparent 70%);
+      opacity: 0.7;
+      z-index: -1;
+    }
+  </style>
+</head>
+<body>
+  <h1>Lianpuii Translation</h1>
+  <input type="file" id="fileInput" accept=".tsv">
+  <button id="saveProgress">Save Progress</button>
+  <button id="downloadFile">Download as TSV</button>
+
+  <table id="translationTable">
+    <thead>
+      <tr>
+        <th>Input Sentence</th>
+        <th>Translation</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Parsed rows will appear here -->
+    </tbody>
+  </table>
+
+  <script>
+    let fileName = "translation_output.tsv";
+
+    document.getElementById('fileInput').addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      fileName = file.name.replace(".tsv", "_translated.tsv");
+      const reader = new FileReader();
+
+      reader.onload = function(e) {
+        const content = e.target.result;
+        const lines = content.split('\n').filter(line => line.trim() !== '');
+        const tbody = document.querySelector('#translationTable tbody');
+        tbody.innerHTML = '';
+
+        lines.forEach((line, index) => {
+          const parts = line.split('\t');
+          const inputSentence = parts[0].trim();
+          const savedTranslation = getSavedTranslation(index);
+          const translationSentence = savedTranslation !== null ? savedTranslation : (parts[1] ? parts[1].trim() : '');
+          
+          const row = document.createElement('tr');
+
+          const inputCell = document.createElement('td');
+          inputCell.textContent = inputSentence;
+          row.appendChild(inputCell);
+
+          const translationCell = document.createElement('td');
+
+          if (index === 0) {
+            translationCell.textContent = "Mizo";
+            translationCell.classList.add("fixed-cell");
+          } else if (inputSentence.startsWith("#")) {
+            translationCell.textContent = inputSentence;
+            translationCell.classList.add("fixed-cell");
+          } else {
+            const textarea = document.createElement('textarea');
+            textarea.value = translationSentence;
+            textarea.dataset.index = index;
+            translationCell.appendChild(textarea);
+          }
+
+          row.appendChild(translationCell);
+          tbody.appendChild(row);
+        });
+
+        restoreProgress();
+      };
+
+      reader.readAsText(file);
+    });
+
+    function getSavedTranslation(index) {
+      const savedData = JSON.parse(localStorage.getItem("translationProgress") || "{}");
+      return savedData[index] || null;
+    }
+
+    function saveProgress() {
+      const translationData = {};
+      document.querySelectorAll('textarea').forEach(textarea => {
+        translationData[textarea.dataset.index] = textarea.value;
+      });
+      localStorage.setItem("translationProgress", JSON.stringify(translationData));
+      alert("Progress saved!");
+    }
+
+    function restoreProgress() {
+      const savedData = JSON.parse(localStorage.getItem("translationProgress") || "{}");
+      document.querySelectorAll('textarea').forEach(textarea => {
+        if (savedData[textarea.dataset.index]) {
+          textarea.value = savedData[textarea.dataset.index];
+        }
+      });
+    }
+
+    function downloadFile() {
+      let tsvContent = "";
+      document.querySelectorAll("#translationTable tbody tr").forEach(row => {
+        const inputSentence = row.cells[0].textContent;
+        let translation = row.cells[1].querySelector("textarea") 
+                          ? row.cells[1].querySelector("textarea").value 
+                          : row.cells[1].textContent;
+        tsvContent += `${inputSentence}\t${translation}\n`;
+      });
+
+      const blob = new Blob([tsvContent], { type: "text/tab-separated-values" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = fileName;
+      a.click();
+    }
+
+    document.getElementById("saveProgress").addEventListener("click", saveProgress);
+    document.getElementById("downloadFile").addEventListener("click", downloadFile);
+  </script>
+</body>
+</html>
