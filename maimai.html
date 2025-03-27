@@ -5,144 +5,206 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mai Mai</title>
   <style>
-  body {
-    font-family: 'Georgia', serif;
-    text-align: center;
-    padding-top: 50px;
-    background-color: #FFFDF2;
-    margin: 0;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: #000000;
-    position: relative; 
-  }
-
-  .nav {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-  }
-
-  .nav a {
-    color: #000000;
-    font-size: 1.2em;
-    font-weight: 500;
-    text-decoration: none;
-    transition: color 0.3s ease, transform 0.1s ease, background-color 0.2s ease;
-    padding: 8px 15px;
-    border-radius: 5px;
-    display: inline-block;
-  }
-
-  .nav a:hover {
-    color: #FFFFFF; 
-    background-color: #000000;
-    transform: scale(1.05);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  }
-
-  .nav a:active {
-    transform: scale(0.95); /* Click effect */
-  }
-
-  h1 {
-    color: #000000;
-    font-size: 2em;
-    margin-bottom: 25px;
-    font-weight: 700;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-  }
-
-  #volume-display {
-    font-size: 1.4em;
-    color: #333333;
-    margin-bottom: 20px;
-    font-weight: 500;
-  }
-
-  .progress-container {
-    width: 80%;
-    max-width: 350px;
-    background-color: #E6E6E6;
-    border-radius: 4px;
-    margin: 20px auto;
-    height: 16px;
-    position: relative;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  }
-
-  .progress-bar {
-    height: 100%;
-    width: 0%;
-    background-color: #000000;
-    border-radius: 4px;
-    transition: width 0.1s ease-in-out;
-  }
-
-  .controls {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-    margin-top: 20px;
-  }
-
-  .control-container {
-    text-align: center;
-    min-width: 90px;
-  }
-
-  .control-img {
-    width: 90px;
-    height: auto;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: opacity 0.2s ease, transform 0.2s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  }
-
-  .control-img:hover {
-    opacity: 0.85;
-    transform: translateY(-2px);
-  }
-
-  .control-caption {
-    font-size: 1.1em;
-    margin-top: 5px;
-    color: #000000;
-    font-weight: 500;
-  }
-
-  @media (max-width: 600px) {
-    .controls {
-      flex-direction: row;
-      flex-wrap: nowrap;
-      justify-content: center;
-      gap: 10px;
+    body {
+      font-family: 'Georgia', serif;
+      text-align: center;
+      padding-top: 50px;
+      background-color: #FFFDF2;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #000000;
+      position: relative;
     }
-    .control-img {
-      width: 80px;
-    }
-    h1 {
-      font-size: 1.8em;
-    }
-    #volume-display {
-      font-size: 1.2em;
-    }
-    .progress-container {
-      width: 90%;
-    }
+
     .nav {
-      top: 15px;
-      right: 15px;
+      position: absolute;
+      top: 20px;
+      right: 20px;
     }
+
     .nav a {
-      font-size: 1em;
+      color: #000000;
+      font-size: 1.2em;
+      font-weight: 500;
+      text-decoration: none;
+      transition: color 0.3s ease, transform 0.1s ease, background-color 0.2s ease;
+      padding: 8px 15px;
+      border-radius: 5px;
+      display: inline-block;
     }
-  }
-</style>
+
+    .nav a:hover {
+      color: #FFFFFF;
+      background-color: #000000;
+      transform: scale(1.05);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .nav a:active {
+      transform: scale(0.95);
+    }
+
+    h1 {
+      color: #000000;
+      font-size: 2em;
+      margin-bottom: 25px;
+      font-weight: 700;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    #volume-display {
+      font-size: 1.4em;
+      color: #333333;
+      margin-bottom: 20px;
+      font-weight: 500;
+    }
+
+    #speedometer {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      border: 2px solid #000000;
+      position: relative;
+      margin: 20px auto;
+	  
+      --radius: 80px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Added shadow */
+	 
+    }
+
+
+
+
+    #needle {
+      position: absolute;
+      width: 45%; /* Shortened from 50% */
+      height: 2px;
+      background-color: #FF0000; /* Red needle */
+      left: 50%;
+      top: 50%;
+      transform-origin: left center;
+      transform: rotate(180deg);
+      transition: transform 0.1s ease-in-out;
+    }
+
+    #pivot {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: #000000;
+      border-radius: 50%;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .odometer {
+  position: absolute;
+  left: 50%;
+  top: 65%;
+  transform: translateX(-50%);
+  font-family: 'Orbitron', monospace;
+  font-size: 12px; /* Reduced from 16px */
+  color: #FFFFFF;
+  background-color: #1A1A1A;
+  padding: 1px 4px; /* Reduced from 2px 6px */
+  border-radius: 3px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+  display: flex;
+}
+
+.odometer span {
+  display: inline-block;
+}
+
+.odometer span:not(:last-child) {
+  border-right: 1px solid #000000; /* Black line between numbers */
+  padding-right: 2px; /* Space before the line */
+  margin-right: 2px; /* Space after the line */
+}
+
+    .number {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) rotate(var(--angle)) translate(var(--radius)) rotate(calc(-1 * var(--angle)));
+      font-size: 14px;
+      color: #000000;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .control-container {
+      text-align: center;
+      min-width: 90px;
+    }
+
+    .control-img {
+      width: 90px;
+      height: auto;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .control-img:hover {
+      opacity: 0.85;
+      transform: translateY(-2px);
+    }
+
+    .control-caption {
+      font-size: 1.1em;
+      margin-top: 5px;
+      color: #000000;
+      font-weight: 500;
+    }
+
+    @media (max-width: 600px) {
+      .controls {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: center;
+        gap: 10px;
+      }
+      .control-img {
+        width: 80px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+      #volume-display {
+        font-size: 1.2em;
+      }
+      #speedometer {
+        width: 150px;
+        height: 150px;
+        --radius: 60px;
+      }
+      .number {
+        font-size: 12px;
+      }
+      .odometer {
+        font-size: 10px;
+      }
+      .nav {
+        top: 15px;
+        right: 15px;
+      }
+      .nav a {
+        font-size: 1em;
+      }
+    }
+  </style>
 </head>
 <body>
   <div class="nav">
@@ -150,8 +212,23 @@
   </div>
   <h1>iDea Mai mai</h1>
   <div id="volume-display">Volume: 0%</div>
-  <div class="progress-container">
-    <div id="progress-bar" class="progress-bar"></div>
+  <div id="speedometer">
+    <div id="needle"></div>
+    <div id="pivot"></div>
+   <div class="odometer">
+  <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+</div>
+    <div class="number" style="--angle: 180deg">0</div>
+    <div class="number" style="--angle: 216deg">20</div>
+    <div class="number" style="--angle: 252deg">40</div>
+    <div class="number" style="--angle: 288deg">60</div>
+    <div class="number" style="--angle: 324deg">80</div>
+    <div class="number" style="--angle: 360deg">100</div>
+    <div class="number" style="--angle: 396deg">120</div>
+    <div class="number" style="--angle: 432deg">140</div>
+    <div class="number" style="--angle: 468deg">160</div>
+    <div class="number" style="--angle: 504deg">180</div>
+
   </div>
   
   <div class="controls">
@@ -159,7 +236,6 @@
       <img id="brake" src="brake.webp" alt="Brake" class="control-img">
       <div class="control-caption">Brake</div>
     </div>
-
     <div class="control-container">
       <img id="accelerator" src="acc.webp" alt="Accelerator" class="control-img">
       <div class="control-caption">Accelerator</div>
@@ -170,17 +246,18 @@
     let currentVolume = 0;
     const maxVolume = 100;
     const volumeDisplay = document.getElementById('volume-display');
-    const progressBar = document.getElementById('progress-bar');
+    const needle = document.getElementById('needle');
     let accelInterval, decelInterval, brakeInterval;
 
     const accelRate = 0.5;
-    const decelRate = 0.2;
+    const decelRate = 0.25;
     const brakeRate = 3;
     const intervalTime = 50;
 
     function updateDisplay() {
       volumeDisplay.textContent = `Volume: ${Math.round(currentVolume)}%`;
-      progressBar.style.width = `${currentVolume}%`;
+      const angle = 180 + (currentVolume / 100 * 180);
+      needle.style.transform = `rotate(${angle}deg)`;
     }
 
     function clearIntervals() {
@@ -268,6 +345,7 @@
       startGradualDeceleration();
     });
 
+    updateDisplay(); // Set initial state
   </script>
 </body>
 </html>
