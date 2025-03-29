@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
   <meta property="og:title" content="MCQs">
 <meta property="og:description" content="Mizoram Budget 2025 MCQs">
-
-<meta property="og:url" content="https://example.com">
+<meta property="og:url" content="https://rala-ralte.github.io/MCQs.html">
 <meta property="og:type" content="website">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
@@ -69,18 +68,7 @@
       margin-top: 80px;
       margin-bottom: 2rem;
     }
-	.submission-container {
-  display: flex;
-  justify-content: flex-end; 
-  margin-top: 8px; 
-  font-style: italic; 
-  color: darkgray;
-	}
 
-	.submission-note {
-  font-size: 0.9rem; /* Makes the text slightly smaller */
-  color: #000000;    /* Sets text color to black */
-	}
     h2 {
       color: #000000;
       font-size: 1.6rem;
@@ -315,9 +303,6 @@
         margin-top: 100px;
         text-align: center;
       }
-	  .submission-note {
-    font-size: 0.8rem; /* Smaller text on mobile */
-  }
 
       .content {
         padding: 10px;
@@ -350,16 +335,12 @@
       <!--<a href="#">About</a>-->
     </div>
   </div>
-	
+
   <div class="header">
     <h2>Mizoram Budget 2025</h2>
-	<div class="submission-container">
-    <p class="submission-note">*Check submission at the bottom</p>
-  </div>	
   </div>
-	
-  <div class="content">
 
+  <div class="content">
     <div id="mcq-container"></div>
 
     <div class="button-container">
@@ -395,11 +376,9 @@
   }
 
   function displayQuestions(data) {
-  
     let container = document.getElementById("mcq-container");
     container.innerHTML = "";
     let questions = data.questions;
-	
 
     questions.forEach((question, index) => {
       let questionContainer = document.createElement("div");
