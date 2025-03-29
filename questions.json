@@ -121,15 +121,15 @@
       "answer": "Cyclone Remal"
     },
     {
-      "text": "What is the estimated GSDP for 2024–25 (Budget Estimate)?",
-      "options": [
-        "₹34,003.27 crore",
-        "₹36,088.82 crore",
-        "₹48,037.52 crore",
-        "₹50,000 crore"
-      ],
-      "answer": "₹48,037.52 crore"
-    },
+  "text": "What is the estimated GSDP for 2024–25 (Budget Estimate)?",
+  "options": [
+    "₹34,003.27 crore",
+    "₹36,088.82 crore",
+    "₹48,037.52 crore",
+    "₹50,000 crore"
+  ],
+  "answer": "₹48,037.52 crore"
+},
     {
       "text": "The fiscal deficit for 2025–26 is estimated at ₹1651.68 crore. What percentage of GSDP does this represent?",
       "options": ["2.84%", "4.57%", "7.63%", "10.21%"],
