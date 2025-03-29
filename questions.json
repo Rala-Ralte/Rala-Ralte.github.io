@@ -1,0 +1,534 @@
+{
+  "questions": [
+    {
+      "text": "Who delivered the Budget Speech for the Financial Year 2025–26?",
+      "options": ["Pu Laldhuhoma", "Pu K Sapdanga", "Pu Lalthanhawla", "Pu Zoramthanga"],
+      "answer": "Pu K Sapdanga"
+    },
+    {
+      "text": "For which financial year is this Budget Speech presented?",
+      "options": ["2024–25", "2025–26", "2023–24", "2026–27"],
+      "answer": "2025–26"
+    },
+    {
+      "text": "Which state's budget is being presented in the speech?",
+      "options": ["Mizoram", "Manipur", "Meghalaya", "Nagaland"],
+      "answer": "Mizoram"
+    },
+    {
+      "text": "What is the central theme in the introduction of the Budget Speech?",
+      "options": [
+        "Reducing government expenditure",
+        "Capitalizing on opportunities from India's rapid growth",
+        "Privatizing state assets",
+        "Expanding international trade"
+      ],
+      "answer": "Capitalizing on opportunities from India's rapid growth"
+    },
+    {
+      "text": "During the financial year 2024–25, how much funds were released from K-Deposit and D-III?",
+      "options": ["₹500 crore", "₹837.87 crore", "₹1000 crore", "₹600 crore"],
+      "answer": "₹837.87 crore"
+    },
+    {
+      "text": "How much of the funds that remained untouched for over three years were declared as lapsed deposits?",
+      "options": ["₹50 crore", "₹60.19 crore", "₹70.25 crore", "₹80 crore"],
+      "answer": "₹60.19 crore"
+    },
+    {
+      "text": "Which sector saw a notable reduction in liabilities from power purchases?",
+      "options": ["Transportation", "Education", "Power and electricity", "Agriculture"],
+      "answer": "Power and electricity"
+    },
+    {
+      "text": "By how much was the surcharge on power purchase bills reduced in 2024–25?",
+      "options": ["₹200 lakhs", "₹300 lakhs", "₹400 lakhs", "₹500 lakhs"],
+      "answer": "₹400 lakhs"
+    },
+    {
+      "text": "What new healthcare initiative will start on 1st April 2025?",
+      "options": [
+        "Mizoram Health Plus",
+        "Mizoram Universal Healthcare Scheme",
+        "State Health Initiative 2025",
+        "Universal Medical Aid Program"
+      ],
+      "answer": "Mizoram Universal Healthcare Scheme"
+    },
+    {
+      "text": "Under the Public Distribution System, what change was made in the price of foodgrains for non-NFSA households?",
+      "options": [
+        "From ₹10 to ₹20 per kg",
+        "From ₹15 to ₹30 per kg",
+        "From ₹20 to ₹40 per kg",
+        "From ₹25 to ₹50 per kg"
+      ],
+      "answer": "From ₹20 to ₹40 per kg"
+    },
+    {
+      "text": "Which tax reform introduced a new cess on petroleum products in this budget?",
+      "options": [
+        "GST Reformation",
+        "Road Maintenance Cess and Social Infrastructure and Services Cess",
+        "Wealth Tax Amendment",
+        "Property Tax Reformation"
+      ],
+      "answer": "Road Maintenance Cess and Social Infrastructure and Services Cess"
+    },
+    {
+      "text": "At what rate is the new cess on Motor Spirit (MS) and High Speed Diesel (HSD) levied?",
+      "options": ["₹1 per litre", "₹2 per litre", "₹3 per litre", "₹4 per litre"],
+      "answer": "₹3 per litre"
+    },
+    {
+      "text": "Which administrative app was introduced to enhance work discipline in government offices?",
+      "options": ["GovTrack", "Kai App", "AdminPro", "TimeKeeper"],
+      "answer": "Kai App"
+    },
+    {
+      "text": "What initiative has been taken to combat cybercrime according to the speech?",
+      "options": [
+        "Installation of CCTV cameras across cities",
+        "Establishment of a Cyber Crime Police Station and promotion of cyber safety awareness",
+        "Launching an online crime reporting portal",
+        "Outsourcing cybersecurity to private firms"
+      ],
+      "answer": "Establishment of a Cyber Crime Police Station and promotion of cyber safety awareness"
+    },
+    {
+      "text": "What amount was allocated to the Mizoram Agriculture Marketing Board under the Handholding Scheme?",
+      "options": ["₹50 crore", "₹110 crore", "₹200 crore", "₹275 crore"],
+      "answer": "₹110 crore"
+    },
+    {
+      "text": "How many additional acres were allocated for sericulture under the Silk Samargra-2 initiative?",
+      "options": ["500 acres", "1,000 acres", "1,300 acres", "1,500 acres"],
+      "answer": "1,300 acres"
+    },
+    {
+      "text": "By what percentage was the sales price for cocoons increased effective from January 1, 2025?",
+      "options": ["10%", "12%", "16%", "20%"],
+      "answer": "16%"
+    },
+    {
+      "text": "What is the total approved SASCI amount after additional approvals and reforms?",
+      "options": ["₹275 crore", "₹500 crore", "₹792.18 crore", "₹1000 crore"],
+      "answer": "₹792.18 crore"
+    },
+    {
+      "text": "Which cyclone is mentioned as a reason for a special disaster fund allocation?",
+      "options": ["Cyclone Fani", "Cyclone Remal", "Cyclone Amphan", "Cyclone Vayu"],
+      "answer": "Cyclone Remal"
+    },
+    {
+      "text": "What is the estimated GSDP for 2024–25 (Budget Estimate)?",
+      "options": [
+        "₹34,003.27 crore",
+        "₹36,088.82 crore",
+        "₹48,037.52 crore",
+        "₹50,000 crore"
+      ],
+      "answer": "₹34,003.27 crore"
+    },
+    {
+      "text": "The fiscal deficit for 2025–26 is estimated at ₹1651.68 crore. What percentage of GSDP does this represent?",
+      "options": ["2.84%", "4.57%", "7.63%", "10.21%"],
+      "answer": "4.57%"
+    },
+    {
+      "text": "What percentage of the total Revenue Receipt is maintained as the State's Own Revenue for 2025–26?",
+      "options": ["15.50%", "17.21%", "20.20%", "25.00%"],
+      "answer": "17.21%"
+    },
+    {
+      "text": "Which source contributes the largest share to the State's Own Revenue?",
+      "options": ["Vehicle taxes", "Land taxes", "GST", "Water supply charges"],
+      "answer": "GST"
+    },
+    {
+      "text": "What is the estimated total Revenue Receipt for the fiscal year 2025–26?",
+      "options": [
+        "₹12,947.61 crore",
+        "₹15,198.76 crore",
+        "₹12,540.20 crore",
+        "₹2,658.56 crore"
+      ],
+      "answer": "₹12,947.61 crore"
+    },
+    {
+      "text": "How much is the estimated State's Own Tax Revenue for 2025–26?",
+      "options": ["₹1312.42 crore", "₹1478.26 crore", "₹1500 crore", "₹1600 crore"],
+      "answer": "₹1312.42 crore"
+    },
+    {
+      "text": "What is the projected amount for the State's Own Non-Tax Revenue in 2025–26?",
+      "options": ["₹1000 crore", "₹1138.07 crore", "₹1200 crore", "₹1300 crore"],
+      "answer": "₹1138.07 crore"
+    },
+    {
+      "text": "What is Mizoram's share in the divisible pool of central taxes for 2025–26?",
+      "options": [
+        "₹5,000 crore",
+        "₹7,112.23 crore",
+        "₹10,000 crore",
+        "₹14,22,444.11 crore"
+      ],
+      "answer": "₹7,112.23 crore"
+    },
+    {
+      "text": "What is the recommended Post Devolution Revenue Deficit Grant for FY 2025–26?",
+      "options": ["₹1079.00 crore", "₹586.00 crore", "₹750.00 crore", "₹900.00 crore"],
+      "answer": "₹586.00 crore"
+    },
+    {
+      "text": "How much is allocated for Rural Local Body grants for 2025–26?",
+      "options": ["₹40 crore", "₹74 crore", "₹50 crore", "₹60 crore"],
+      "answer": "₹74 crore"
+    },
+    {
+      "text": "Under Capital Receipts, how much is anticipated to be recovered from various loans and advances?",
+      "options": ["₹10.50 crore", "₹24.97 crore", "₹50.00 crore", "₹100.00 crore"],
+      "answer": "₹24.97 crore"
+    },
+    {
+      "text": "Which measure helped reduce liabilities in the Public Account by addressing long-untouched funds?",
+      "options": [
+        "Writing off bad debts",
+        "Declaring them as lapsed deposits amounting to ₹60.19 crore",
+        "Investing them in market instruments",
+        "Transferring them to a special reserve fund"
+      ],
+      "answer": "Declaring them as lapsed deposits amounting to ₹60.19 crore"
+    },
+    {
+      "text": "The timely payment of power purchase bills resulted in a reduction of the surcharge by what amount in 2024–25?",
+      "options": ["₹100 lakhs", "₹200 lakhs", "₹300 lakhs", "₹400 lakhs"],
+      "answer": "₹400 lakhs"
+    },
+    {
+      "text": "What is the new monthly state contribution for the three primary components of the National Social Assistance Programme?",
+      "options": ["₹100", "₹500", "₹750", "₹1000"],
+      "answer": "₹500"
+    },
+    {
+      "text": "After the increased state contribution, what is the new pension amount for IGNOAPS beneficiaries aged 60–79?",
+      "options": ["₹300 per month", "₹600 per month", "₹1200 per month", "₹1500 per month"],
+      "answer": "₹600 per month"
+    },
+    {
+      "text": "For IGNOAPS beneficiaries over 80 years old, what is the new pension amount?",
+      "options": ["₹600 per month", "₹1200 per month", "₹1500 per month", "₹1800 per month"],
+      "answer": "₹1200 per month"
+    },
+    {
+      "text": "What is the revised monthly pension for beneficiaries of IGNWPS and IGNDPS?",
+      "options": ["₹400 per month", "₹1000 per month", "₹1300 per month", "₹1500 per month"],
+      "answer": "₹1000 per month"
+    },
+    {
+      "text": "By the end of 2024–25, what percentage of the accumulated outstanding healthcare bills had been resolved?",
+      "options": ["50%", "60%", "80%", "90%"],
+      "answer": "90%"
+    },
+    {
+      "text": "Which measure in the Public Distribution System led to saving 46,000 quintals of rice during the past 12 months?",
+      "options": [
+        "Increasing rice subsidy",
+        "Mandating biometric authentication at the point of sale via e-pos",
+        "Lowering the price of rice",
+        "Bulk procurement of rice"
+      ],
+      "answer": "Mandating biometric authentication at the point of sale via e-pos"
+    },
+    {
+      "text": "Besides saving rice, what additional outcome was observed with the new e-pos implementation?",
+      "options": [
+        "100 families surrendered their ration cards",
+        "212 families surrendered their ration cards",
+        "Increase in rice exports",
+        "Reduction in overall foodgrain consumption"
+      ],
+      "answer": "212 families surrendered their ration cards"
+    },
+    {
+      "text": "How much additional revenue is expected from the new cesses on petroleum products?",
+      "options": ["₹10 crore each", "₹15 crore each", "₹20 crore each", "₹25 crore each"],
+      "answer": "₹20 crore each"
+    },
+    {
+      "text": "Which technological initiative aimed at improving work discipline was introduced in government offices?",
+      "options": ["Digital Attendance System", "TimeMaster App", "Kai App", "OfficeTrack"],
+      "answer": "Kai App"
+    },
+    {
+      "text": "What role does the Cyber Crime Police Station play as mentioned in the speech?",
+      "options": [
+        "Providing technical support to banks",
+        "Promoting cyber safety awareness and penalizing offenders",
+        "Regulating online transactions",
+        "Managing data centers"
+      ],
+      "answer": "Promoting cyber safety awareness and penalizing offenders"
+    },
+    {
+      "text": "How does the Handholding Scheme support progress partners in agriculture?",
+      "options": [
+        "By providing subsidized machinery",
+        "By guaranteeing a minimum support price for notified crops",
+        "By offering free fertilizers",
+        "By importing advanced seeds"
+      ],
+      "answer": "By guaranteeing a minimum support price for notified crops"
+    },
+    {
+      "text": "Which crops are specifically mentioned under the Handholding Scheme for minimum support price guarantees?",
+      "options": [
+        "Rice, wheat, and maize",
+        "Broom, ginger, turmeric, Mizo chillies, and locally grown paddy",
+        "Sugarcane, cotton, and jute",
+        "Tea, coffee, and cocoa"
+      ],
+      "answer": "Broom, ginger, turmeric, Mizo chillies, and locally grown paddy"
+    },
+    {
+      "text": "Under the Silk Samargra-2 initiative, how many metric tons of cocoons were harvested?",
+      "options": ["500 MT", "612.27 MT", "700 MT", "800 MT"],
+      "answer": "612.27 MT"
+    },
+    {
+      "text": "How did the sericulture sector benefit from the initiatives mentioned in the speech?",
+      "options": [
+        "It received export subsidies",
+        "It was given tax exemptions",
+        "It gained a guaranteed market and a 16% increase in the sales price",
+        "It imported higher quality cocoons"
+      ],
+      "answer": "It gained a guaranteed market and a 16% increase in the sales price"
+    },
+    {
+      "text": "What is the quantity of Eri cut cocoons exported from the state?",
+      "options": ["10 MT", "15 MT", "17.97 MT", "20 MT"],
+      "answer": "17.97 MT"
+    },
+    {
+      "text": "What factors contributed to the increase in the approved SASCI amount from its initial approval?",
+      "options": [
+        "Reduction in state liabilities",
+        "Achievement of prescribed milestones and regulatory amendments",
+        "Increased tax revenue",
+        "Decline in public debt"
+      ],
+      "answer": "Achievement of prescribed milestones and regulatory amendments"
+    },
+    {
+      "text": "Which specific fund was established in response to the impact of cyclone Remal?",
+      "options": [
+        "Special Disaster Relief Fund",
+        "State Flood Mitigation Fund",
+        "Special disaster fund under SASCI Part-I",
+        "Emergency Response Reserve"
+      ],
+      "answer": "Special disaster fund under SASCI Part-I"
+    },
+    {
+      "text": "What explains the decline in the Budget Estimate (BE) figure for GSDP from ₹48,037.52 crore to ₹34,003.27 crore?",
+      "options": [
+        "Economic recession",
+        "Change in international trade policy",
+        "Adoption of a new, more reliable method of calculation",
+        "Increase in fiscal deficit"
+      ],
+      "answer": "Adoption of a new, more reliable method of calculation"
+    },
+    {
+      "text": "What is the projected growth rate of the economy at constant prices for the fiscal year 2025–26?",
+      "options": ["9.89%", "10.05%", "10.21%", "11.00%"],
+      "answer": "10.21%"
+    },
+    {
+      "text": "What is the anticipated revenue surplus for 2025–26, in both crore and as a percentage of GSDP?",
+      "options": [
+        "₹500 crore, 1.25%",
+        "₹562.91 crore, 1.56%",
+        "₹600 crore, 1.75%",
+        "₹650 crore, 2.00%"
+      ],
+      "answer": "₹562.91 crore, 1.56%"
+    },
+    {
+      "text": "As per the speech, what is the estimated fiscal deficit for 2025–26 as a percentage of GSDP?",
+      "options": ["2.84%", "4.57%", "7.63%", "10.21%"],
+      "answer": "4.57%"
+    },
+    {
+      "text": "Which two funds does the Reserve Bank of India manage on behalf of the state to meet its contingent liabilities?",
+      "options": [
+        "Consolidated Sinking Fund (CSF) and Guarantee Redemption Fund (GRF)",
+        "Special Reserve Fund (SRF) and Emergency Relief Fund (ERF)",
+        "Public Debt Fund (PDF) and State Liability Fund (SLF)",
+        "Fiscal Management Fund (FMF) and Contingency Reserve Fund (CRF)"
+      ],
+      "answer": "Consolidated Sinking Fund (CSF) and Guarantee Redemption Fund (GRF)"
+    },
+    {
+      "text": "What are the budget estimates for the CSF and GRF for 2025–26 respectively?",
+      "options": [
+        "₹50 crore and ₹20 crore",
+        "₹80 crore and ₹30 crore",
+        "₹100 crore and ₹40 crore",
+        "₹120 crore and ₹60 crore"
+      ],
+      "answer": "₹100 crore and ₹40 crore"
+    },
+    {
+      "text": "Which component of revenue receipts is projected to have a 12.64% rise in 2025–26?",
+      "options": [
+        "State's Own Non-Tax Revenue",
+        "Devolution of Central Taxes",
+        "State's Own Tax Revenue",
+        "Finance Commission Grants"
+      ],
+      "answer": "State's Own Tax Revenue"
+    },
+    {
+      "text": "What percentage of the State's Own Tax Revenue is contributed by GST?",
+      "options": ["50%", "60%", "77.79%", "85%"],
+      "answer": "77.79%"
+    },
+    {
+      "text": "What is the total divisible pool of central taxes and what is Mizoram's share of it?",
+      "options": [
+        "₹10,00,000 crore and ₹5,000 crore",
+        "₹12,00,000 crore and ₹6,000 crore",
+        "₹14,22,444.11 crore and ₹7,112.23 crore",
+        "₹15,00,000 crore and ₹7,500 crore"
+      ],
+      "answer": "₹14,22,444.11 crore and ₹7,112.23 crore"
+    },
+    {
+      "text": "What trend is observed for the Post Devolution Revenue Deficit Grants in the speech?",
+      "options": ["Increasing trend", "Steady trend", "Declining trend", "Fluctuating trend"],
+      "answer": "Declining trend"
+    },
+    {
+      "text": "What is the combined allocation for Rural and Urban Local Body Grants in 2025–26?",
+      "options": ["₹100 crore", "₹114 crore", "₹120 crore", "₹130 crore"],
+      "answer": "₹114 crore"
+    },
+    {
+      "text": "What is the ratio of the Centre's to the State's contribution for the State Disaster Risk Management Fund?",
+      "options": ["80:20", "85:15", "90:10", "95:5"],
+      "answer": "90:10"
+    },
+    {
+      "text": "How does the CSS allocation for 2025–26 compare with the previous year's figure?",
+      "options": [
+        "Increased by ₹100 crore",
+        "Remained the same",
+        "Decreased by ₹163.95 crore",
+        "Increased by ₹50 crore"
+      ],
+      "answer": "Decreased by ₹163.95 crore"
+    },
+    {
+      "text": "What mechanism is adopted to ensure that CSS funds do not remain idle in accounts?",
+      "options": [
+        "Annual lump-sum transfers",
+        "\"Just in time\" release via RBI's e-kuber platform",
+        "Monthly disbursements",
+        "Quarterly audits and releases"
+      ],
+      "answer": "\"Just in time\" release via RBI's e-kuber platform"
+    },
+    {
+      "text": "What is the funding pattern for Externally Aided Projects as mentioned in the speech?",
+      "options": [
+        "70:30 with no repayment",
+        "80:20 with 10% of the grant portion repaid as loans",
+        "90:10 with full grant",
+        "60:40 with partial repayments"
+      ],
+      "answer": "90:10 with full grant"
+    },
+    {
+      "text": "What is the estimated grant amount for Externally Aided Projects (EAP) for 2025–26?",
+      "options": ["₹50 crore", "₹75 crore", "₹100 crore", "₹150 crore"],
+      "answer": "₹100 crore"
+    },
+    {
+      "text": "Which of the following is included under Capital Receipts in the budget speech?",
+      "options": [
+        "Revenue from state-owned enterprises",
+        "Recovery of loans and advances, public debt, disinvestment, or asset sales",
+        "Donations from foreign entities",
+        "Regular tax collections"
+      ],
+      "answer": "Recovery of loans and advances, public debt, disinvestment, or asset sales"
+    },
+    {
+      "text": "By how much did the internal debts decrease compared to the previous year's Budget Estimate?",
+      "options": ["₹10 crore", "₹17 crore", "₹25 crore", "₹30 crore"],
+      "answer": "₹17 crore"
+    },
+    {
+      "text": "Under which scheme will the state continue to avail an interest-free loan and what is its total amount?",
+      "options": [
+        "Special Assistance to States for Capital Investment, ₹750 crore",
+        "National Infrastructure Fund, ₹500 crore",
+        "State Development Loan, ₹600 crore",
+        "Capital Investment Aid, ₹800 crore"
+      ],
+      "answer": "Special Assistance to States for Capital Investment, ₹750 crore"
+    },
+    {
+      "text": "What is the total projected amount of funds (Revenue and Capital Receipts combined) for 2025–26?",
+      "options": [
+        "₹12,947.61 crore",
+        "₹15,198.76 crore",
+        "₹12,540.20 crore",
+        "₹2,658.56 crore"
+      ],
+      "answer": "₹15,198.76 crore"
+    },
+    {
+      "text": "What percentage of the total estimated expenditure for 2025–26 is accounted for by Revenue Expenditure?",
+      "options": ["70.00%", "75.25%", "82.51%", "90.00%"],
+      "answer": "82.51%"
+    },
+    {
+      "text": "By what percentage did the Capital Expenditure increase in 2025–26 compared to the previous year's BE?",
+      "options": ["5.00%", "8.29%", "10.00%", "12.50%"],
+      "answer": "8.29%"
+    },
+    {
+      "text": "What is the allocated amount for the repayment of borrowings under Capital Expenditure for 2025–26?",
+      "options": ["₹300 crore", "₹350 crore", "₹419 crore", "₹500 crore"],
+      "answer": "₹419 crore"
+    },
+    {
+      "text": "Which sector received the largest allocation among the sectoral allocations in the budget speech?",
+      "options": [
+        "Social Services Sector",
+        "Economic Services Sector",
+        "General Services Sector",
+        "Infrastructure Sector"
+      ],
+      "answer": "Social Services Sector"
+    },
+    {
+      "text": "By what percentage did the allocation for the General Services Sector increase in 2025–26 compared to 2024–25 (BE)?",
+      "options": ["10.00%", "12.50%", "14.95%", "20.00%"],
+      "answer": "14.95%"
+    },
+    {
+      "text": "What is the total supplementary demand for grants for FY 2024–25 and the main reasons behind it?",
+      "options": [
+        "₹3000 crore; due to increased salaries and travel expenses",
+        "₹3500 crore; due to infrastructure projects and administrative reforms",
+        "₹3512.33 crore; due to excess SASCI receipts, higher CSS funds, cyclone Remal relief, and increased medical reimbursements",
+        "₹4000 crore; due to an unforeseen economic downturn"
+      ],
+      "answer": "₹3512.33 crore; due to excess SASCI receipts, higher CSS funds, cyclone Remal relief, and increased medical reimbursements"
+    }
+  ]
+}
