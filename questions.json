@@ -3,7 +3,7 @@
     {
       "text": "Who delivered the Budget Speech for the Financial Year 2025–26?",
       "options": ["Pu Laldhuhoma", "Pu K Sapdanga", "Pu Lalthanhawla", "Pu Zoramthanga"],
-      "answer": "Pu K Sapdanga"
+      "answer": "Pu Laldhuhoma"
     },
     {
       "text": "For which financial year is this Budget Speech presented?",
@@ -43,7 +43,7 @@
     {
       "text": "By how much was the surcharge on power purchase bills reduced in 2024–25?",
       "options": ["₹200 lakhs", "₹300 lakhs", "₹400 lakhs", "₹500 lakhs"],
-      "answer": "₹400 lakhs"
+      "answer": "₹300 lakhs"
     },
     {
       "text": "What new healthcare initiative will start on 1st April 2025?",
@@ -63,7 +63,7 @@
         "From ₹20 to ₹40 per kg",
         "From ₹25 to ₹50 per kg"
       ],
-      "answer": "From ₹20 to ₹40 per kg"
+      "answer": "From ₹15 to ₹30 per kg"
     },
     {
       "text": "Which tax reform introduced a new cess on petroleum products in this budget?",
@@ -78,7 +78,7 @@
     {
       "text": "At what rate is the new cess on Motor Spirit (MS) and High Speed Diesel (HSD) levied?",
       "options": ["₹1 per litre", "₹2 per litre", "₹3 per litre", "₹4 per litre"],
-      "answer": "₹3 per litre"
+      "answer": "₹2 per litre"
     },
     {
       "text": "Which administrative app was introduced to enhance work discipline in government offices?",
@@ -128,7 +128,7 @@
         "₹48,037.52 crore",
         "₹50,000 crore"
       ],
-      "answer": "₹34,003.27 crore"
+      "answer": "₹48,037.52 crore""
     },
     {
       "text": "The fiscal deficit for 2025–26 is estimated at ₹1651.68 crore. What percentage of GSDP does this represent?",
@@ -138,7 +138,7 @@
     {
       "text": "What percentage of the total Revenue Receipt is maintained as the State's Own Revenue for 2025–26?",
       "options": ["15.50%", "17.21%", "20.20%", "25.00%"],
-      "answer": "17.21%"
+      "answer": "20.20%"
     },
     {
       "text": "Which source contributes the largest share to the State's Own Revenue?",
@@ -158,7 +158,7 @@
     {
       "text": "How much is the estimated State's Own Tax Revenue for 2025–26?",
       "options": ["₹1312.42 crore", "₹1478.26 crore", "₹1500 crore", "₹1600 crore"],
-      "answer": "₹1312.42 crore"
+      "answer": "₹1478.26 crore"
     },
     {
       "text": "What is the projected amount for the State's Own Non-Tax Revenue in 2025–26?",
@@ -203,32 +203,32 @@
     {
       "text": "The timely payment of power purchase bills resulted in a reduction of the surcharge by what amount in 2024–25?",
       "options": ["₹100 lakhs", "₹200 lakhs", "₹300 lakhs", "₹400 lakhs"],
-      "answer": "₹400 lakhs"
+      "answer": "₹300 lakhs"
     },
     {
       "text": "What is the new monthly state contribution for the three primary components of the National Social Assistance Programme?",
       "options": ["₹100", "₹500", "₹750", "₹1000"],
-      "answer": "₹500"
+      "answer": "₹1000"
     },
     {
       "text": "After the increased state contribution, what is the new pension amount for IGNOAPS beneficiaries aged 60–79?",
       "options": ["₹300 per month", "₹600 per month", "₹1200 per month", "₹1500 per month"],
-      "answer": "₹600 per month"
+      "answer": "₹1200 per month"
     },
     {
       "text": "For IGNOAPS beneficiaries over 80 years old, what is the new pension amount?",
       "options": ["₹600 per month", "₹1200 per month", "₹1500 per month", "₹1800 per month"],
-      "answer": "₹1200 per month"
+      "answer": "₹1500 per month"
     },
     {
       "text": "What is the revised monthly pension for beneficiaries of IGNWPS and IGNDPS?",
       "options": ["₹400 per month", "₹1000 per month", "₹1300 per month", "₹1500 per month"],
-      "answer": "₹1000 per month"
+      "answer": "₹1300 per month"
     },
     {
       "text": "By the end of 2024–25, what percentage of the accumulated outstanding healthcare bills had been resolved?",
       "options": ["50%", "60%", "80%", "90%"],
-      "answer": "90%"
+      "answer": "80%"
     },
     {
       "text": "Which measure in the Public Distribution System led to saving 46,000 quintals of rice during the past 12 months?",
@@ -253,7 +253,7 @@
     {
       "text": "How much additional revenue is expected from the new cesses on petroleum products?",
       "options": ["₹10 crore each", "₹15 crore each", "₹20 crore each", "₹25 crore each"],
-      "answer": "₹20 crore each"
+      "answer": "₹15 crore each"
     },
     {
       "text": "Which technological initiative aimed at improving work discipline was introduced in government offices?",
@@ -378,7 +378,7 @@
         "₹100 crore and ₹40 crore",
         "₹120 crore and ₹60 crore"
       ],
-      "answer": "₹100 crore and ₹40 crore"
+      "answer": "₹80 crore and ₹30 crore"
     },
     {
       "text": "Which component of revenue receipts is projected to have a 12.64% rise in 2025–26?",
@@ -448,7 +448,7 @@
         "90:10 with full grant",
         "60:40 with partial repayments"
       ],
-      "answer": "90:10 with full grant"
+      "answer": "80:20 with 10% of the grant portion repaid as loans"
     },
     {
       "text": "What is the estimated grant amount for Externally Aided Projects (EAP) for 2025–26?",
@@ -513,7 +513,7 @@
         "General Services Sector",
         "Infrastructure Sector"
       ],
-      "answer": "Social Services Sector"
+      "answer": "General Services Sector"
     },
     {
       "text": "By what percentage did the allocation for the General Services Sector increase in 2025–26 compared to 2024–25 (BE)?",
