@@ -71,11 +71,12 @@
     }
 	.submission-container {
   display: flex;
-  justify-content: flex-end; 
+  flex-direction: column;
+  align-items: flex-end; 
   margin-top: 8px; 
   font-style: italic; 
   color: darkgray;
-	}
+}
 
 	.submission-note {
   font-size: 0.9rem; /* Makes the text slightly smaller */
@@ -128,18 +129,19 @@
     }
 
     .question input[type="radio"] {
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      width: 20px;
-      height: 20px;
-      border: 2px solid #000000;
-      border-radius: 50%;
-      position: relative;
-      outline: none;
-      transition: all 0.2s ease;
-      cursor: pointer;
-    }
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #000000;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  outline: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
 
     .question input[type="radio"]:checked {
       border-color: #C5ADC5;
@@ -147,17 +149,16 @@
     }
 
     .question input[type="radio"]:checked::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 10px;
-      height: 10px;
-      background-color: #FFFFFF;
-      border-radius: 50%;
-    }
-
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 9px;
+  height: 9px;
+  background-color: #FFFFFF;
+  border-radius: 50%;
+}
     .question input[type="radio"]:hover:not(:checked) {
       border-color: #9A9DCB;
       background-color: #9A9DCB;
@@ -232,7 +233,7 @@
     }
 
     .option-wrong {
-      color: #FF0000; /* Red for incorrect options */
+      color: #FF0000; 
     }
 
     .option-wrong::before {
@@ -318,6 +319,20 @@
 	  .submission-note {
     font-size: 0.8rem; /* Smaller text on mobile */
   }
+	.question p {
+    font-size: 18px; 
+  }
+   .question label {
+    font-size: 16px; 
+  }
+ .question input[type="radio"] {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%; /* Ensure the button stays circular */
+    border-width: 2px;
+    flex-shrink: 0;  /* Prevent the radio button from shrinking when the label wraps */
+  }
+}
 
       .content {
         padding: 10px;
@@ -354,7 +369,8 @@
   <div class="header">
     <h2>Mizoram Budget 2025</h2>
 	<div class="submission-container">
-    <p class="submission-note">*Check submission at the bottom</p>
+    <p class="submission-note">*A hnuaiah submit na a awm</p>
+	 <div class="submission-note">&#10013;static page test</div>
   </div>	
   </div>
 	
