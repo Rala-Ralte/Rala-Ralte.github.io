@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Translation Data Collection</title>
   <style>
+    /* Global Body Style */
     body {
       font-family: 'Comic Sans MS', Arial, sans-serif;
       margin: 20px;
       background: linear-gradient(135deg, #fffacd, #87ceeb);
       color: #333;
     }
-
-    /* Home Menu */
+    
+    /* Home Menu Button */
     .home-menu {
       position: absolute;
       top: 10px;
@@ -23,27 +24,28 @@
       text-decoration: none;
       transition: transform 0.1s ease, background 0.3s ease, border 0.3s ease;
       padding: 8px 12px;
-      border: 2px solid #ff4500; /* Added Border */
-      border-radius: 10px; /* Rounded edges */
+      border: 2px solid #ff4500;
+      border-radius: 10px;
     }
-
     .home-menu:hover {
       background: #ffd700;
       color: #000;
       border-color: #ff4500;
     }
-
     .home-menu:active {
       transform: scale(0.95);
     }
-
+    
+    /* Heading Style */
     h1 {
       color: #ff4500;
       text-shadow: 2px 2px 4px #ffd700;
       text-align: center;
       font-size: 2.5em;
+      margin-top: 60px;
     }
-
+    
+    /* Table Styling */
     table {
       width: 100%;
       border-collapse: collapse;
@@ -53,63 +55,63 @@
       border-radius: 15px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
-
     th, td {
       border: 2px solid #ffb6c1;
       padding: 10px;
       width: 50%;
     }
-
     th {
       background-color: #ffd700;
       text-align: center;
       color: #ff4500;
       font-size: 1.2em;
     }
-
-    textarea {
-      width: 100%;
-      height: 60px;
-      resize: vertical;
+    
+    /* Style for contenteditable translation cell */
+    #translationTable td[contenteditable="true"] {
+      background: #f0fff0;
       border: 2px dashed #98fb98;
-      font-size: 14px;
+      border-radius: 10px;
       padding: 8px;
       box-sizing: border-box;
-      background: #f0fff0;
-      border-radius: 10px;
+      min-height: 40px;
     }
-
-    .fixed-cell {
-      background-color: #ffebcd;
-      font-weight: bold;
-      text-align: center;
-      color: #ff69b4;
-    }
-
+    
+    /* Button Styling */
     button {
-      margin-top: 15px;
-      padding: 12px 20px;
-      font-size: 16px;
-      cursor: pointer;
-      background: #ff69b4;
-      color: white;
-      border: none;
-      border-radius: 25px;
-      box-shadow: 0 4px #ff1493;
-      transition: all 0.3s ease;
-    }
+  margin-top: 15px;
+  padding: 12px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background: #ff69b4;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  box-shadow: 0 4px #ff1493;
+  transition: all 0.3s ease;
+}
 
-    button:hover {
-      background: #ff1493;
-      transform: translateY(-2px);
-      box-shadow: 0 6px #c71585;
-    }
+button:hover:enabled {
+  background: #ff1493;
+  transform: translateY(-2px);
+  box-shadow: 0 6px #c71585;
+}
 
-    button:active {
-      transform: translateY(2px);
-      box-shadow: 0 2px #c71585;
-    }
+button:active:enabled {
+  transform: translateY(2px);
+  box-shadow: 0 2px #c71585;
+}
 
+/* Disabled Style */
+button:disabled {
+  background: #ccc !important;
+  color: #666 !important;
+  box-shadow: none !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+}
+    
+    /* File Input Styling */
     #fileInput {
       margin: 10px 0;
       padding: 10px;
@@ -117,8 +119,33 @@
       border-radius: 10px;
       border: 2px solid #32cd32;
     }
-
-    /* Sunshine effect */
+    
+    /* Diff Highlight */
+    .diff {
+      background-color: #ffe4e1;
+    }
+    
+    /* Column Widths for Editable Table */
+    #translationTable th:nth-child(1),
+#translationTable td:nth-child(1),
+#translationTable th:nth-child(2),
+#translationTable td:nth-child(2) {
+  width: 50%;
+}
+    
+    /* Column Widths for Display Table */
+    #displayTable th:nth-child(1),
+    #displayTable td:nth-child(1) {
+      width: 25%;
+    }
+    #displayTable th:nth-child(2),
+    #displayTable td:nth-child(2),
+    #displayTable th:nth-child(3),
+    #displayTable td:nth-child(3) {
+      width: 37.5%;
+    }
+    
+    /* Sunshine Effect */
     body::before {
       content: '';
       position: fixed;
@@ -130,127 +157,303 @@
       opacity: 0.7;
       z-index: -1;
     }
+	/* Hide the default file input */
+.custom-file-input {
+  display: none;
+}
+
+/* Style the custom file label as a button */
+.custom-file-label {
+  display: inline-block;
+  margin: 10px 0;
+  padding: 12px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background: #ff69b4;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  box-shadow: 0 4px #ff1493;
+  transition: all 0.3s ease;
+}
+
+.custom-file-label:hover {
+  background: #ff1493;
+  transform: translateY(-2px);
+  box-shadow: 0 6px #c71585;
+}
+
+.custom-file-label:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px #c71585;
+}
+.file-name-display {
+  display: block;
+  font-size: 0.85em;
+  color: #333;
+  margin-top: 4px;
+  font-style: italic;
+}
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+#clearProgress {
+  background: #ff4d4d;
+  box-shadow: 0 4px #cc0000;
+}
+
+#clearProgress:hover {
+  background: #cc0000;
+  box-shadow: 0 6px #800000;
+}
+
+
   </style>
 </head>
 <body>
-
   <!-- Home Menu -->
   <a href="/index.html" class="home-menu">Inpui kalna</a>
+  
+  <h1>Lianpuii Translation Tih Vel Na</h1>
+  
+  <div id="translationSection">
+  <div class="button-row">
+    <label class="custom-file-label" for="fileInput">Choose File</label>
+<input type="file" id="fileInput" accept=".tsv" class="custom-file-input">
 
-  <h1>Lianpuii Translation</h1>
 
-  <input type="file" id="fileInput" accept=".tsv">
-  <button id="saveProgress">Save Progress</button>
-  <button id="downloadFile">Download as TSV</button>
 
-  <table id="translationTable">
-    <thead>
-      <tr>
-        <th>Input Sentence</th>
-        <th>Translation</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Parsed rows will appear here -->
-    </tbody>
-  </table>
+    <button id="loadTranslation" disabled>Load Translation</button>
+    <button id="saveProgress">Save Progress Locally</button>
+    <button id="downloadFile">Download as TSV</button>
+	</div>
+	<span id="fileInputName" class="file-name-display"></span>
+    <br>
+	<div class="button-row">
+    <label class="custom-file-label" for="fileInput2">Choose Second File (Optional)</label>
+<input type="file" id="fileInput2" accept=".tsv" class="custom-file-input">
 
+
+    <button id="displayBoth" disabled>Display Both</button>
+	<button id="clearProgress">Clear Progress</button>
+	</div>
+  <span id="fileInput2Name" class="file-name-display"></span>
+    <!-- Editable Table (Initially hidden) -->
+    <table id="translationTable">
+      <thead>
+        <tr>
+          <th>Input Sentence</th>
+          <th>Translation</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  
+    <!-- Display Table for Comparing Files -->
+    <table id="displayTable" style="display: none; margin-top: 20px;">
+      <thead>
+        <tr id="displayTableHeader">
+          <th>Input Sentence</th>
+          <th>Translation File 1</th>
+          <th>Translation File 2</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  
   <script>
-    let fileName = "translation_output.tsv";
+  let originalFileName = '';
 
-    document.getElementById('fileInput').addEventListener('change', function(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-
-      fileName = file.name.replace(".tsv", "_translated.tsv");
-      const reader = new FileReader();
-
-      reader.onload = function(e) {
-        const content = e.target.result;
-        const lines = content.split('\n').filter(line => line.trim() !== '');
-        const tbody = document.querySelector('#translationTable tbody');
-        tbody.innerHTML = '';
-
-        lines.forEach((line, index) => {
-          const parts = line.split('\t');
-          const inputSentence = parts[0].trim();
-          const savedTranslation = getSavedTranslation(index);
-          const translationSentence = savedTranslation !== null ? savedTranslation : (parts[1] ? parts[1].trim() : '');
-          
-          const row = document.createElement('tr');
-
-          const inputCell = document.createElement('td');
-          inputCell.textContent = inputSentence;
-          row.appendChild(inputCell);
-
-          const translationCell = document.createElement('td');
-
-          if (index === 0) {
-            translationCell.textContent = "Mizo";
-            translationCell.classList.add("fixed-cell");
-          } else if (inputSentence.startsWith("#")) {
-            translationCell.textContent = inputSentence;
-            translationCell.classList.add("fixed-cell");
-          } else {
-            const textarea = document.createElement('textarea');
-            textarea.value = translationSentence;
-            textarea.dataset.index = index;
-            translationCell.appendChild(textarea);
-          }
-
-          row.appendChild(translationCell);
-          tbody.appendChild(row);
-        });
-
-        restoreProgress();
-      };
-
-      reader.readAsText(file);
-    });
-
-    function getSavedTranslation(index) {
-      const savedData = JSON.parse(localStorage.getItem("translationProgress") || "{}");
-      return savedData[index] || null;
-    }
-
-    function saveProgress() {
-      const translationData = {};
-      document.querySelectorAll('textarea').forEach(textarea => {
-        translationData[textarea.dataset.index] = textarea.value;
-      });
-      localStorage.setItem("translationProgress", JSON.stringify(translationData));
-      alert("Progress saved!");
-    }
-
-    function restoreProgress() {
-      const savedData = JSON.parse(localStorage.getItem("translationProgress") || "{}");
-      document.querySelectorAll('textarea').forEach(textarea => {
-        if (savedData[textarea.dataset.index]) {
-          textarea.value = savedData[textarea.dataset.index];
+    let file1 = null, file2 = null;
+    let sentences = [], file1Data = [], file2Data = [];
+  
+    window.addEventListener('load', function () {
+      const saved = localStorage.getItem('savedTranslations');
+      if (saved) {
+        try {
+          sentences = JSON.parse(saved);
+          populateTranslationTable();
+          document.getElementById('translationTable').style.display = 'table';
+        } catch (e) {
+          console.error("Failed to parse saved data");
         }
+      }
+    });
+  
+document.getElementById('fileInput').addEventListener('change', function (e) {
+  file1 = e.target.files[0];
+
+  originalFileName = file1.name.replace(/\.tsv$/i, ''); // Corrected here
+
+  const reader = new FileReader();
+  
+  document.getElementById('loadTranslation').disabled = !file1;
+  document.getElementById('displayBoth').disabled = !(file1 && file2);
+  document.getElementById('fileInputName').textContent = file1 ? `Selected: ${file1.name}` : '';
+});
+
+
+document.getElementById('fileInput2').addEventListener('change', function (e) {
+  file2 = e.target.files[0];
+  document.getElementById('displayBoth').disabled = !(file1 && file2);
+  document.getElementById('fileInput2Name').textContent = file2 ? `Selected: ${file2.name}` : '';
+});
+
+  
+    document.getElementById('loadTranslation').addEventListener('click', function () {
+      if (!file1) return;
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const lines = e.target.result.split('\n').filter(line => line.includes('\t'));
+        sentences = lines.map(line => {
+          const [input, translation = ''] = line.split('\t').map(s => s.trim());
+          return { input, translation };
+        });
+        populateTranslationTable();
+        document.getElementById('translationTable').style.display = 'table'; // Show editable table
+        document.getElementById('displayTable').style.display = 'none'; // Hide compare table
+      };
+      reader.readAsText(file1);
+    });
+  
+    function populateTranslationTable() {
+      const tbody = document.querySelector('#translationTable tbody');
+      tbody.innerHTML = '';
+      sentences.forEach((item, index) => {
+        const row = document.createElement('tr');
+  
+        // Input Sentence (not editable)
+        const inputCell = document.createElement('td');
+        inputCell.textContent = item.input;
+        row.appendChild(inputCell);
+  
+        // Translation Cell (editable directly in table)
+      const transCell = document.createElement('td');
+
+// If input starts with "#", copy input to translation automatically
+if (item.input.trim().startsWith('#')) {
+  item.translation = item.input;
+  transCell.textContent = item.input;
+  transCell.contentEditable = true;
+  transCell.classList.add('fixed-cell');
+} else {
+  transCell.textContent = item.translation;
+  transCell.contentEditable = true;
+
+  // Update the sentence array when the cell is edited
+  transCell.addEventListener('input', function () {
+    sentences[index].translation = transCell.textContent.trim();
+  });
+}
+        transCell.addEventListener('input', function () {
+          sentences[index].translation = transCell.textContent.trim();
+        });
+        row.appendChild(transCell);
+  
+        tbody.appendChild(row);
       });
     }
+  
+    document.getElementById('saveProgress').addEventListener('click', function () {
+      localStorage.setItem('savedTranslations', JSON.stringify(sentences));
+      alert('Progress saved locally!');
+    });
+  
+    document.getElementById('downloadFile').addEventListener('click', function () {
+      const tsvContent = sentences.map(item => `${item.input}\t${item.translation}`).join('\n');
+      const blob = new Blob([tsvContent], { type: 'text/tab-separated-values' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      const filename = (originalFileName || 'output') + '_Translated.tsv';
+a.download = filename;
 
-    function downloadFile() {
-      let tsvContent = "";
-      document.querySelectorAll("#translationTable tbody tr").forEach(row => {
-        const inputSentence = row.cells[0].textContent;
-        let translation = row.cells[1].querySelector("textarea") 
-                          ? row.cells[1].querySelector("textarea").value 
-                          : row.cells[1].textContent;
-        tsvContent += `${inputSentence}\t${translation}\n`;
-      });
-
-      const blob = new Blob([tsvContent], { type: "text/tab-separated-values" });
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = fileName;
       a.click();
+      URL.revokeObjectURL(url);
+    });
+  
+    document.getElementById('displayBoth').addEventListener('click', function () {
+      if (!file1 || !file2) return;
+  
+      let file1Loaded = false;
+      let file2Loaded = false;
+      file1Data = [];
+      file2Data = [];
+  
+      const reader1 = new FileReader();
+      const reader2 = new FileReader();
+  
+      reader1.onload = function (e1) {
+        const lines = e1.target.result.split('\n').filter(line => line.includes('\t'));
+        file1Data = lines.map(line => {
+          const [input, translation = ''] = line.split('\t').map(s => s.trim());
+          return { input, translation };
+        });
+        file1Loaded = true;
+        if (file2Loaded) displayBothTranslations();
+      };
+  
+      reader2.onload = function (e2) {
+        const lines = e2.target.result.split('\n').filter(line => line.includes('\t'));
+        file2Data = lines.map(line => {
+          const [input, translation = ''] = line.split('\t').map(s => s.trim());
+          return { input, translation };
+        });
+        file2Loaded = true;
+        if (file1Loaded) displayBothTranslations();
+      };
+  
+      reader1.readAsText(file1);
+      reader2.readAsText(file2);
+    });
+  
+    function displayBothTranslations() {
+      // Hide the editable table and show the display table
+      document.getElementById('translationTable').style.display = 'none';
+      document.getElementById('displayTable').style.display = 'table';
+  
+      const header = document.getElementById('displayTableHeader');
+      header.innerHTML = '<th>Input Sentence</th><th>Translation File 1</th><th>Translation File 2</th>';
+      const tbody = document.querySelector('#displayTable tbody');
+      tbody.innerHTML = '';
+  
+      const maxLength = Math.max(file1Data.length, file2Data.length);
+      for (let i = 0; i < maxLength; i++) {
+        const row = document.createElement('tr');
+        const input = file1Data[i]?.input || file2Data[i]?.input || '';
+        const trans1 = file1Data[i]?.translation || 'N/A';
+        const trans2 = file2Data[i]?.translation || 'N/A';
+  
+        const inputCell = document.createElement('td');
+        const trans1Cell = document.createElement('td');
+        const trans2Cell = document.createElement('td');
+  
+        inputCell.textContent = input;
+        trans1Cell.textContent = trans1;
+        trans2Cell.textContent = trans2;
+  
+        if (trans1 !== trans2) {
+          row.classList.add('diff');
+        }
+  
+        row.appendChild(inputCell);
+        row.appendChild(trans1Cell);
+        row.appendChild(trans2Cell);
+        tbody.appendChild(row);
+      }
     }
+	document.getElementById("clearProgress").addEventListener("click", () => {
+  if (confirm("Are you sure you want to clear saved progress?")) {
+    localStorage.removeItem("translationProgress");
+    alert("Saved progress cleared.");
+  }
+});
 
-    document.getElementById("saveProgress").addEventListener("click", saveProgress);
-    document.getElementById("downloadFile").addEventListener("click", downloadFile);
   </script>
-
 </body>
 </html>
