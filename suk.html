@@ -44,10 +44,33 @@
       100% { background-position: 100px 100px; }
     }
 
+    /* Inpui Kalna Button */
+    .inpui-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: linear-gradient(45deg, #d2691e, #ff4500);
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-size: 1rem;
+      font-weight: 600;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: transform 0.2s, background 0.2s;
+      z-index: 10;
+    }
+
+    .inpui-btn:hover {
+      transform: scale(1.1);
+      background: linear-gradient(45deg, #e03d00, #d2691e);
+    }
+
     main {
       flex: 1 0 auto;
       padding: 20px;
       text-align: center;
+      position: relative; /* Ensure main content respects button's z-index */
     }
 
     h1 {
@@ -245,6 +268,13 @@
 
     /* Responsive Design */
     @media (max-width: 768px) {
+      .inpui-btn {
+        top: 15px;
+        right: 15px;
+        padding: 8px 15px;
+        font-size: 0.9rem;
+      }
+
       h1 {
         font-size: 2.2rem;
       }
@@ -296,6 +326,13 @@
     }
 
     @media (max-width: 480px) {
+      .inpui-btn {
+        top: 10px;
+        right: 10px;
+        padding: 6px 12px;
+        font-size: 0.8rem;
+      }
+
       h1 {
         font-size: 1.8rem;
       }
@@ -326,11 +363,12 @@
   </style>
 </head>
 <body>
+  <a href="/index.html" class="inpui-btn">Inpui kalna</a>
   <main>
     <h1>Sukoon 1st Night kan thil ei 🍗💸</h1>
     <p class="subtitle">Artui Zawrhna i hria em</p>
     <div class="total-debt" id="total-debt">Total: ₹0.00</div>
-  
+   
     <div class="food-container" id="food-list"></div>
   </main>
   <footer>
