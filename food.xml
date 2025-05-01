@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menu>
+  <food>
+    <name>Veg Steamed momo</name>
+    <price>100</price>
+    <plates>1</plates>
+    <image>images/veg_momo.png</image>
+  </food>
+  <food>
+    <name>Pork Sausage</name>
+    <price>100</price>
+    <plates>1</plates>
+    <image>images/ps.png</image>
+  </food>
+  <food>
+    <name>Chicken Thukpa</name>
+    <price>120</price>
+    <plates>5</plates>
+	<image>images/tk.png</image>
+  </food>
+  <food>
+    <name>Chicken Steamed momo</name>
+    <price>120</price>
+    <plates>1</plates>
+    <image>images/cm.png</image>
+  </food>
+</menu>

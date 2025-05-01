@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tui hle mai</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      background: linear-gradient(135deg, #fffaf0 0%, #ffdab9 50%, #ffe4c4 100%);
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Subtle background animation */
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50"%3E%3Ccircle cx="25" cy="25" r="5" fill="%23d2691e" opacity="0.1"/%3E%3C/svg%3E');
+      animation: float 20s infinite linear;
+      z-index: -1;
+    }
+
+    @keyframes float {
+      0% { background-position: 0 0; }
+      100% { background-position: 100px 100px; }
+    }
+
+    main {
+      flex: 1 0 auto;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #d2691e;
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      animation: bounceIn 1s ease-out;
+    }
+
+    p.subtitle {
+      color: #8b4513;
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      font-style: italic;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Total Debt Counter */
+    .total-debt {
+      background: #d2691e;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      margin: 20px auto;
+      max-width: 300px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    /* Nudge Button */
+    .nudge-btn {
+      background: #ff4500;
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 25px;
+      cursor: pointer;
+      margin: 20px auto;
+      display: inline-block;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .nudge-btn:hover {
+      transform: scale(1.1);
+      background: #e03d00;
+    }
+
+    .food-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .food-card {
+      background: #fff;
+      border: 3px solid #deb887;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      animation: slideIn 0.5s ease-out forwards;
+      animation-delay: calc(0.1s * var(--i));
+    }
+
+    .food-card:nth-child(odd) {
+      --i: 1;
+    }
+
+    .food-card:nth-child(even) {
+      --i: 2;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .food-card:hover {
+      transform: translateY(-15px) rotate(2deg);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
+    }
+
+    .food-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 15px;
+      margin-bottom: 15px;
+      transition: transform 0.3s ease;
+    }
+
+    .food-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .fallback {
+      background: #ffe4c4;
+      height: 200px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1rem;
+      color: #8b4513;
+      border-radius: 15px;
+      margin-bottom: 15px;
+    }
+
+    .food-card h3 {
+      color: #d2691e;
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .food-card p {
+      color: #444;
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
+
+    .food-card p strong {
+      color: #8b4513;
+      font-weight: 700;
+    }
+
+    /* Enhanced Badge */
+    .food-card::before {
+      content: 'Ka ti tawp!';
+      position: absolute;
+      top: 15px;
+      right: -60px;
+      background: linear-gradient(45deg, #d2691e, #ff4500);
+      color: #fff;
+      padding: 8px 50px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transform: rotate(45deg);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+      animation: shake 2s infinite;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: rotate(45deg) translateX(0); }
+      10%, 30% { transform: rotate(45deg) translateX(5px); }
+      20%, 40% { transform: rotate(45deg) translateX(-5px); }
+    }
+
+    /* Footer */
+    footer {
+      flex-shrink: 0;
+      padding: 25px;
+      background: linear-gradient(45deg, #deb887, #d2691e);
+      color: #fff;
+      border-radius: 15px 15px 0 0;
+      font-size: 1rem;
+      font-weight: 600;
+      text-align: center;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    footer::after {
+      content: '💸';
+      position: absolute;
+      font-size: 2rem;
+      top: 50%;
+      right: 20px;
+      transform: translateY(-50%);
+      animation: spin 3s infinite linear;
+    }
+
+    @keyframes spin {
+      0% { transform: translateY(-50%) rotate(0deg); }
+      100% { transform: translateY(-50%) rotate(360deg); }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.2rem;
+      }
+
+      p.subtitle {
+        font-size: 1rem;
+      }
+
+      .total-debt {
+        font-size: 1rem;
+        padding: 8px 15px;
+      }
+
+      .nudge-btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+      }
+
+      .food-container {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        padding: 15px;
+      }
+
+      .food-card {
+        padding: 15px;
+      }
+
+      .food-card img,
+      .fallback {
+        height: 160px;
+      }
+
+      .food-card h3 {
+        font-size: 1.2rem;
+      }
+
+      .food-card p {
+        font-size: 0.9rem;
+      }
+
+      footer {
+        padding: 20px;
+        font-size: 0.9rem;
+      }
+
+      footer::after {
+        font-size: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      p.subtitle {
+        font-size: 0.9rem;
+      }
+
+      .food-card::before {
+        font-size: 0.8rem;
+        padding: 6px 40px;
+        right: -50px;
+      }
+
+      .total-debt {
+        font-size: 0.9rem;
+      }
+
+      .nudge-btn {
+        padding: 8px 16px;
+        font-size: 0.8rem;
+      }
+
+      footer::after {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Sukoon 1st Night kan thil ei 🍗💸</h1>
+    <p class="subtitle">Artui Zawrhna i hria em</p>
+    <div class="total-debt" id="total-debt">Total: ₹0.00</div>
+  
+    <div class="food-container" id="food-list"></div>
+  </main>
+  <footer>
+    Trippa Troppa Tralala Lirì Lirà Tung Tung Sahur Boneca Tung Tung Tralalelo Trippi Troppa Crocodina
+  </footer>
+
+  <script>
+    fetch('food.xml')
+      .then(response => response.text())
+      .then(str => (new window.DOMParser()).parseFromString(str, "text/xml"))
+      .then(data => {
+        const items = data.getElementsByTagName("food");
+        const container = document.getElementById("food-list");
+        let totalDebt = 0;
+
+        for (let i = 0; i < items.length; i++) {
+          const item = items[i];
+          const name = item.getElementsByTagName("name")[0].textContent;
+          const price = parseFloat(item.getElementsByTagName("price")[0].textContent);
+          const plates = parseInt(item.getElementsByTagName("plates")[0].textContent);
+          const image = item.getElementsByTagName("image")[0]?.textContent || "";
+
+          const card = document.createElement('div');
+          card.className = 'food-card';
+
+          const img = document.createElement('img');
+          img.src = image;
+          img.alt = name;
+
+          img.onerror = function () {
+            const fallback = document.createElement('div');
+            fallback.className = 'fallback';
+            fallback.innerText = "Image missing (but debt is real)";
+            this.replaceWith(fallback);
+          };
+
+          const title = document.createElement('h3');
+          title.textContent = name;
+
+          const plateInfo = document.createElement('p');
+          plateInfo.textContent = `Plates: ${plates}`;
+
+          const priceInfo = document.createElement('p');
+          priceInfo.textContent = `Price per plate: ₹${price.toFixed(2)}`;
+
+          const total = document.createElement('p');
+          const itemTotal = price * plates;
+          total.innerHTML = `<strong>Total: ₹${itemTotal.toFixed(2)}</strong>`;
+
+          totalDebt += itemTotal;
+
+          card.appendChild(img);
+          card.appendChild(title);
+          card.appendChild(plateInfo);
+          card.appendChild(priceInfo);
+          card.appendChild(total);
+
+          container.appendChild(card);
+        }
+
+        // Update total debt
+        document.getElementById('total-debt').textContent = `Total: ₹${totalDebt.toFixed(2)}`;
+      })
+      .catch(error => {
+        document.getElementById('food-list').innerText = 'Could not load the XML file. But you still owe me, FYI.';
+        console.error(error);
+      });
+  </script>
+</body>
+</html>
