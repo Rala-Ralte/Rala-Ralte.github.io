@@ -471,7 +471,7 @@ function showPaginationControls() {
 function nextPage() {
     currentPage++;
     displayQuestionsPaginated();
-    window.scrollTo(0, 0);   // instant jump to top
+    window.scrollTo(0, 0);  
 }
 
 function prevPage() {
@@ -523,20 +523,43 @@ function checkAnswers() {
 
 function resetTest() {
     userAnswers = [];
+    answerFeedback = [];
     currentPage = 1;
 
     document.getElementById("result-text").innerHTML = "";
     document.getElementById("submit-btn").disabled = false;
     document.getElementById("reset-btn").style.display = "none";
 
+    // Remove ALL feedback messages
+    document.querySelectorAll(".feedback").forEach(el => el.remove());
+
+    // Remove all highlight classes
+    document.querySelectorAll(".option-correct").forEach(el =>
+        el.classList.remove("option-correct")
+    );
+    document.querySelectorAll(".option-wrong").forEach(el =>
+        el.classList.remove("option-wrong")
+    );
+
+    // Jump instantly to top
+    window.scrollTo(0, 0);
+
     displayQuestionsPaginated();
 }
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
 
 document.addEventListener("DOMContentLoaded", function () {
     loadQuestions(data => {
-        allQuestions = data.questions;
-        displayQuestionsPaginated();
-    });
+    allQuestions = data.questions;
+    shuffle(allQuestions);     
+    displayQuestionsPaginated();
+	});
 });
 </script>
 
