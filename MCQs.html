@@ -312,12 +312,15 @@ input[type="radio"]:checked::after {
 <script>
 function toggleMenu() {
     document.querySelector(".nav-links").classList.toggle("active");
-	document.querySelectorAll(".nav-links a").forEach(link => {
-    link.addEventListener("click", () => {
-        document.querySelector(".nav-links").classList.remove("active");
+}
+// Auto-close when a link is clicked
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".nav-links a").forEach(link => {
+        link.addEventListener("click", () => {
+            document.querySelector(".nav-links").classList.remove("active");
+        });
     });
 });
-}
 let answerFeedback = [];   
 
 const QUESTIONS_PER_PAGE = 25;
