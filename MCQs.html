@@ -1,533 +1,389 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta property="og:title" content="MCQs">
+<meta charset="UTF-8">
+<meta property="og:title" content="MCQs">
 <meta property="og:description" content="Mizoram Budget 2025 MCQs">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta property="og:url" content="https://example.com">
-<meta property="og:type" content="website">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-  <title>MCQs vel</title>
- <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<title>MCQs</title>
 
-    body {
-      font-family: 'Montserrat', 'Arial', sans-serif;
-      line-height: 1.2;
-      background: linear-gradient(to bottom, #C5ADC5, #B2B5E0);
-      padding: 20px;
-      color: #000000;
-    }
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-    .navbar {
-      width: 100%;
-      background: #C5ADC5;
-      color: #000000;
-      padding: 15px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1000;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
-    }
-
-    .navbar .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #000000;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 15px;
-    }
-
-    .nav-links a {
-      color: #000000;
-      text-decoration: none;
-      font-size: 1rem;
-      font-weight: 600;
-      transition: color 0.3s;
-    }
-
-    .nav-links a:hover {
-      color: #9A9DCB;
-    }
-
-    .header {
-      text-align: center;
-      margin-top: 80px;
-      margin-bottom: 2rem;
-    }
-	.submission-container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end; 
-  margin-top: 8px; 
-  font-style: italic; 
-  color: darkgray;
+<style>
+/* ---------------- GLOBAL ---------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-	.submission-note {
-  font-size: 0.9rem; /* Makes the text slightly smaller */
-  color: #000000;    /* Sets text color to black */
-	}
-    h2 {
-      color: #000000;
-      font-size: 1.6rem;
-      font-weight: 400;
-    }
+body {
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #d8c7ff 0%, #bcd2ff 100%);
+  padding: 20px;
+  color: #1a1a1a;
+}
 
-    .content {
-      width: 100%;
-      max-width: none;
-      margin: 0;
-      padding: 20px;
-      background: transparent;
-      border-radius: 0;
-      box-shadow: none;
-    }
+/* ---------------- NAVBAR ---------------- */
+.navbar {
+  width: 100%;
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(8px);
+  color: #000;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  border-radius: 0 0 14px 14px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
 
-    .question-container {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #B2B5E0;
-      border-radius: 8px;
-      margin-bottom: 5px;
-      background-color: rgba(255, 255, 255, 0.8);
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
+.logo {
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: .5px;
+}
 
-    .question p {
-      font-size: 22px;
-      font-weight: bold;
-      margin-bottom: 5px;
-      color: #000000;
-    }
+.nav-links a {
+  color: #1a1a1a;
+  text-decoration: none;
+  font-weight: 600;
+  margin-left: 18px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: 0.25s;
+}
 
-    .question label {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 5px;
-      font-size: 20px;
-      color: #000000;
-    }
+.nav-links a:hover {
+  background: rgba(0,0,0,0.08);
+}
 
-    .question label span {
-      cursor: pointer;
-    }
+/* ---------------- HEADER ---------------- */
+.header {
+  margin-top: 100px;
+  text-align: center;
+}
 
-    .question input[type="radio"] {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  width: 18px;
-  height: 18px;
-  border: 2px solid #000000;
-  border-radius: 50%;
-  display: inline-block;
-  position: relative;
-  outline: none;
-  transition: all 0.2s ease;
+.header h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.submission-note {
+  margin-top: 5px;
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+/* ---------------- CONTAINER ---------------- */
+.content {
+  margin-top: 20px;
+}
+
+.question-container {
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(8px);
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 18px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  border: 1px solid rgba(255,255,255,0.6);
+  transition: transform 0.2s ease;
+}
+
+.question-container:hover {
+  transform: scale(1.01);
+}
+
+.question p {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+/* ---------------- OPTIONS ---------------- */
+label {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  margin-bottom: 10px;
   cursor: pointer;
 }
 
-    .question input[type="radio"]:checked {
-      border-color: #C5ADC5;
-      background-color: #C5ADC5;
-    }
-
-    .question input[type="radio"]:checked::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 9px;
-  height: 9px;
-  background-color: #FFFFFF;
+/* Customized modern radio buttons */
+input[type="radio"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #555;
   border-radius: 50%;
-}
-    .question input[type="radio"]:hover:not(:checked) {
-      border-color: #9A9DCB;
-      background-color: #9A9DCB;
-    }
-
-    .button-container {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      margin-top: 20px;
-    }
-
-    .btn {
-      padding: 12px 24px;
-      font-size: 1.1rem;
-      font-weight: 600;
-      text-decoration: none;
-      background-color: #B2B5E0;
-      color: #000000;
-      border-radius: 6px;
-      transition: all 0.3s ease;
-      border: 1px solid #B2B5E0;
-      text-align: center;
-      cursor: pointer;
-      width: 100%;
-      max-width: 200px;
-    }
-	
-	#reset-btn {
-  display: none; 
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 1000; 
-  width: auto; 
-  max-width: 150px;
-	border: 1px solid black;
-	box-shadow: 5px 5px 7px rgba(0, 0, 0, 0.6);	
+  margin-right: 10px;
+  position: relative;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
-    .btn:hover {
-      background-color: #9A9DCB;
-    }
-
-    .correct, .correct-answer {
-      color: #008000; /* Green for correct answers */
-    }
-
-    .result-container {
-      text-align: center;
-      font-size: 1.2rem;
-      font-weight: bold;
-      margin-top: 20px;
-      padding: 10px;
-      background-color: rgba(255, 255, 255, 0.8);
-      border-radius: 8px;
-      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-      color: #000000;
-    }
-
-    .wrong {
-      color: #FF0000; /* Red for incorrect answers */
-    }
-
-    .option-correct {
-      color: #008000; /* Green for correct options */
-    }
-
-    .option-correct::before {
-      content: '✓ ';
-      color: #008000; /* Green checkmark */
-    }
-
-    .option-wrong {
-      color: #FF0000; 
-    }
-
-    .option-wrong::before {
-      content: '✗ ';
-      color: #FF0000; /* Red cross */
-    }
-
-    .question-number {
-      color: #000000;
-    }
-
-    .hamburger {
-      display: none;
-      font-size: 1.8rem;
-      cursor: pointer;
-      user-select: none;
-      position: absolute;
-      right: 20px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #000000;
-    }
-
-    @media screen and (max-width: 768px) {
-      .nav-links {
-        flex-direction: column;
-        position: absolute;
-        top: 60px;
-        right: 10px;
-        width: auto;
-        min-width: 150px;
-        
-        text-align: left;
-        
-        border-radius: 8px;
-        padding: 5px 0;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.2s ease-in-out;
-      }
-
-      .nav-links a {
-        padding: 10px 15px;
-        display: block;
-        font-size: 1.1rem;
-        text-align: left;
-      }
-
-      .nav-links.active {
-	  background: #C5ADC5;
-	  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        max-height: 200px;
-      }
-
-      .hamburger {
-        display: block;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .navbar {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 10px 20px;
-      }
-
-      .nav-links {
-        width: auto;
-        margin-top: 10px;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.2s ease-in-out;
-      }
-
-      .nav-links.active {
-        max-height: 200px;
-      }
-
-      .header {
-        margin-top: 100px;
-        text-align: center;
-      }
-	  .submission-note {
-    font-size: 0.8rem; /* Smaller text on mobile */
-  }
-	.question p {
-    font-size: 18px; 
-  }
-   .question label {
-    font-size: 16px; 
-  }
- .question input[type="radio"] {
-    width: 16px;
-    height: 16px;
-    border-radius: 50%; /* Ensure the button stays circular */
-    border-width: 2px;
-    flex-shrink: 0;  /* Prevent the radio button from shrinking when the label wraps */
-  }
+input[type="radio"]:checked {
+  border-color: #6b48ff;
+  background: #6b48ff;
 }
 
-      .content {
-        padding: 10px;
-      }
+input[type="radio"]:checked::after {
+  content: '';
+  width: 10px; height: 10px;
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 4px; left: 4px;
+}
 
-      .button-container {
-        flex-direction: column;
-        gap: 10px;
-      }
+.option-correct { color: #007a2a; font-weight: 600; }
+.option-wrong { color: #c50000; font-weight: 600; }
 
-      .btn {
-        max-width: none;
-        width: 100%;
-      }
-	  #reset-btn {
-    bottom: 10px; /* Closer to edge on mobile */
-    right: 10px;
-    max-width: 120px; /* Slightly smaller for mobile */
-    padding: 10px 20px; /* Adjust padding for compactness */
+/* ---------------- BUTTONS ---------------- */
+.btn {
+  background: #6b48ff;
+  color: white;
+  padding: 14px 30px;
+  border-radius: 10px;
+  border: none;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.25s;
+  width: 100%;
+  max-width: 220px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+}
+
+.btn:hover {
+  background: #5533dd;
+}
+
+#reset-btn {
+  display: none;
+  margin: 20px auto 0;
+  background: #ff5f5f;
+}
+
+#reset-btn:hover {
+  background: #d74444;
+}
+
+/* ---------------- RESULTS ---------------- */
+.result-container {
+  margin-top: 20px;
+  background: rgba(255,255,255,0.55);
+  padding: 16px;
+  border-radius: 14px;
+  backdrop-filter: blur(6px);
+  font-size: 1.2rem;
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+/* ---------------- MOBILE ---------------- */
+@media (max-width: 600px) {
+  .question p {
+    font-size: 18px;
   }
-    }
+  label {
+    font-size: 16px;
+  }
+}
 </style>
 </head>
+
 <body>
-  <div class="navbar">
-    <div class="logo">MCQs</div>
-    <div class="hamburger" onclick="toggleMenu()">☰</div>
-    <div class="nav-links">
-      <a href="/index.html">Inpui Kalna</a>
-      <!--<a href="#">About</a>-->
-    </div>
-  </div>
-	
-  <div class="header">
-    <h2>Mizoram Budget 2025</h2>
-	<div class="submission-container">
-    <p class="submission-note">*A hnuaiah submit na a awm</p>
-	 <div class="submission-note">&#10013;static page test</div>
-  </div>	
-  </div>
-	
-  <div class="content">
 
-    <div id="mcq-container"></div>
-
-    <div class="button-container">
-  <button id="submit-btn" class="btn" onclick="checkAnswers()">Submit</button>
+<!-- NAVBAR -->
+<div class="navbar">
+  <div class="logo">MCQs</div>
+  <div class="nav-links">
+    <a href="/index.html">Inpui Kalna</a>
+  </div>
 </div>
-<button id="reset-btn" class="btn" onclick="resetTest()">Reset</button>
 
-    <div id="result-container" class="result-container">
-      <h3>Test Results</h3>
-      <p id="result-text"></p>
-    </div>
+<!-- HEADER -->
+<div class="header">
+  <h2>Mizoram Budget 2025</h2>
+  <p class="submission-note">*Submit na a hnuaiah a lang ang</p>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+  <div id="mcq-container"></div>
+  <div id="pagination-controls"></div>
+
+  <div style="text-align:center;">
+    <button id="submit-btn" class="btn" onclick="checkAnswers()">Submit</button>
+    <button id="reset-btn" class="btn" onclick="resetTest()">Reset</button>
   </div>
 
-  <script>
-  function toggleMenu() {
-  let navLinks = document.querySelector(".nav-links");
-  navLinks.classList.toggle("active");
+  <div id="result-container" class="result-container">
+    <h3>Test Results</h3>
+    <p id="result-text"></p>
+  </div>
+</div>
 
-  // Close menu on link click (for mobile)
-  let links = navLinks.querySelectorAll("a");
-  links.forEach(link => {
-    link.addEventListener("click", () => {
-      navLinks.classList.remove("active");
-    });
-  });
+<script>
+const QUESTIONS_PER_PAGE = 25;
+
+let allQuestions = [];
+let currentPage = 1;
+
+// Load JSON
+function loadQuestions(callback) {
+    fetch('questions.json')
+        .then(r => r.json())
+        .then(callback)
+        .catch(err => console.error("JSON Load Error:", err));
 }
 
-  function loadQuestions(callback) {
-    fetch('questions.json')
-      .then(response => response.json())
-      .then(callback)
-      .catch(error => console.error('Error loading JSON:', error));
-  }
-
-  function displayQuestions(data) {
-  
+function displayQuestionsPaginated() {
     let container = document.getElementById("mcq-container");
     container.innerHTML = "";
-    let questions = data.questions;
-	
+
+    const start = (currentPage - 1) * QUESTIONS_PER_PAGE;
+    const end = start + QUESTIONS_PER_PAGE;
+
+    const questions = allQuestions.slice(start, end);
 
     questions.forEach((question, index) => {
-      let questionContainer = document.createElement("div");
-      questionContainer.className = "question-container";
+        let globalIndex = start + index;
 
-      let div = document.createElement("div");
-      div.className = "question";
-      div.innerHTML = `<p><span class="question-number">${index + 1}.</span> ${question.text}</p>`;
+        let card = document.createElement("div");
+        card.className = "question-container";
 
-      question.options.forEach(option => {
-        let label = document.createElement("label");
-        let radio = document.createElement("input");
-        radio.type = "radio";
-        radio.name = `q${index}`;
-        radio.value = option;
-        label.appendChild(radio);
-        
-        let textSpan = document.createElement("span");
-        textSpan.textContent = option;
-        label.appendChild(textSpan);
-        div.appendChild(label);
-      });
+        let qDiv = document.createElement("div");
+        qDiv.className = "question";
 
-      let hiddenAnswer = document.createElement("span");
-      hiddenAnswer.className = "answer";
-      hiddenAnswer.dataset.correct = question.answer;
-      hiddenAnswer.style.display = "none";
-      div.appendChild(hiddenAnswer);
+        qDiv.innerHTML = `<p>${globalIndex + 1}. ${question.text}</p>`;
 
-      questionContainer.appendChild(div);
-      container.appendChild(questionContainer);
+        question.options.forEach(option => {
+            let label = document.createElement("label");
+
+            let radio = document.createElement("input");
+            radio.type = "radio";
+            radio.name = `q${globalIndex}`;
+            radio.value = option;
+            label.appendChild(radio);
+
+            let span = document.createElement("span");
+            span.textContent = option;
+
+            label.appendChild(span);
+            qDiv.appendChild(label);
+        });
+
+        let ans = document.createElement("span");
+        ans.className = "answer";
+        ans.dataset.correct = question.answer;
+        ans.style.display = "none";
+        qDiv.appendChild(ans);
+
+        card.appendChild(qDiv);
+        container.appendChild(card);
     });
-  }
 
- function checkAnswers() {
-  let questions = document.getElementsByClassName("question");
-  let correctCount = 0;
-  let unansweredCount = 0;
-  let resultContainer = document.getElementById("result-container");
+    showPaginationControls();
+}
 
-  // Process each question
-  for (let question of questions) {
-    // Remove existing feedback
-    let feedback = question.querySelector(".feedback");
-    if (feedback) feedback.remove();
+/* Pagination controls (Next/Prev buttons) */
+function showPaginationControls() {
+    const totalPages = Math.ceil(allQuestions.length / QUESTIONS_PER_PAGE);
 
-    let selected = question.querySelector("input:checked");
-    let correctAnswer = question.querySelector(".answer").dataset.correct;
-
-    let message = document.createElement("p");
-    message.className = "feedback";
-
-    if (selected) {
-      let selectedSpan = selected.nextElementSibling;
-      let correctSpan = Array.from(question.querySelectorAll("label span")).find(
-        span => span.textContent === correctAnswer
-      );
-
-      if (selected.value === correctAnswer) {
-        selectedSpan.classList.add("option-correct");
-        message.textContent = "Correct!";
-        message.classList.add("correct");
-        correctCount++;
-      } else {
-        selectedSpan.classList.add("option-wrong");
-        if (correctSpan) correctSpan.classList.add("option-correct");
-        message.innerHTML = `Wrong! <span class="correct-answer">Correct answer: ${correctAnswer}</span>`;
-        message.classList.add("wrong");
-      }
-      question.appendChild(message);
-    } else {
-      unansweredCount++;
+    let container = document.getElementById("pagination-controls");
+    if (!container) {
+        container = document.createElement("div");
+        container.id = "pagination-controls";
+        container.style.textAlign = "center";
+        container.style.marginTop = "20px";
+        document.querySelector(".content").appendChild(container);
     }
 
-    // Disable radio buttons
-    let options = question.querySelectorAll("input[type='radio']");
-    options.forEach(option => {
-      option.disabled = true; // Still disable to prevent changes
-    });
-  }
+    let html = `
+        ${currentPage > 1 ? `<button class="btn" onclick="prevPage()">Previous</button>` : ""}
+        ${currentPage < totalPages ? `<button class="btn" onclick="nextPage()">Next</button>` : ""}
+        <p style="margin-top:10px;">Page ${currentPage} of ${totalPages}</p>
+    `;
 
-  // Add event listeners to labels instead of radio buttons
-  let allLabels = document.querySelectorAll(".question label");
-  allLabels.forEach(label => {
-    label.addEventListener("click", function(event) {
-      event.preventDefault(); // Prevent any default behavior (though minimal since radio is disabled)
-      alert("The quiz has been submitted. Please click 'Reset' to try again.");
-    });
-  });
+    // Show submit button ONLY on last page
+    document.getElementById("submit-btn").style.display =
+        currentPage === totalPages ? "inline-block" : "none";
 
-  // Update result display
-  resultContainer.querySelector("#result-text").innerHTML = `Correct Answers: <span class="correct">${correctCount}</span> | Unanswered Questions: <span class="wrong">${unansweredCount}</span>`;
-  document.getElementById("submit-btn").disabled = true;
-  document.getElementById("reset-btn").style.display = "block";
-}
- function resetTest() {
-  document.getElementById("mcq-container").innerHTML = "";
-  document.getElementById("submit-btn").disabled = false;
-  document.getElementById("reset-btn").style.display = "none";
-  document.getElementById("result-container").querySelector("#result-text").innerHTML = "";
-
-  document.querySelectorAll(".option-correct, .option-wrong, .correct, .wrong").forEach(el => {
-    el.classList.remove("option-correct", "option-wrong", "correct", "wrong");
-  });
-
-  loadQuestions(displayQuestions);
+    container.innerHTML = html;
 }
 
+function nextPage() {
+    currentPage++;
+    displayQuestionsPaginated();
+}
 
-  document.addEventListener("DOMContentLoaded", function () {
-    loadQuestions(displayQuestions);
-  });
+function prevPage() {
+    currentPage--;
+    displayQuestionsPaginated();
+}
+
+/* Check answers across ALL pages */
+function checkAnswers() {
+    let correctCount = 0;
+    let unanswered = 0;
+
+    allQuestions.forEach((q, index) => {
+        let selected = document.querySelector(`input[name="q${index}"]:checked`);
+        let correct = document.querySelector(`span.answer[data-correct][data-index="${index}"]`);
+
+        // fallback correct lookup
+        let allAns = document.querySelectorAll(`span.answer`);
+        let ans = Array.from(allAns).find(a => a.dataset.correct === q.answer);
+
+        if (!selected) {
+            unanswered++;
+            return;
+        }
+
+        let chosen = selected.value;
+        if (chosen === q.answer) {
+            correctCount++;
+        }
+    });
+
+    document.getElementById("result-text").innerHTML =
+        `Correct: <span style="color:green;">${correctCount}</span> | ` +
+        `Unanswered: <span style="color:red;">${unanswered}</span>`;
+
+    document.getElementById("submit-btn").disabled = true;
+    document.getElementById("reset-btn").style.display = "inline-block";
+
+    // Disable all radios
+    document.querySelectorAll("input[type='radio']").forEach(r => r.disabled = true);
+}
+
+function resetTest() {
+    document.getElementById("result-text").innerHTML = "";
+    document.getElementById("submit-btn").disabled = false;
+    document.getElementById("reset-btn").style.display = "none";
+
+    document.querySelectorAll("input[type='radio']").forEach(r => r.disabled = false);
+
+    currentPage = 1;
+    displayQuestionsPaginated();
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    loadQuestions(data => {
+        allQuestions = data.questions;
+        displayQuestionsPaginated();
+    });
+});
 </script>
+
+
 </body>
 </html>
