@@ -74,20 +74,26 @@ body {
 }
 
 @media (max-width: 768px) {
-  .hamburger { display: block; }
-  .nav-links { display: none; }
-  .nav-links.active {
+  .hamburger {
+    display: block;
+  }
+
+  .nav-links {
     display: flex;
+    flex-direction: column;
     position: absolute;
     top: 58px;
     right: 10px;
-    flex-direction: column;
-    background: rgba(252, 252, 252, 1);
+    background: rgba(255,255,255,0.9);
     backdrop-filter: blur(12px);
-    padding: 10px;
+    padding: 8px 12px;
     border-radius: 10px;
+
+    /* animation behavior */
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease;
   }
-}
 
 /* --------------------------------------------------
    HEADER
@@ -278,6 +284,7 @@ input[type="radio"]:checked::after {
   <div class="nav-links">
     <a href="/index.html">Inpui Kalna</a>
   </div>
+  <div class="hamburger" onclick="toggleMenu()">☰</div>
 </div>
 
 
@@ -303,6 +310,14 @@ input[type="radio"]:checked::after {
 </div>
 
 <script>
+function toggleMenu() {
+    document.querySelector(".nav-links").classList.toggle("active");
+	document.querySelectorAll(".nav-links a").forEach(link => {
+    link.addEventListener("click", () => {
+        document.querySelector(".nav-links").classList.remove("active");
+    });
+});
+}
 let answerFeedback = [];   
 
 const QUESTIONS_PER_PAGE = 25;
