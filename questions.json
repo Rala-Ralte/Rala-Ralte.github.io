@@ -240,235 +240,250 @@
       ],
       "answer": "They use 'in' and 'not in' to test membership"
     },
-	{
-      "text": "What is Python?",
+    {
+      "text": "How do Identity operators differ from Membership operators?",
       "options": [
-        "A low-level assembly language",
-        "A powerful, general purpose, high-level, object-oriented programming language",
-        "A database query language",
-        "A web-only scripting language"
+        "Identity operators compare memory locations, membership operators test presence in a sequence",
+        "Identity operators test presence in a sequence, membership operators compare memory locations",
+        "Both perform the same operation",
+        "Identity operators are used only with integers"
       ],
-      "answer": "A powerful, general purpose, high-level, object-oriented programming language"
+      "answer": "Identity operators compare memory locations, membership operators test presence in a sequence"
     },
     {
-      "text": "Which of the following is NOT a reason why we use Python?",
+      "text": "What is the import keyword used for in Python?",
       "options": [
-        "Very simple and easy to learn",
-        "Powerful, fast and secure",
-        "Simple syntax",
-        "Only works on Windows OS"
+        "To access a script from another Python file or module",
+        "To declare a variable",
+        "To print output",
+        "To define a class"
       ],
-      "answer": "Only works on Windows OS"
+      "answer": "To access a script from another Python file or module"
     },
     {
-      "text": "Which of the following is an application developed using Python?",
-      "options": [
-        "Web applications",
-        "Mobile firmware only",
-        "Satellite navigation systems only",
-        "GPU drivers"
-      ],
-      "answer": "Web applications"
-    },
-    {
-      "text": "Which of the following is NOT a feature of Python?",
-      "options": [
-        "Independent Platform",
-        "Object oriented",
-        "Structure oriented",
-        "Machine-dependent"
-      ],
-      "answer": "Machine-dependent"
-    },
-    {
-      "text": "Is Python a case-sensitive language?",
-      "options": ["Yes", "No", "Partially", "Only in functions"],
-      "answer": "Yes"
-    },
-    {
-      "text": "Why is indentation required in Python?",
-      "options": [
-        "To decorate code aesthetically",
-        "It specifies a block of code",
-        "Only used for comments",
-        "Optional but recommended"
-      ],
-      "answer": "It specifies a block of code"
-    },
-    {
-      "text": "What is an iterator in Python?",
-      "options": [
-        "An object that implements the iterator protocol and returns items using next()",
-        "A keyword for looping",
-        "A variable used to count iterations",
-        "A built-in data type"
-      ],
-      "answer": "An object that implements the iterator protocol and returns items using next()"
-    },
-    {
-      "text": "Why is Python called an interpreted language?",
-      "options": [
-        "Because it compiles directly to machine code",
-        "Because it is not in machine-level code before runtime",
-        "Because it has no compiler",
-        "Because it only uses bytecode"
-      ],
-      "answer": "Because it is not in machine-level code before runtime"
-    },
-    {
-      "text": "What is a comment in Python?",
-      "options": [
-        "Statements ignored by the compiler and not executed",
-        "Lines that must always execute",
-        "Output formatting instructions",
-        "Memory allocation statements"
-      ],
-      "answer": "Statements ignored by the compiler and not executed"
-    },
-    {
-      "text": "Which of the following is NOT a type of comment in Python?",
-      "options": [
-        "Single line comment",
-        "Multi line comment",
-        "Inline comment",
-        "None of the above"
-      ],
-      "answer": "Inline comment"
-    },
-    {
-      "text": "What symbol is used for single line comments in Python?",
-      "options": ["#", "//", "/* */", "--"],
-      "answer": "#"
-    },
-    {
-      "text": "Which of the following is used for multiline comments in Python?",
-      "options": [
-        "Triple quotes ''' ... '''",
-        "// ... //",
-        "<!-- ... -->",
-        "{ ... }"
-      ],
-      "answer": "Triple quotes ''' ... '''"
-    },
-    {
-      "text": "What is a keyword in Python?",
-      "options": [
-        "A predefined word in the library that cannot be used as an identifier",
-        "A user-defined variable",
-        "A comment marker",
-        "A file name"
-      ],
-      "answer": "A predefined word in the library that cannot be used as an identifier"
-    },
-    {
-      "text": "What does the float() function do?",
-      "options": [
-        "Converts given data into float",
-        "Converts float to integer",
-        "Rounds a number",
-        "Prints decimal numbers"
-      ],
-      "answer": "Converts given data into float"
-    },
-    {
-      "text": "What does the int() function do?",
-      "options": [
-        "Converts string into integer",
-        "Converts integer to string",
-        "Converts integer to float",
-        "Checks if value is integer"
-      ],
-      "answer": "Converts string into integer"
-    },
-    {
-      "text": "What is the print function used for in Python?",
+      "text": "What does the input() function do?",
            "options": [
-        "To print data or information",
-        "To declare variables",
-        "To execute loops",
-        "To create modules"
+        "Takes user input as a string",
+        "Reads content from a file",
+        "Generates random numbers",
+        "Prints formatted text"
       ],
-      "answer": "To print data or information"
+      "answer": "Takes user input as a string"
     },
     {
-      "text": "How can you convert a number to a string in Python?",
+      "text": "What is an if statement?",
       "options": [
-        "Using str()",
-        "Using num()",
-        "Using ascii()",
-        "Using chr()"
+        "Executes a block when a condition is true",
+        "Executes repeatedly until false",
+        "Defines a function",
+        "Declares a variable"
       ],
-      "answer": "Using str()"
+      "answer": "Executes a block when a condition is true"
     },
     {
-      "text": "What is a Global variable?",
+      "text": "What is a for loop used for?",
       "options": [
-        "Variables referenced outside a function",
-        "Variables inside a function only",
-        "Temporary variables",
-        "System-defined variables"
+        "Sequential traversal of a sequence",
+        "Declaring variables",
+        "Stopping execution",
+        "Memory allocation"
       ],
-      "answer": "Variables referenced outside a function"
+      "answer": "Sequential traversal of a sequence"
     },
     {
-      "text": "What is an Operator in Python?",
+      "text": "Which code prints '*' without newline and spaces?",
       "options": [
-        "A symbol used to perform operations on data or variables",
-        "A built-in module",
-        "A debug tool",
-        "A memory allocator"
+        "for i in range(0,20): print('*', end='')",
+        "print('*' * 20)",
+        "echo '*'",
+        "while True: pass"
       ],
-      "answer": "A symbol used to perform operations on data or variables"
+      "answer": "for i in range(0,20): print('*', end='')"
     },
     {
-      "text": "Which of the following is NOT a type of operator in Python?",
+      "text": "What is a list in Python?",
       "options": [
-        "Arithmetic operators",
-        "Logical operators",
-        "Quantum operators",
-        "Membership operators"
+        "A collection of data of different types stored in square brackets",
+        "A fixed-size data container",
+        "A tuple with mutable elements",
+        "A dictionary key set"
       ],
-      "answer": "Quantum operators"
+      "answer": "A collection of data of different types stored in square brackets"
     },
     {
-      "text": "What is an Operand?",
+      "text": "What does the clear() function do in a list?",
       "options": [
-        "The data or variable on which an operation is performed",
-        "An operator symbol",
-        "A function argument",
-        "A loop control variable"
+        "Empties the list",
+        "Deletes the list variable",
+        "Clears memory cache",
+        "Removes duplicates"
       ],
-      "answer": "The data or variable on which an operation is performed"
+      "answer": "Empties the list"
     },
     {
-      "text": "What does the // operator do?",
-      "options": [
-        "Floor division",
-        "Exponentiation",
-        "Modulo operation",
-        "Bit-shift operation"
-      ],
-      "answer": "Floor division"
+      "text": "Which of the following is NOT a mutable built-in type?",
+      "options": ["List", "Set", "Dictionary", "String"],
+      "answer": "String"
     },
     {
-      "text": "What is the purpose of relational operators?",
+      "text": "What does list.count(x) return?",
       "options": [
-        "To compare values",
-        "To assign values",
-        "To convert data types",
-        "To perform bitwise operations"
+        "Number of occurrences of x in the list",
+        "Index of x",
+        "Length of list",
+        "Sum of all elements"
       ],
-      "answer": "To compare values"
+      "answer": "Number of occurrences of x in the list"
     },
     {
-      "text": "What are assignment operators used for?",
+      "text": "What does the continue statement do?",
       "options": [
-        "To combine arithmetic operators with assignment",
-        "To compare variables",
-        "To create new variables",
-        "To test membership"
+        "Skips to the next iteration of the loop",
+        "Stops the loop",
+        "Ends program execution",
+        "Repeats previous iteration"
       ],
-      "answer": "To combine arithmetic operators with assignment"
+      "answer": "Skips to the next iteration of the loop"
+    },
+    {
+      "text": "What does copy() do in a list?",
+      "options": [
+        "Creates a shallow copy of the list",
+        "Copies list to a file",
+        "Creates a deep copy",
+        "Duplicates only numeric values"
+      ],
+      "answer": "Creates a shallow copy of the list"
+    },
+    {
+      "text": "What is a docstring in Python?",
+      "options": [
+        "A multiline string documenting a code segment",
+        "A comment inside a loop",
+        "A compiler directive",
+        "A debugging tool"
+      ],
+      "answer": "A multiline string documenting a code segment"
+    },
+    {
+      "text": "What does extend() do in a list?",
+      "options": [
+        "Joins two lists",
+        "Adds a single element",
+        "Sorts the list",
+        "Deletes last element"
+      ],
+      "answer": "Joins two lists"
+    },
+    {
+      "text": "What does append() do in a list?",
+      "options": [
+        "Adds a new element at the end",
+        "Adds element at the beginning",
+        "Removes last element",
+        "Creates a new list"
+      ],
+      "answer": "Adds a new element at the end"
+    },
+    {
+      "text": "What does break do in Python?",
+      "options": [
+        "Terminates the current loop",
+        "Skips one iteration",
+        "Restarts the loop",
+        "Stops program execution"
+      ],
+      "answer": "Terminates the current loop"
+    },
+    {
+      "text": "What is negative indexing?",
+      "options": [
+        "Indexing from the end starting at -1",
+        "Invalid referencing",
+        "Index starting at -100",
+        "Indexing allowed only in tuples"
+      ],
+      "answer": "Indexing from the end starting at -1"
+    },
+    {
+      "text": "What does the pass statement do?",
+      "options": [
+        "No operation placeholder",
+        "Terminates loop",
+        "Skips iteration",
+        "Initializes a variable"
+      ],
+      "answer": "No operation placeholder"
+    },
+    {
+      "text": "What does reverse() do in a list?",
+      "options": [
+        "Reverses elements of the list",
+        "Sorts list in descending order",
+        "Creates a reversed copy",
+        "Rotates elements"
+      ],
+      "answer": "Reverses elements of the list"
+    },
+    {
+      "text": "What does pop() do?",
+      "options": [
+        "Deletes element at given index",
+        "Adds element at index 0",
+        "Inserts random element",
+        "Sorts the list"
+      ],
+      "answer": "Deletes element at given index"
+    },
+    {
+      "text": "What does insert() do in a list?",
+      "options": [
+        "Adds new item at a specified index",
+        "Appends item at end",
+        "Deletes item",
+        "Duplicates item"
+      ],
+      "answer": "Adds new item at a specified index"
+    },
+    {
+      "text": "What is a jump statement?",
+      "options": [
+        "Transfers control to another point in program",
+        "Declares a variable",
+        "Initializes a module",
+        "Creates new memory space"
+      ],
+      "answer": "Transfers control to another point in program"
+    },
+    {
+      "text": "What does sort() do in a list?",
+      "options": [
+        "Sorts the list in ascending or descending order",
+        "Reverses order only",
+        "Removes duplicates",
+        "Splits list into halves"
+      ],
+      "answer": "Sorts the list in ascending or descending order"
+    },
+    {
+      "text": "What does len() do?",
+      "options": [
+        "Returns length of a string, list, or array",
+        "Counts only numeric characters",
+        "Returns memory size",
+        "Checks for duplicates"
+      ],
+      "answer": "Returns length of a string, list, or array"
+    },
+    {
+      "text": "What is a Tuple?",
+      "options": [
+        "An immutable collection of data of different types",
+        "A mutable sequence like list",
+        "A dictionary key-value pair",
+        "A numeric-only sequence"
+      ],
+      "answer": "An immutable collection of data of different types"
     },
     {
       "text": "Which of the following is TRUE about membership operators?",
@@ -490,17 +505,7 @@
       ],
       "answer": "(123, 'mani', 20, 'trichy', 123, 'mani', 20, 'trichy')"
     },
-    {
-      "text": "What is the type of b in: b = (1)?",
-      "options": [
-        "int",
-        "tuple",
-        "float",
-        "string"
-      ],
-      "answer": "int"
-    },
-    {
+      {
       "text": "What is the type of b in: b = (1,)?",
       "options": [
         "tuple",
