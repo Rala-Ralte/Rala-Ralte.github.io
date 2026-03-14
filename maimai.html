@@ -64,7 +64,6 @@
     }
 
     .match-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; opacity: 0.5; margin-bottom: 10px; font-weight: 700; }
-    
     .match-main { display: flex; justify-content: space-around; align-items: center; }
     .m-team { flex: 1; }
     .m-name { font-size: 0.75rem; font-weight: 600; opacity: 0.8; margin-bottom: 5px; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -96,23 +95,35 @@
       margin-bottom: 25px;
     }
 
-    .team-grid { display: flex; gap: 15px; margin-bottom: 25px; }
-    .t-input-wrap { flex: 1; }
+    .team-grid { display: flex; gap: 12px; margin-bottom: 25px; }
+    .t-input-wrap { flex: 1; position: relative; }
+    
     .t-input {
       width: 100%;
-      background: rgba(0,0,0,0.03);
+      background: rgba(0,0,0,0.04);
       border: 1px solid rgba(0,0,0,0.05);
       border-radius: 12px;
       padding: 12px;
+      padding-right: 30px;
       font-size: 1rem;
       font-weight: 700;
       text-align: center;
       outline: none;
-      transition: border 0.2s;
+      transition: all 0.2s;
     }
-    .t-input:focus { border-color: var(--primary); background: #fff; }
+    .t-input:focus { border-color: var(--primary); background: #fff; box-shadow: 0 0 0 4px rgba(0,122,255,0.1); }
 
-    .control-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: #8E8E93; margin-bottom: 8px; display: block; }
+    .edit-icon {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.8rem;
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    .control-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; color: #8E8E93; margin-bottom: 8px; display: block; }
 
     .dawl-row { display: flex; flex-direction: column; gap: 15px; }
     .radio-group { display: flex; justify-content: center; gap: 8px; }
@@ -150,7 +161,6 @@
       pointer-events: none;
     }
     .phit-box.active { opacity: 1; pointer-events: auto; background: rgba(0,122,255,0.05); border: 1px solid rgba(0,122,255,0.1); }
-    
     .phit-ui { display: flex; justify-content: space-around; }
     .phit-ui label { font-size: 0.9rem; font-weight: 600; display: flex; align-items: center; gap: 6px; cursor: pointer; }
 
@@ -165,10 +175,7 @@
       font-size: 1rem;
       font-weight: 700;
       cursor: pointer;
-      transition: transform 0.1s, background 0.2s;
     }
-    .btn-main:active { transform: scale(0.98); background: #0066d6; }
-
     .btn-undo {
       background: transparent;
       color: var(--primary);
@@ -180,23 +187,11 @@
       opacity: 0.7;
     }
 
-    /* --- Current Game Big Score --- */
+    /* --- History & Live Score --- */
     .live-score { font-size: 3.5rem; font-weight: 900; margin: 20px 0; letter-spacing: -2px; }
-
-    /* --- Collapsible History --- */
     .history { width: 100%; max-width: 500px; display: flex; flex-direction: column; gap: 12px; }
-    
     .game-card { background: #fff; border-radius: 18px; border: 1px solid #E5E5EA; overflow: hidden; }
-    .game-header {
-      padding: 14px 20px;
-      background: #F2F2F7;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-weight: 700;
-      font-size: 0.85rem;
-      cursor: pointer;
-    }
+    .game-header { padding: 14px 20px; background: #F2F2F7; display: flex; justify-content: space-between; align-items: center; font-weight: 700; font-size: 0.85rem; cursor: pointer; }
     .game-header::after { content: '▼'; font-size: 0.6rem; opacity: 0.3; transition: 0.3s; }
     .game-card.collapsed .game-header::after { transform: rotate(-90deg); }
     .game-card.collapsed .game-body { display: none; }
@@ -204,20 +199,9 @@
     table { width: 100%; border-collapse: collapse; }
     th { padding: 10px; background: #FAFAFA; font-size: 0.65rem; text-transform: uppercase; color: #8E8E93; border-bottom: 1px solid #F2F2F7; }
     td { padding: 12px; text-align: center; font-size: 0.9rem; border-bottom: 1px solid #F2F2F7; }
-    
     .p-marker { color: var(--primary); font-weight: 800; font-size: 0.7rem; margin-left: 3px; }
 
-    .btn-reset {
-      margin: 50px 0;
-      background: transparent;
-      color: var(--danger);
-      border: 1px solid var(--danger);
-      padding: 10px 24px;
-      border-radius: 99px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      cursor: pointer;
-    }
+    .btn-reset { margin: 50px 0; background: transparent; color: var(--danger); border: 1px solid var(--danger); padding: 10px 24px; border-radius: 99px; font-size: 0.8rem; font-weight: 600; cursor: pointer; }
 
     @media (max-width: 400px) {
       .btn-radio label { width: 38px; height: 38px; }
@@ -229,7 +213,7 @@
 
   <nav class="navbar">
     <div class="logo">Dawlchuh Scorer</div>
-    <a href="/index.html" class="nav-link">Inpui</a>
+    <a href="#" class="nav-link">Inpui</a>
   </nav>
 
   <div class="match-board">
@@ -253,22 +237,25 @@
   </div>
 
   <div class="card">
+    <span class="control-label" style="text-align: center; margin-bottom: 12px;">Team hming chhutluhna</span>
     <div class="team-grid">
       <div class="t-input-wrap">
         <input type="text" id="in-nameA" class="t-input" placeholder="Team A">
+        <span class="edit-icon">✎</span>
       </div>
       <div class="t-input-wrap">
         <input type="text" id="in-nameB" class="t-input" placeholder="Team B">
+        <span class="edit-icon">✎</span>
       </div>
     </div>
 
     <div class="dawl-row">
       <div class="dawl-box">
-        <span class="control-label">Dawl Hmuh Zat</span>
+        <span class="control-label" id="dawl-label-a">Team A dawl hmuh zat</span>
         <div class="radio-group" id="grp-a"></div>
       </div>
       <div class="dawl-box">
-        <span class="control-label">Dawl Hmuh Zat</span>
+        <span class="control-label" id="dawl-label-b">Team B dawl hmuh zat</span>
         <div class="radio-group" id="grp-b"></div>
       </div>
     </div>
@@ -288,19 +275,12 @@
   </div>
 
   <div class="live-score" id="live-display">0 — 0</div>
-
   <div class="history" id="match-history"></div>
-
   <button class="btn-reset" onclick="resetMatch()">Match Pumpuhlûm Reset-na</button>
 
 <script>
-  let matchWinsA = 0, matchWinsB = 0;
-  let gameNumber = 1;
-  let currentRounds = [];
-  let pastGames = [];
-  let collapsed = {};
+  let matchWinsA = 0, matchWinsB = 0, gameNumber = 1, currentRounds = [], pastGames = [], collapsed = {};
 
-  // Build Premium Radios
   function createRadios(containerId, name) {
     const container = document.getElementById(containerId);
     for (let i = 0; i <= 4; i++) {
@@ -325,128 +305,79 @@
     const valA = parseInt(document.querySelector('input[name="dawlA"]:checked').value);
     const box = document.getElementById('phit-ui-container');
     const radios = document.querySelectorAll('input[name="phit"]');
-    if (valA === 2) {
-      box.classList.add('active');
-      radios.forEach(r => r.disabled = false);
-    } else {
-      box.classList.remove('active');
-      radios.forEach(r => { r.disabled = true; r.checked = false; });
-    }
+    if (valA === 2) { box.classList.add('active'); radios.forEach(r => r.disabled = false); }
+    else { box.classList.remove('active'); radios.forEach(r => { r.disabled = true; r.checked = false; }); }
   }
 
-  const nameA = document.getElementById('in-nameA'), nameB = document.getElementById('in-nameB');
+  const nameAInput = document.getElementById('in-nameA'), nameBInput = document.getElementById('in-nameB');
   function refreshNames() {
-    const valA = nameA.value.trim() || "Team A", valB = nameB.value.trim() || "Team B";
+    const valA = nameAInput.value.trim() || "Team A", valB = nameBInput.value.trim() || "Team B";
+    
+    // Update simple team name texts
     document.querySelectorAll('.teamA-txt').forEach(t => t.textContent = valA);
     document.querySelectorAll('.teamB-txt').forEach(t => t.textContent = valB);
+    
+    // Update Dynamic Dawl Labels
+    document.getElementById('dawl-label-a').textContent = `${valA} dawl hmuh zat`;
+    document.getElementById('dawl-label-b').textContent = `${valB} dawl hmuh zat`;
+    
     updateUI();
   }
-  nameA.oninput = refreshNames; nameB.oninput = refreshNames;
+  nameAInput.oninput = refreshNames; nameBInput.oninput = refreshNames;
 
   function addRound() {
-    const da = parseInt(document.querySelector('input[name="dawlA"]:checked').value);
-    const db = parseInt(document.querySelector('input[name="dawlB"]:checked').value);
+    const da = parseInt(document.querySelector('input[name="dawlA"]:checked').value), db = parseInt(document.querySelector('input[name="dawlB"]:checked').value);
     const phit = document.querySelector('input[name="phit"]:checked');
-
     let sa, sb, pw = null;
-    if (da !== db) {
-      sa = (da > db) ? da + 1 : da; sb = (db > da) ? db + 1 : db;
-    } else {
-      if (!phit) { alert("Phit a chak thlang rawh!"); return; }
-      pw = phit.value; sa = (pw === 'A') ? 3 : 2; sb = (pw === 'B') ? 3 : 2;
-    }
-
+    if (da !== db) { sa = (da > db) ? da + 1 : da; sb = (db > da) ? db + 1 : db; }
+    else { if (!phit) { alert("Phit a chak thlang rawh!"); return; } pw = phit.value; sa = (pw === 'A') ? 3 : 2; sb = (pw === 'B') ? 3 : 2; }
     currentRounds.push({da, db, sa, sb, pw});
-    updateUI();
-    resetInputs();
+    updateUI(); resetInputs();
   }
 
   function undoRound() {
-    if (currentRounds.length > 0) {
-      currentRounds.pop();
-      updateUI();
-    } else {
-      alert("Round undo tur a awm lo tun Game-ah!");
-    }
+    if (currentRounds.length > 0) { currentRounds.pop(); updateUI(); }
+    else { alert("Round undo tur a awm lo!"); }
   }
 
-  function resetInputs() {
-    document.getElementById('dawlA_2').checked = true;
-    document.getElementById('dawlB_2').checked = true;
-    updatePhitLock();
-  }
-
-  function toggleCollapse(id) {
-    collapsed[id] = !collapsed[id];
-    updateUI();
-  }
+  function resetInputs() { document.getElementById('dawlA_2').checked = true; document.getElementById('dawlB_2').checked = true; updatePhitLock(); }
+  function toggleCollapse(id) { collapsed[id] = !collapsed[id]; updateUI(); }
 
   function updateUI() {
-    const hist = document.getElementById('match-history');
-    hist.innerHTML = "";
-    
-    let curTotalA = currentRounds.reduce((a, r) => a + r.sa, 0);
-    let curTotalB = currentRounds.reduce((a, r) => a + r.sb, 0);
+    const hist = document.getElementById('match-history'); hist.innerHTML = "";
+    let curTotalA = currentRounds.reduce((a, r) => a + r.sa, 0), curTotalB = currentRounds.reduce((a, r) => a + r.sb, 0);
 
-    // Game Over Logic
     if (curTotalA >= 21 || curTotalB >= 21) {
-      const winner = curTotalA >= 21 ? (nameA.value || "Team A") : (nameB.value || "Team B");
-      alert(`🎉 ${winner.toUpperCase()} IN GAME ${gameNumber} AN CHAK E!`);
+      const winner = curTotalA >= 21 ? (nameAInput.value || "Team A") : (nameBInput.value || "Team B");
+      alert(`🎉 ${winner.toUpperCase()} AN CHAK E!`);
       if (curTotalA >= 21) matchWinsA++; else matchWinsB++;
-      collapsed[gameNumber] = true;
-      pastGames.push({id: gameNumber, rounds: [...currentRounds]});
+      collapsed[gameNumber] = true; pastGames.push({id: gameNumber, rounds: [...currentRounds]});
       currentRounds = []; curTotalA = 0; curTotalB = 0; gameNumber++;
     }
 
-    // Match Dashboard
-    document.getElementById('m-wins-a').textContent = matchWinsA;
-    document.getElementById('m-wins-b').textContent = matchWinsB;
-    const totalMatchA = pastGames.reduce((acc, g) => acc + g.rounds.reduce((s, r) => s + r.sa, 0), 0) + curTotalA;
-    const totalMatchB = pastGames.reduce((acc, g) => acc + g.rounds.reduce((s, r) => s + r.sb, 0), 0) + curTotalB;
-    document.getElementById('m-pts-a').textContent = totalMatchA;
-    document.getElementById('m-pts-b').textContent = totalMatchB;
+    document.getElementById('m-wins-a').textContent = matchWinsA; document.getElementById('m-wins-b').textContent = matchWinsB;
+    const tA = pastGames.reduce((acc, g) => acc + g.rounds.reduce((s, r) => s + r.sa, 0), 0) + curTotalA;
+    const tB = pastGames.reduce((acc, g) => acc + g.rounds.reduce((s, r) => s + r.sb, 0), 0) + curTotalB;
+    document.getElementById('m-pts-a').textContent = tA; document.getElementById('m-pts-b').textContent = tB;
     document.getElementById('live-display').textContent = `${curTotalA} — ${curTotalB}`;
 
-    // Render Tables
     if (currentRounds.length > 0) renderGame(gameNumber, currentRounds, hist, false);
-    for (let i = pastGames.length - 1; i >= 0; i--) {
-      renderGame(pastGames[i].id, pastGames[i].rounds, hist, true);
-    }
+    for (let i = pastGames.length - 1; i >= 0; i--) renderGame(pastGames[i].id, pastGames[i].rounds, hist, true);
   }
 
   function renderGame(id, rounds, container, isHistory) {
     const isCollapsed = collapsed[id] || false;
-    const valA = (nameA.value.trim() || "A").substring(0, 8);
-    const valB = (nameB.value.trim() || "B").substring(0, 8);
-
+    const valA = (nameAInput.value.trim() || "A").substring(0, 8), valB = (nameBInput.value.trim() || "B").substring(0, 8);
     const div = document.createElement('div');
     div.className = `game-card ${isCollapsed ? 'collapsed' : ''}`;
-    div.innerHTML = `
-      <div class="game-header" onclick="toggleCollapse(${id})">GAME ${id}</div>
-      <div class="game-body">
-        <table>
-          <thead><tr><th>${valA}</th><th>${valB}</th><th>Score</th><th>Score</th></tr></thead>
-          <tbody>
-            ${[...rounds].reverse().map(r => `
-              <tr>
-                <td>${r.da}</td><td>${r.db}</td>
-                <td>${r.sa}${r.pw==='A'?'<span class="p-marker">(P)</span>':''}</td>
-                <td>${r.sb}${r.pw==='B'?'<span class="p-marker">(P)</span>':''}</td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
-      </div>`;
+    div.innerHTML = `<div class="game-header" onclick="toggleCollapse(${id})">GAME ${id}</div><div class="game-body"><table><thead><tr><th>${valA}</th><th>${valB}</th><th>Score</th><th>Score</th></tr></thead><tbody>${[...rounds].reverse().map(r => `<tr><td>${r.da}</td><td>${r.db}</td><td>${r.sa}${r.pw==='A'?'<span class="p-marker">(P)</span>':''}</td><td>${r.sb}${r.pw==='B'?'<span class="p-marker">(P)</span>':''}</td></tr>`).join('')}</tbody></table></div>`;
     container.appendChild(div);
   }
 
-  function resetMatch() {
-    if (confirm("Match pumpuhlûm Reset i duh maw?")) {
-      matchWinsA = 0; matchWinsB = 0; gameNumber = 1; currentRounds = []; pastGames = []; collapsed = {};
-      updateUI();
-    }
-  }
-
+  function resetMatch() { if (confirm("Match pumpuhlûm Reset i duh maw?")) { matchWinsA = 0; matchWinsB = 0; gameNumber = 1; currentRounds = []; pastGames = []; collapsed = {}; updateUI(); } }
+  
+  // Initialize labels on load
+  refreshNames();
   updatePhitLock();
 </script>
 </body>
