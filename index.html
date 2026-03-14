@@ -5,162 +5,102 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inpui | Ralaa</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:ital,wght@0,900;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:ital,wght@0,900;1,900&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
 
     <style>
         :root {
+            /* Puanchei Palette */
             --puan-red: #BE1E2D;
             --puan-green: #006837;
             --puan-black: #1A1A1B;
             --puan-yellow: #FBB03B;
             --bg: #FFFFFF;
             --text: #1A1A1B;
+            
+            /* Tool Palettes */
+            --kuromi-purple: #7B2CBF;
+            --kuromi-pink: #FF006E;
+            --card-red: #D00000;
+            --py-blue: #3776AB;
+            --py-yellow: #FFD343;
+            --food-green: #2D6A4F;
+            --food-orange: #FF8C42;
         }
 
         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            margin: 0; padding: 0; box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
         }
 
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg);
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
             color: var(--text);
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            overflow-x: hidden;
+            display: flex; flex-direction: column; align-items: center;
         }
 
-        /* --- Puanchei Decorative Header --- */
+        /* --- Header: Puanchei Border --- */
         .puan-border-top {
-            width: 100%;
-            height: 12px;
-            background: repeating-linear-gradient(
-                90deg,
-                var(--puan-red) 0, var(--puan-red) 40%,
-                var(--puan-black) 40%, var(--puan-black) 45%,
-                var(--puan-green) 45%, var(--puan-green) 55%,
-                var(--puan-yellow) 55%, var(--puan-yellow) 57%,
-                var(--puan-black) 57%, var(--puan-black) 100%
-            );
-            background-size: 200px 100%;
-            border-bottom: 2px solid var(--puan-black);
+            width: 100%; height: 14px;
+            background: repeating-linear-gradient(90deg, var(--puan-red) 0, var(--puan-red) 40%, var(--puan-black) 40%, var(--puan-black) 45%, var(--puan-green) 45%, var(--puan-green) 55%, var(--puan-yellow) 55%, var(--puan-yellow) 57%, var(--puan-black) 57%, var(--puan-black) 100%);
+            background-size: 240px 100%;
+            border-bottom: 3px solid var(--puan-black);
             margin-bottom: 60px;
         }
 
-        /* --- Header Section --- */
-        .header {
-            width: 100%;
-            max-width: 450px;
-            text-align: left;
-            padding: 0 20px;
-            margin-bottom: 40px;
-        }
+        .header { width: 100%; max-width: 450px; text-align: left; padding: 0 20px; margin-bottom: 40px; }
+        h1 { font-family: 'Playfair Display', serif; font-size: 4.5rem; font-weight: 900; line-height: 0.8; color: var(--puan-black); letter-spacing: -3px; }
+        .chibai-accent { color: var(--puan-red); font-style: italic; }
 
-        h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 4.5rem;
-            font-weight: 900;
-            line-height: 0.8;
-            color: var(--puan-black);
-            letter-spacing: -3px;
-        }
-
-        .chibai-accent {
-            color: var(--puan-red);
-            font-style: italic;
-        }
-
-        /* --- List Content --- */
-        .content {
-            width: 100%;
-            max-width: 450px;
-            padding: 0 20px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .item-link {
-            text-decoration: none;
-            color: var(--text);
-            padding: 25px 0;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
-            display: flex;
-            align-items: center;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .item-link:first-child {
-            border-top: 4px solid var(--puan-black);
-        }
-
-        /* The Pattern Indicator (Mimics the diamond weaving) */
-        .pattern-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--puan-black);
-            margin-right: 20px;
-            transform: rotate(45deg);
-            transition: all 0.3s ease;
-        }
-
-        .item-title {
-            font-size: 1.1rem;
-            font-weight: 500;
-            letter-spacing: -0.3px;
-        }
-
-        /* --- Hover States --- */
-        .item-link:hover {
-            padding-left: 10px;
-        }
-
-        .item-link:hover .pattern-dot {
-            background: var(--puan-red);
-            box-shadow: 12px 0 0 var(--puan-green), -12px 0 0 var(--puan-yellow);
-        }
-
-        .item-link:hover .item-title {
-            color: var(--puan-red);
-            font-weight: 600;
-        }
-
-        /* --- Bottom Decorative Bar --- */
-        .footer-spacer { flex-grow: 1; }
+        /* --- Content Layout --- */
+        .content { width: 100%; max-width: 450px; padding: 0 20px; display: flex; flex-direction: column; }
         
-        .puan-border-bottom {
-            width: 100%;
-            height: 40px;
-            margin-top: 60px;
-            background-color: var(--puan-red);
-            position: relative;
-            overflow: hidden;
+        .item-link {
+            text-decoration: none; color: var(--text); padding: 22px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+            display: flex; align-items: center; transition: all 0.3s ease;
         }
+        .item-link:first-child { border-top: 4px solid var(--puan-black); }
 
-        .puan-border-bottom::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: repeating-linear-gradient(
-                45deg,
-                rgba(0,0,0,0.1),
-                rgba(0,0,0,0.1) 10px,
-                transparent 10px,
-                transparent 20px
-            );
-        }
+        .pattern-dot { width: 8px; height: 8px; background: var(--puan-black); margin-right: 20px; transform: rotate(45deg); transition: 0.3s; flex-shrink: 0; }
+        .item-title { font-size: 1.1rem; font-weight: 500; }
+        .tool-icon { margin-left: auto; width: 32px; height: 32px; transition: 0.4s; }
 
-        /* --- Mobile Responsiveness --- */
-        @media (max-width: 480px) {
-            h1 { font-size: 3.5rem; }
-            .header { margin-top: 20px; }
-            .item-title { font-size: 1rem; }
-        }
+        /* --- STYLE 1: KUROMI (LPi) --- */
+        .kuromi-link { border-bottom-color: var(--kuromi-purple); background: linear-gradient(90deg, #F8F0FF 0%, transparent 100%); }
+        .kuromi-link .item-title { color: #5a189a; font-weight: 600; }
+        .kuromi-link .pattern-dot { background: var(--kuromi-purple); border-radius: 50% 0; }
+        .kuromi-link:hover .tool-icon { transform: scale(1.2) rotate(10deg); }
+        .kuromi-link:hover .item-title { color: var(--kuromi-pink); }
+
+        /* --- STYLE 2: PLAYING CARD (DawlChuh) --- */
+        .card-link { border-bottom-color: var(--card-red); background: linear-gradient(90deg, #FFF9F0 0%, transparent 100%); }
+        .card-link .item-title { font-family: serif; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+        .card-link .pattern-dot { background: var(--card-red); border: 1px solid black; }
+        .card-mini { width: 28px; height: 38px; background: white; border: 1.5px solid #333; border-radius: 3px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: serif; color: var(--card-red); font-weight: bold; box-shadow: 2px 2px 0 rgba(0,0,0,0.1); }
+        .card-link:hover .tool-icon { transform: translateY(-5px) rotate(-5deg); }
+
+        /* --- STYLE 3: PYTHON/TECH (MCQs) --- */
+        .python-link { border-bottom-color: var(--py-blue); background: linear-gradient(90deg, #EBF5FB 0%, transparent 100%); }
+        .python-link .item-title { font-family: 'Fira Code', monospace; font-size: 0.95rem; color: #2C3E50; }
+        .python-link .pattern-dot { background: var(--py-blue); border-radius: 0; border: 2px solid var(--py-yellow); }
+        .python-link:hover .item-title { color: var(--py-blue); }
+        .python-link:hover .tool-icon { transform: rotate(180deg); }
+
+        /* --- STYLE 4: FOOD/ORGANIC (Sukoon) --- */
+        .food-link { border-bottom-color: var(--food-green); background: linear-gradient(90deg, #F1F8F5 0%, transparent 100%); }
+        .food-link .item-title { font-family: 'Inter', sans-serif; font-style: italic; color: #1B4332; }
+        .food-link .pattern-dot { background: var(--food-green); border-radius: 50%; }
+        .food-link:hover .item-title { color: var(--food-orange); }
+        .food-link:hover .tool-icon { transform: scale(1.1) translateY(-2px); }
+
+        /* --- Footer --- */
+        .footer-spacer { flex-grow: 1; }
+        .puan-border-bottom { width: 100%; height: 50px; margin-top: 60px; background-color: var(--puan-red); border-top: 2px solid var(--puan-black); }
+
+        @media (max-width: 480px) { h1 { font-size: 3.5rem; } }
     </style>
 </head>
 <body>
@@ -172,24 +112,45 @@
     </div>
 
     <div class="content">
-        <a href="/translation-tool.html" class="item-link">
+        <a href="/translation-tool.html" class="item-link kuromi-link">
             <div class="pattern-dot"></div>
             <span class="item-title">LPi Translation Tool</span>
+            <div class="tool-icon">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 50 Q20 20 50 10 Q80 20 80 50 L75 80 Q50 90 25 80 Z" fill="#1A1A1B"/>
+                    <path d="M20 50 L5 15 L35 35 Z" fill="#1A1A1B"/><path d="M80 50 L95 15 L65 35 Z" fill="#1A1A1B"/>
+                    <circle cx="50" cy="40" r="8" fill="#ff4d6d"/><circle cx="47" cy="38" r="2" fill="#1A1A1B"/><circle cx="53" cy="38" r="2" fill="#1A1A1B"/>
+                </svg>
+            </div>
         </a>
         
-        <a href="/maimai.html" class="item-link">
+        <a href="/maimai.html" class="item-link card-link">
             <div class="pattern-dot"></div>
             <span class="item-title">DawlChuh Scorer</span>
+            <div class="tool-icon card-mini">
+                <span style="font-size: 0.5rem; line-height: 1;">A</span>
+                <span style="font-size: 0.9rem;">♦</span>
+            </div>
         </a>
         
-        <a href="/MCQs.html" class="item-link">
+        <a href="/MCQs.html" class="item-link python-link">
             <div class="pattern-dot"></div>
-            <span class="item-title">Python MCQs</span>
+            <span class="item-title">print("Python MCQs")</span>
+            <div class="tool-icon">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50 10 C30 10 30 25 30 25 L30 40 L50 40 L50 45 L25 45 C25 45 10 45 10 65 C10 85 25 90 25 90 L30 90 L30 80 C30 80 30 65 45 65 L65 65 C65 65 80 65 80 45 C80 25 65 10 50 10 Z" fill="#3776AB"/>
+                    <path d="M50 90 C70 90 70 75 70 75 L70 60 L50 60 L50 55 L75 55 C75 55 90 55 90 35 C90 15 75 10 75 10 L70 10 L70 20 C70 20 70 35 55 35 L35 35 C35 35 20 35 20 55 C20 75 35 90 50 90 Z" fill="#FFD343"/>
+                </svg>
+            </div>
         </a>
         
-        <a href="/suk.html" class="item-link">
-            <span class="pattern-dot"></span>
+        <a href="/suk.html" class="item-link food-link">
+            <div class="pattern-dot"></div>
             <span class="item-title">Sukoon Foods</span>
+            <div class="tool-icon">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M30 20 L30 50 M40 20 L40 50 M50 20 L50 50 M40 50 L40 85" stroke="#2D6A4F" stroke-width="6" stroke-linecap="round"/> <ellipse cx="70" cy="35" rx="12" ry="18" fill="#FF8C42"/> <rect x="67" y="50" width="6" height="35" rx="3" fill="#FF8C42"/> </svg>
+            </div>
         </a>
     </div>
 
