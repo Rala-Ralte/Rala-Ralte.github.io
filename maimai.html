@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mai Mai</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Mindikot Scorer</title>
   <style>
     body {
       font-family: 'Georgia', serif;
       text-align: center;
-      padding-top: 50px;
+      padding-top: 20px;
       background-color: #FFFDF2;
       margin: 0;
       min-height: 100vh;
@@ -16,336 +16,370 @@
       flex-direction: column;
       align-items: center;
       color: #000000;
-      position: relative;
+      overflow-x: hidden; /* Prevent side-scrolling */
     }
 
+    /* Header Nav from Template */
     .nav {
-      position: absolute;
-      top: 20px;
-      right: 20px;
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      padding-right: 20px;
+      box-sizing: border-box;
     }
 
     .nav a {
       color: #000000;
-      font-size: 1.2em;
+      font-size: 1.1em;
       font-weight: 500;
       text-decoration: none;
-      transition: color 0.3s ease, transform 0.1s ease, background-color 0.2s ease;
       padding: 8px 15px;
       border-radius: 5px;
-      display: inline-block;
-    }
-
-    .nav a:hover {
-      color: #FFFFFF;
-      background-color: #000000;
-      transform: scale(1.05);
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      transition: all 0.2s ease;
     }
 
     .nav a:active {
-      transform: scale(0.95);
+      background-color: #000;
+      color: #FFF;
     }
 
     h1 {
-      color: #000000;
-      font-size: 2em;
-      margin-bottom: 25px;
+      font-size: 1.8em;
+      margin: 10px 0;
       font-weight: 700;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
     }
 
-    #volume-display {
-      font-size: 1.4em;
-      color: #333333;
+    /* Main Container */
+    .score-container {
+      background: #FFFFFF;
+      padding: 15px;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      width: 92%;
+      max-width: 450px;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+    }
+
+    .team-names {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
       margin-bottom: 20px;
-      font-weight: 500;
     }
 
-    #speedometer {
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      border: 2px solid #000000;
-      position: relative;
-      margin: 20px auto;
-	  
-      --radius: 80px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
-	 
+    .team-input {
+      border: none;
+      border-bottom: 2px solid #000;
+      font-family: 'Georgia', serif;
+      font-size: 1.2em;
+      text-align: center;
+      width: 45%;
+      outline: none;
+      padding: 5px 0;
+      background: transparent;
     }
 
-
-
-
-    #needle {
-      position: absolute;
-      width: 45%; 
-      height: 2px;
-      background-color: #FF0000; 
-      left: 50%;
-      top: 50%;
-      transform-origin: left center;
-      transform: rotate(180deg);
-      transition: transform 0.1s ease-in-out;
+    /* Dawl Grid for Mobile */
+    .dawl-section {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
     }
 
-    #pivot {
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      background-color: #000000;
-      border-radius: 50%;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
+    .dawl-box h3 {
+      font-size: 0.85em;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #555;
+      margin-bottom: 8px;
     }
 
-    .odometer {
-  position: absolute;
-  left: 50%;
-  top: 65%;
-  transform: translateX(-50%);
-  font-family: 'Orbitron', monospace;
-  font-size: 12px;
-  color: #FFFFFF;
-  background-color: #1A1A1A;
-  padding: 1px 4px; 
-  border-radius: 3px;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
-  display: flex;
-}
-
-.odometer span {
-  display: inline-block;
-}
-
-.odometer span:not(:last-child) {
-  border-right: 1px solid #000000;
-  padding-right: 2px; 
-  margin-right: 2px; 
-}
-
-    .number {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%) rotate(var(--angle)) translate(var(--radius)) rotate(calc(-1 * var(--angle)));
-      font-size: 14px;
-      color: #000000;
-    }
-
-    .controls {
+    .radio-group {
       display: flex;
       justify-content: center;
-      align-items: center;
-      gap: 15px;
-      margin-top: 20px;
+      gap: 8px;
     }
 
-    .control-container {
-      text-align: center;
-      min-width: 90px;
+    /* Making radio buttons bigger for fingers */
+    .radio-item {
+      position: relative;
     }
 
-    .control-img {
-      width: 90px;
-      height: auto;
+    .radio-item input {
+      display: none;
+    }
+
+    .radio-item label {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      border: 1px solid #ddd;
+      border-radius: 50%;
       cursor: pointer;
-      border-radius: 5px;
-      transition: opacity 0.2s ease, transform 0.2s ease;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    }
-
-    .control-img:hover {
-      opacity: 0.85;
-      transform: translateY(-2px);
-    }
-
-    .control-caption {
       font-size: 1.1em;
-      margin-top: 5px;
-      color: #000000;
-      font-weight: 500;
+      transition: all 0.2s;
     }
 
-    @media (max-width: 600px) {
-      .controls {
-        flex-direction: row;
-        flex-wrap: nowrap;
-        justify-content: center;
-        gap: 10px;
-      }
-      .control-img {
-        width: 80px;
-      }
-      h1 {
-        font-size: 1.8em;
-      }
-      #volume-display {
-        font-size: 1.2em;
-      }
-      #speedometer {
-        width: 150px;
-        height: 150px;
-        --radius: 60px;
-      }
-      .number {
-        font-size: 12px;
-      }
-      .odometer {
-        font-size: 10px;
-      }
-      .nav {
-        top: 15px;
-        right: 15px;
-      }
-      .nav a {
-        font-size: 1em;
-      }
+    .radio-item input:checked + label {
+      background: #000;
+      color: #FFF;
+      border-color: #000;
+      transform: scale(1.1);
+    }
+
+    /* Phit Section */
+    .phit-section {
+      margin: 15px 0;
+      padding: 12px;
+      border: 1px dashed #CCC;
+      border-radius: 10px;
+      opacity: 0.3;
+      transition: opacity 0.3s;
+    }
+
+    .phit-section.active {
+      opacity: 1;
+      border-color: #000;
+      border-style: solid;
+      background: #fdfdfd;
+    }
+
+    .phit-options {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 10px;
+    }
+
+    /* Buttons */
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    button {
+      font-family: 'Georgia', serif;
+      padding: 15px;
+      font-size: 1.1em;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      border: none;
+      width: 100%;
+    }
+
+    #add-btn { background: #000; color: #FFF; }
+    .reset-btn { background: transparent; color: #dc3545; border: 1px solid #dc3545; font-size: 0.9em; }
+
+    /* Total and Table */
+    #total-display {
+      font-size: 2.2em;
+      font-weight: bold;
+      margin: 15px 0;
+      letter-spacing: 2px;
+    }
+
+    .table-wrapper {
+      width: 92%;
+      overflow-x: auto;
+      margin-bottom: 30px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #FFF;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 12px 8px;
+      border: 1px solid #F0F0F0;
+      font-size: 0.95em;
+    }
+
+    th { background: #F8F8F8; color: #555; font-size: 0.8em; }
+
+    #winner-msg {
+      background: #d4edda;
+      color: #155724;
+      padding: 15px;
+      border-radius: 8px;
+      width: 92%;
+      margin-bottom: 10px;
+      display: none;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <div class="nav">
-    <a href="/index.html">Inpui</a>
-  </div>
-  <h1>iDea Mai mai</h1>
-  <div id="volume-display">Volume: 0%</div>
-  <div id="speedometer">
-    <div id="needle"></div>
-    <div id="pivot"></div>
-   <div class="odometer">
-  <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
-</div>
-    <div class="number" style="--angle: 180deg">0</div>
-    <div class="number" style="--angle: 216deg">20</div>
-    <div class="number" style="--angle: 252deg">40</div>
-    <div class="number" style="--angle: 288deg">60</div>
-    <div class="number" style="--angle: 324deg">80</div>
-    <div class="number" style="--angle: 360deg">100</div>
-    <div class="number" style="--angle: 396deg">120</div>
-    <div class="number" style="--angle: 432deg">140</div>
-    <div class="number" style="--angle: 468deg">160</div>
-    <div class="number" style="--angle: 504deg">180</div>
 
+  <div class="nav">
+    <a href="#">Inpui</a>
   </div>
-  
-  <div class="controls">
-    <div class="control-container">
-      <img id="brake" src="brake.webp" alt="Brake" class="control-img">
-      <div class="control-caption">Brake</div>
+
+  <h1>Mindikot Scorer</h1>
+
+  <div id="winner-msg">🎉 GAME OVER - WINNER! 🎉</div>
+
+  <div class="score-container">
+    <div class="team-names">
+      <input type="text" id="nameA" class="team-input" value="Team A">
+      <input type="text" id="nameB" class="team-input" value="Team B">
     </div>
-    <div class="control-container">
-      <img id="accelerator" src="acc.webp" alt="Accelerator" class="control-img">
-      <div class="control-caption">Accelerator</div>
+
+    <div class="dawl-section">
+      <div class="dawl-box">
+        <h3 id="labelA">Team A Dawl</h3>
+        <div class="radio-group" id="groupA"></div>
+      </div>
+      <div class="dawl-box">
+        <h3 id="labelB">Team B Dawl</h3>
+        <div class="radio-group" id="groupB"></div>
+      </div>
     </div>
+
+    <div id="phit-container" class="phit-section">
+      <div style="font-size: 0.9em; font-weight:bold;">Phit a chak</div>
+      <div class="phit-options">
+        <label><input type="radio" name="phit" value="A" disabled> <span class="teamA-span">Team A</span></label>
+        <label><input type="radio" name="phit" value="B" disabled> <span class="teamB-span">Team B</span></label>
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <button id="add-btn" onclick="addRound()">Add Round</button>
+      <button class="reset-btn" onclick="resetGame()">Reset Game</button>
+    </div>
+  </div>
+
+  <div id="total-display">0 — 0</div>
+
+  <div class="table-wrapper">
+    <table id="score-table">
+      <thead>
+        <tr>
+          <th>A Dawl</th>
+          <th>B Dawl</th>
+          <th>A Score</th>
+          <th>B Score</th>
+        </tr>
+      </thead>
+      <tbody id="table-body"></tbody>
+    </table>
   </div>
 
   <script>
-    let currentVolume = 0;
-    const maxVolume = 100;
-    const volumeDisplay = document.getElementById('volume-display');
-    const needle = document.getElementById('needle');
-    let accelInterval, decelInterval, brakeInterval;
+    let rows = [];
+    let gameOver = false;
 
-    const accelRate = 0.5;
-    const decelRate = 0.25;
-    const brakeRate = 3;
-    const intervalTime = 50;
-
-    function updateDisplay() {
-      volumeDisplay.textContent = `Volume: ${Math.round(currentVolume)}%`;
-      const angle = 180 + (currentVolume / 100 * 180);
-      needle.style.transform = `rotate(${angle}deg)`;
+    // Build Touch-Friendly Radios
+    function createRadios(containerId, name) {
+      const container = document.getElementById(containerId);
+      for (let i = 0; i <= 4; i++) {
+        const div = document.createElement('div');
+        div.className = 'radio-item';
+        const id = `${name}_${i}`;
+        div.innerHTML = `
+          <input type="radio" name="${name}" id="${id}" value="${i}" ${i===0?'checked':''} onchange="checkPhit()">
+          <label for="${id}">${i}</label>
+        `;
+        container.appendChild(div);
+      }
     }
 
-    function clearIntervals() {
-      clearInterval(accelInterval);
-      clearInterval(decelInterval);
-      clearInterval(brakeInterval);
+    createRadios('groupA', 'dawlA');
+    createRadios('groupB', 'dawlB');
+
+    const nameAInput = document.getElementById('nameA');
+    const nameBInput = document.getElementById('nameB');
+    
+    function updateLabels() {
+      document.getElementById('labelA').textContent = nameAInput.value;
+      document.getElementById('labelB').textContent = nameBInput.value;
+      document.querySelectorAll('.teamA-span').forEach(s => s.textContent = nameAInput.value);
+      document.querySelectorAll('.teamB-span').forEach(s => s.textContent = nameBInput.value);
+    }
+    nameAInput.oninput = updateLabels;
+    nameBInput.oninput = updateLabels;
+
+    function checkPhit() {
+      const valA = parseInt(document.querySelector('input[name="dawlA"]:checked').value);
+      const valB = parseInt(document.querySelector('input[name="dawlB"]:checked').value);
+      const container = document.getElementById('phit-container');
+      const phitRadios = document.querySelectorAll('input[name="phit"]');
+
+      if (valA === valB && valA !== 0) {
+        container.classList.add('active');
+        phitRadios.forEach(r => r.disabled = false);
+      } else {
+        container.classList.remove('active');
+        phitRadios.forEach(r => { r.disabled = true; r.checked = false; });
+      }
     }
 
-    function startGradualDeceleration() {
-      decelInterval = setInterval(() => {
-        if (currentVolume > 0) {
-          currentVolume -= decelRate;
-          updateDisplay();
-        } else {
-          clearInterval(decelInterval);
-        }
-      }, intervalTime);
+    function addRound() {
+      if (gameOver) return;
+      const da = parseInt(document.querySelector('input[name="dawlA"]:checked').value);
+      const db = parseInt(document.querySelector('input[name="dawlB"]:checked').value);
+      const phit = document.querySelector('input[name="phit"]:checked');
+
+      let sa = 0, sb = 0;
+      if (da !== db) {
+        sa = (da > db) ? da + 1 : da;
+        sb = (db > da) ? db + 1 : db;
+      } else if (da > 0) {
+        if (!phit) { alert("Please select 'Phit a chak'!"); return; }
+        sa = (phit.value === 'A') ? da + 1 : da;
+        sb = (phit.value === 'B') ? db + 1 : db;
+      }
+
+      rows.push({da, db, sa, sb});
+      updateUI();
+      // Reset radio buttons to 0 for next round
+      document.getElementById('dawlA_0').checked = true;
+      document.getElementById('dawlB_0').checked = true;
+      checkPhit();
     }
 
-    const acceleratorButton = document.getElementById('accelerator');
-    acceleratorButton.addEventListener('mousedown', () => {
-      clearIntervals();
-      accelInterval = setInterval(() => {
-        if (currentVolume < maxVolume) {
-          currentVolume += accelRate;
-          updateDisplay();
-        }
-      }, intervalTime);
-    });
+    function updateUI() {
+      const tbody = document.getElementById('table-body');
+      tbody.innerHTML = "";
+      let totalA = 0, totalB = 0;
 
-    acceleratorButton.addEventListener('mouseup', () => {
-      clearInterval(accelInterval);
-      startGradualDeceleration();
-    });
+      [...rows].reverse().forEach(row => {
+        totalA += row.sa; totalB += row.sb;
+        const tr = `<tr><td>${row.da}</td><td>${row.db}</td><td>${row.sa}</td><td>${row.sb}</td></tr>`;
+        tbody.innerHTML += tr;
+      });
 
-    acceleratorButton.addEventListener('touchstart', (e) => {
-      e.preventDefault();
-      clearIntervals();
-      accelInterval = setInterval(() => {
-        if (currentVolume < maxVolume) {
-          currentVolume += accelRate;
-          updateDisplay();
-        }
-      }, intervalTime);
-    });
+      document.getElementById('total-display').textContent = `${totalA} — ${totalB}`;
 
-    acceleratorButton.addEventListener('touchend', () => {
-      clearInterval(accelInterval);
-      startGradualDeceleration();
-    });
+      if (totalA >= 21 || totalB >= 21) {
+        const winner = totalA >= 21 ? nameAInput.value : nameBInput.value;
+        const msg = document.getElementById('winner-msg');
+        msg.style.display = "block";
+        msg.textContent = `🎉 ${winner.toUpperCase()} WINS! 🎉`;
+        document.getElementById('add-btn').style.display = "none";
+        gameOver = true;
+      }
+    }
 
-    const brakeButton = document.getElementById('brake');
-    brakeButton.addEventListener('mousedown', () => {
-      clearIntervals();
-      brakeInterval = setInterval(() => {
-        if (currentVolume > 0) {
-          currentVolume = Math.max(0, currentVolume - brakeRate);
-          updateDisplay();
-        } else {
-          clearInterval(brakeInterval);
-        }
-      }, intervalTime);
-    });
-
-    brakeButton.addEventListener('mouseup', () => {
-      clearInterval(brakeInterval);
-      startGradualDeceleration();
-    });
-
-    brakeButton.addEventListener('touchstart', (e) => {
-      e.preventDefault();
-      clearIntervals();
-      brakeInterval = setInterval(() => {
-        if (currentVolume > 0) {
-          currentVolume = Math.max(0, currentVolume - brakeRate);
-          updateDisplay();
-        } else {
-          clearInterval(brakeInterval);
-        }
-      }, intervalTime);
-    });
-
-    brakeButton.addEventListener('touchend', () => {
-      clearInterval(brakeInterval);
-      startGradualDeceleration();
-    });
-
-    updateDisplay(); // Set initial state
+    function resetGame() {
+      if (confirm("Reset everything and start new game?")) {
+        rows = []; gameOver = false;
+        document.getElementById('add-btn').style.display = "block";
+        document.getElementById('winner-msg').style.display = "none";
+        document.getElementById('dawlA_0').checked = true;
+        document.getElementById('dawlB_0').checked = true;
+        checkPhit();
+        updateUI();
+      }
+    }
   </script>
 </body>
 </html>
