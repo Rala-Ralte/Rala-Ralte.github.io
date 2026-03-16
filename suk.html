@@ -3,376 +3,218 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tui hle mai</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <title>Sukoon | Food Diary</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --primary: #c5a059; /* Gold accent */
+      --dark: #1a1a1a;
+      --light: #fdfaf5;
+      --text-muted: #666;
+      --glass: rgba(255, 255, 255, 0.8);
+    }
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
-    html, body {
-      height: 100%;
-    }
-
     body {
-      background: linear-gradient(135deg, #fffaf0 0%, #ffdab9 50%, #ffe4c4 100%);
+      background-color: var(--light);
+      background-image: 
+        radial-gradient(circle at 2px 2px, rgba(197, 160, 89, 0.1) 1px, transparent 0);
+      background-size: 40px 40px;
       font-family: 'Poppins', sans-serif;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      overflow-x: hidden;
-      position: relative;
+      color: var(--dark);
+      line-height: 1.6;
     }
 
-    /* Subtle background animation */
-    body::before {
-      content: '';
-      position: absolute;
+    /* Elegant Floating Navigation */
+    .nav-container {
+      position: fixed;
       top: 0;
-      left: 0;
       width: 100%;
-      height: 100%;
-      background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50"%3E%3Ccircle cx="25" cy="25" r="5" fill="%23d2691e" opacity="0.1"/%3E%3C/svg%3E');
-      animation: float 20s infinite linear;
-      z-index: -1;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: flex-end;
+      z-index: 1000;
+      background: linear-gradient(to bottom, rgba(253, 250, 245, 1), rgba(253, 250, 245, 0));
     }
 
-    @keyframes float {
-      0% { background-position: 0 0; }
-      100% { background-position: 100px 100px; }
-    }
-
-    /* Inpui Kalna Button */
     .inpui-btn {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background: linear-gradient(45deg, #d2691e, #ff4500);
+      background: var(--dark);
       color: #fff;
       text-decoration: none;
-      padding: 10px 20px;
-      border-radius: 25px;
-      font-size: 1rem;
+      padding: 12px 28px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
       font-weight: 600;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      transition: transform 0.2s, background 0.2s;
-      z-index: 10;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 1px solid transparent;
     }
 
     .inpui-btn:hover {
-      transform: scale(1.1);
-      background: linear-gradient(45deg, #e03d00, #d2691e);
+      background: var(--primary);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(197, 160, 89, 0.3);
     }
 
-    main {
-      flex: 1 0 auto;
-      padding: 20px;
+    header {
+      padding: 120px 20px 60px;
       text-align: center;
-      position: relative; /* Ensure main content respects button's z-index */
     }
 
     h1 {
-      color: #d2691e;
-      font-size: 3rem;
-      font-weight: 700;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 8vw, 4rem);
+      color: var(--dark);
       margin-bottom: 10px;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-      animation: bounceIn 1s ease-out;
+      font-weight: 700;
     }
 
-    p.subtitle {
-      color: #8b4513;
-      font-size: 1.2rem;
-      margin-bottom: 20px;
-      font-style: italic;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Total Debt Counter */
-    .total-debt {
-      background: #d2691e;
-      color: #fff;
-      padding: 10px 20px;
-      border-radius: 50px;
+    .subtitle {
       font-size: 1.1rem;
-      margin: 20px auto;
-      max-width: 300px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      animation: pulse 2s infinite;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-weight: 400;
     }
 
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
-    }
-
-    /* Nudge Button */
-    .nudge-btn {
-      background: #ff4500;
-      color: #fff;
-      border: none;
-      padding: 12px 24px;
-      font-size: 1rem;
-      font-weight: 600;
-      border-radius: 25px;
-      cursor: pointer;
-      margin: 20px auto;
-      display: inline-block;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      transition: transform 0.2s, background 0.2s;
-    }
-
-    .nudge-btn:hover {
-      transform: scale(1.1);
-      background: #e03d00;
-    }
-
+    /* Food Grid */
     .food-container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 25px;
-      padding: 20px;
-      max-width: 1200px;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 40px;
+      padding: 0 40px 100px;
+      max-width: 1300px;
       margin: 0 auto;
     }
 
     .food-card {
-      background: #fff;
-      border: 3px solid #deb887;
-      border-radius: 20px;
+      background: var(--glass);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(197, 160, 89, 0.2);
+      border-radius: 0; /* Professional sharp look or use 20px for soft */
       padding: 20px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: all 0.5s ease;
       position: relative;
-      overflow: hidden;
-      animation: slideIn 0.5s ease-out forwards;
-      animation-delay: calc(0.1s * var(--i));
+      opacity: 0;
+      transform: translateY(30px);
     }
 
-    .food-card:nth-child(odd) {
-      --i: 1;
-    }
-
-    .food-card:nth-child(even) {
-      --i: 2;
-    }
-
-    @keyframes slideIn {
-      from { transform: translateY(50px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+    .food-card.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .food-card:hover {
-      transform: translateY(-15px) rotate(2deg);
-      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
+      border-color: var(--primary);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+      transform: translateY(-10px);
+    }
+
+    .img-wrapper {
+      overflow: hidden;
+      height: 250px;
+      margin-bottom: 20px;
+      position: relative;
     }
 
     .food-card img {
       width: 100%;
-      height: 200px;
+      height: 100%;
       object-fit: cover;
-      border-radius: 15px;
-      margin-bottom: 15px;
-      transition: transform 0.3s ease;
+      transition: transform 0.8s ease;
     }
 
     .food-card:hover img {
-      transform: scale(1.05);
-    }
-
-    .fallback {
-      background: #ffe4c4;
-      height: 200px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 1rem;
-      color: #8b4513;
-      border-radius: 15px;
-      margin-bottom: 15px;
+      transform: scale(1.1);
     }
 
     .food-card h3 {
-      color: #d2691e;
-      font-size: 1.5rem;
-      font-weight: 600;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
       margin-bottom: 10px;
+    }
+
+    .plates-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      background: rgba(197, 160, 89, 0.1);
+      color: var(--primary);
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+
+    /* Custom Ribbon */
+    .status-ribbon {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: var(--primary);
+      color: white;
+      padding: 5px 15px;
+      font-size: 0.7rem;
+      font-weight: 600;
       text-transform: uppercase;
     }
 
-    .food-card p {
-      color: #444;
-      font-size: 1rem;
-      margin-bottom: 8px;
-    }
-
-    .food-card p strong {
-      color: #8b4513;
-      font-weight: 700;
-    }
-
-    /* Enhanced Badge */
-    .food-card::before {
-      content: 'Ka ti tawp!';
-      position: absolute;
-      top: 15px;
-      right: -60px;
-      background: linear-gradient(45deg, #d2691e, #ff4500);
-      color: #fff;
-      padding: 8px 50px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      transform: rotate(45deg);
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
-      animation: shake 2s infinite;
-    }
-
-    @keyframes shake {
-      0%, 100% { transform: rotate(45deg) translateX(0); }
-      10%, 30% { transform: rotate(45deg) translateX(5px); }
-      20%, 40% { transform: rotate(45deg) translateX(-5px); }
-    }
-
-    /* Footer */
-    footer {
-      flex-shrink: 0;
-      padding: 25px;
-      background: linear-gradient(45deg, #deb887, #d2691e);
-      color: #fff;
-      border-radius: 15px 15px 0 0;
-      font-size: 1rem;
-      font-weight: 600;
+    .fallback {
+      background: #eee;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 0.8rem;
       text-align: center;
-      width: 100%;
-      position: relative;
-      overflow: hidden;
+      padding: 20px;
     }
 
-    footer::after {
-      content: '💸';
-      position: absolute;
-      font-size: 2rem;
-      top: 50%;
-      right: 20px;
-      transform: translateY(-50%);
-      animation: spin 3s infinite linear;
+    footer {
+      padding: 60px 20px;
+      background: var(--dark);
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      font-size: 0.8rem;
+      letter-spacing: 1px;
     }
 
-    @keyframes spin {
-      0% { transform: translateY(-50%) rotate(0deg); }
-      100% { transform: translateY(-50%) rotate(360deg); }
+    /* Animations */
+    @keyframes fadeIn {
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Responsive Design */
     @media (max-width: 768px) {
-      .inpui-btn {
-        top: 15px;
-        right: 15px;
-        padding: 8px 15px;
-        font-size: 0.9rem;
-      }
-
-      h1 {
-        font-size: 2.2rem;
-      }
-
-      p.subtitle {
-        font-size: 1rem;
-      }
-
-      .total-debt {
-        font-size: 1rem;
-        padding: 8px 15px;
-      }
-
-      .nudge-btn {
-        padding: 10px 20px;
-        font-size: 0.9rem;
-      }
-
-      .food-container {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        padding: 15px;
-      }
-
-      .food-card {
-        padding: 15px;
-      }
-
-      .food-card img,
-      .fallback {
-        height: 160px;
-      }
-
-      .food-card h3 {
-        font-size: 1.2rem;
-      }
-
-      .food-card p {
-        font-size: 0.9rem;
-      }
-
-      footer {
-        padding: 20px;
-        font-size: 0.9rem;
-      }
-
-      footer::after {
-        font-size: 1.5rem;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .inpui-btn {
-        top: 10px;
-        right: 10px;
-        padding: 6px 12px;
-        font-size: 0.8rem;
-      }
-
-      h1 {
-        font-size: 1.8rem;
-      }
-
-      p.subtitle {
-        font-size: 0.9rem;
-      }
-
-      .food-card::before {
-        font-size: 0.8rem;
-        padding: 6px 40px;
-        right: -50px;
-      }
-
-      .total-debt {
-        font-size: 0.9rem;
-      }
-
-      .nudge-btn {
-        padding: 8px 16px;
-        font-size: 0.8rem;
-      }
-
-      footer::after {
-        font-size: 1.2rem;
-      }
+      .food-container { padding: 0 20px 60px; }
+      h1 { font-size: 2.5rem; }
+      .nav-container { padding: 15px 20px; }
     }
   </style>
 </head>
 <body>
-  <a href="/index.html" class="inpui-btn">Inpui kalna</a>
+
+  <nav class="nav-container">
+    <a href="index.html" class="inpui-btn">Inpui</a>
+  </nav>
+
+  <header>
+    <p class="subtitle">1st Night-a kan thil ei</p>
+    <h1>Sukoon Diaries</h1>
+  </header>
+
   <main>
-    <h1>Sukoon 1st Night kan thil ei 🍗💸</h1>
-    <p class="subtitle">Artui Zawrhna i hria em</p>
-    <div class="total-debt" id="total-debt">Total: ₹0.00</div>
-   
-    <div class="food-container" id="food-list"></div>
+    <div class="food-container" id="food-list">
+      </div>
   </main>
+
   <footer>
-    Trippa Troppa Tralala Lirì Lirà Tung Tung Sahur Boneca Tung Tung Tralalelo Trippi Troppa Crocodina
+    TRIPPA TROPPA TRALALA &bull; 2026 &bull; BONECA TUNG TUNG
   </footer>
 
   <script>
@@ -382,58 +224,53 @@
       .then(data => {
         const items = data.getElementsByTagName("food");
         const container = document.getElementById("food-list");
-        let totalDebt = 0;
 
         for (let i = 0; i < items.length; i++) {
           const item = items[i];
           const name = item.getElementsByTagName("name")[0].textContent;
-          const price = parseFloat(item.getElementsByTagName("price")[0].textContent);
-          const plates = parseInt(item.getElementsByTagName("plates")[0].textContent);
+          const plates = item.getElementsByTagName("plates")[0].textContent;
           const image = item.getElementsByTagName("image")[0]?.textContent || "";
 
           const card = document.createElement('div');
           card.className = 'food-card';
+          // Delay animation for each card
+          setTimeout(() => card.classList.add('visible'), i * 150);
+
+          const imgWrapper = document.createElement('div');
+          imgWrapper.className = 'img-wrapper';
 
           const img = document.createElement('img');
           img.src = image;
           img.alt = name;
-
           img.onerror = function () {
             const fallback = document.createElement('div');
             fallback.className = 'fallback';
-            fallback.innerText = "Image missing (but debt is real)";
+            fallback.innerText = "IMAGE ARCHIVED";
             this.replaceWith(fallback);
           };
+
+          const ribbon = document.createElement('div');
+          ribbon.className = 'status-ribbon';
+          ribbon.textContent = 'Featured';
 
           const title = document.createElement('h3');
           title.textContent = name;
 
-          const plateInfo = document.createElement('p');
-          plateInfo.textContent = `Plates: ${plates}`;
+          const plateBadge = document.createElement('div');
+          plateBadge.className = 'plates-badge';
+          plateBadge.textContent = `${plates} Serving${plates > 1 ? 's' : ''}`;
 
-          const priceInfo = document.createElement('p');
-          priceInfo.textContent = `Price per plate: ₹${price.toFixed(2)}`;
-
-          const total = document.createElement('p');
-          const itemTotal = price * plates;
-          total.innerHTML = `<strong>Total: ₹${itemTotal.toFixed(2)}</strong>`;
-
-          totalDebt += itemTotal;
-
-          card.appendChild(img);
+          imgWrapper.appendChild(img);
+          card.appendChild(ribbon);
+          card.appendChild(imgWrapper);
+          card.appendChild(plateBadge);
           card.appendChild(title);
-          card.appendChild(plateInfo);
-          card.appendChild(priceInfo);
-          card.appendChild(total);
 
           container.appendChild(card);
         }
-
-        // Update total debt
-        document.getElementById('total-debt').textContent = `Total: ₹${totalDebt.toFixed(2)}`;
       })
       .catch(error => {
-        document.getElementById('food-list').innerText = 'Could not load the XML file. But you still owe me, FYI.';
+        document.getElementById('food-list').innerHTML = '<p style="text-align:center; width:100%;">Menu currently unavailable. Please check back later.</p>';
         console.error(error);
       });
   </script>
