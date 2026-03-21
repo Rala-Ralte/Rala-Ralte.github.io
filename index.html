@@ -25,6 +25,8 @@
             --py-yellow: #FFD343;
             --food-green: #2D6A4F;
             --food-orange: #FF8C42;
+            /* New Video Palette */
+            --vid-gold: #FBB03B;
         }
 
         * {
@@ -67,6 +69,13 @@
         .pattern-dot { width: 8px; height: 8px; background: var(--puan-black); margin-right: 20px; transform: rotate(45deg); transition: 0.3s; flex-shrink: 0; }
         .item-title { font-size: 1.1rem; font-weight: 500; }
         .tool-icon { margin-left: auto; width: 32px; height: 32px; transition: 0.4s; }
+
+        /* --- STYLE: CINEMA (Video Chawchawrawi) --- */
+        .video-link { border-bottom-color: var(--puan-yellow); background: linear-gradient(90deg, #FFFDF5 0%, transparent 100%); }
+        .video-link .item-title { font-family: 'Playfair Display', serif; font-weight: 900; font-style: italic; color: var(--puan-black); }
+        .video-link .pattern-dot { background: var(--puan-black); border: 2px solid var(--puan-yellow); border-radius: 0; }
+        .video-link:hover .tool-icon { transform: rotate(45deg) scale(1.2); }
+        .video-link:hover .item-title { color: var(--puan-red); }
 
         /* --- STYLE 1: KUROMI (LPi) --- */
         .kuromi-link { border-bottom-color: var(--kuromi-purple); background: linear-gradient(90deg, #F8F0FF 0%, transparent 100%); }
@@ -112,6 +121,22 @@
     </div>
 
     <div class="content">
+        <a href="ccvideo.html" class="item-link video-link">
+            <div class="pattern-dot"></div>
+            <span class="item-title">Video Chawchawrawi</span>
+            <div class="tool-icon">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="40" fill="none" stroke="#1A1A1B" stroke-width="6"/>
+                    <circle cx="50" cy="50" r="10" fill="#1A1A1B"/>
+                    <circle cx="35" cy="35" r="8" fill="#FBB03B"/>
+                    <circle cx="65" cy="35" r="8" fill="#FBB03B"/>
+                    <circle cx="35" cy="65" r="8" fill="#FBB03B"/>
+                    <circle cx="65" cy="65" r="8" fill="#FBB03B"/>
+                    <path d="M45 45 L55 55 M55 45 L45 55" stroke="white" stroke-width="2"/>
+                </svg>
+            </div>
+        </a>
+
         <a href="/translation-tool.html" class="item-link kuromi-link">
             <div class="pattern-dot"></div>
             <span class="item-title">LPi Translation Tool</span>
