@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Video Chawchawrawi | Hyderabaddies</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:ital,wght@0,900;1,900&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
@@ -28,20 +28,19 @@
             display: flex;
             flex-direction: column;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.07'/%3E%3C/svg%3E");
-            overflow-x: hidden;
         }
 
-        
+        /* Fixed Top Border */
         .puan-border-top {
             position: fixed; top: 0; left: 0; width: 100%; height: 14px;
             background: repeating-linear-gradient(90deg, var(--puan-red) 0, var(--puan-red) 40%, var(--puan-black) 40%, var(--puan-black) 45%, var(--puan-green) 45%, var(--puan-green) 55%, var(--puan-yellow) 55%, var(--puan-yellow) 57%, var(--puan-black) 57%, var(--puan-black) 100%);
             background-size: 240px 100%; border-bottom: 3px solid var(--puan-black); z-index: 4000;
         }
 
-        
+        /* Inpui Button (Top Right, scrolls away) */
         .nav-container {
             position: absolute;
-            top: 40px; /* Space from the fixed top border */
+            top: 40px;
             right: 30px;
             z-index: 3500;
         }
@@ -56,7 +55,6 @@
         }
         .inpui-btn:hover { background: var(--puan-red); transform: translateY(-2px); }
 
-        /* Main Wrapper */
         .content-main {
             flex: 1 0 auto;
             display: flex;
@@ -71,7 +69,7 @@
         h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 8vw, 4.5rem); font-weight: 900; margin: 0; line-height: 0.9; }
         .by-line { margin-top: 15px; font-family: 'Fira Code', monospace; font-size: 0.8rem; color: var(--puan-red); letter-spacing: 3px; text-transform: uppercase; }
 
-        /* --- Desktop Stage --- */
+        /* --- THE STAGE --- */
         .stage {
             display: flex;
             width: 100%;
@@ -94,11 +92,10 @@
 
         .left-lyrics { text-align: left; }
         .right-lyrics { text-align: right; }
-
         .verse { margin-bottom: 45px; }
         .chorus-style { color: var(--puan-red); font-weight: 700; font-style: normal; }
 
-        
+        /* --- THE PLAYER FIX --- */
         .video-wrapper {
             flex: 2;
             max-width: 750px;
@@ -107,56 +104,25 @@
             height: fit-content;
             z-index: 10;
         }
-    
-        /* --- Updated Video Section for ccvideo.html --- */
-.video-wrapper {
-    position: relative;
-    width: 95%; /* Increased for more room on mobile */
-    max-width: 800px;
-    margin: 20px auto;
-}
 
-.video-container-card {
-    position: relative;
-    background: var(--puan-black);
-    /* Reduced padding on mobile ensures the iframe buttons aren't hidden */
-    padding: 8px; 
-    border-radius: 2px;
-    box-shadow: 10px 10px 0px var(--puan-yellow);
-    z-index: 5;
-}
+        .video-card { 
+            background: var(--puan-black); 
+            padding: 10px; /* Desktop Padding */
+            box-shadow: 15px 15px 0px var(--puan-yellow); 
+            transition: all 0.3s ease;
+        }
 
-.video-container {
-    position: relative;
-    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-    height: 0;
-    /* Changed overflow to 'visible' on mobile if necessary, 
-       but keeping it hidden usually works if padding is low */
-    overflow: hidden; 
-    background: #000;
-}
+        .video-container { 
+            position: relative; 
+            padding-bottom: 56.25%; 
+            height: 0; 
+            background: #000;
+            overflow: hidden;
+        }
 
-iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-}
+        iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
 
-/* Specific Mobile Fix */
-@media (max-width: 600px) {
-    .video-container-card {
-        padding: 4px; /* Minimal padding so buttons are visible */
-        box-shadow: 6px 6px 0px var(--puan-yellow);
-    }
-    .video-wrapper {
-        width: 100%; /* Use full width to prevent UI clipping */
-    }
-}
-
-        /* Mobile Lyrics Stack (Full Lyrics) */
+        /* Full Lyrics Stack (Mobile) */
         .mobile-lyrics-stack {
             display: none;
             width: 90%;
@@ -170,7 +136,6 @@ iframe {
             padding-top: 40px;
         }
 
-        /* --- Fixed Bottom Border --- */
         footer {
             flex-shrink: 0;
             width: 100%;
@@ -179,25 +144,30 @@ iframe {
             padding: 25px 0;
             display: flex;
             justify-content: center;
-            position: relative; /* Scrolls naturally at the end of content */
+            position: relative;
             z-index: 3000;
         }
         .footer-tag { color: rgba(255,255,255,0.4); font-family: 'Fira Code', monospace; font-size: 0.7rem; letter-spacing: 2px; }
 
-        
+        /* --- MOBILE FIXES --- */
         @media (max-width: 1150px) {
             .lyrics-col { display: none; }
             .mobile-lyrics-stack { display: block; }
-            .video-wrapper { position: relative; top: 0; max-width: 95%; }
-            .stage { padding: 0 20px; }
+            .video-wrapper { position: relative; top: 0; max-width: 95%; margin: 0 auto; }
+            .stage { padding: 0 10px; }
             .nav-container { right: 20px; top: 30px; }
+            
+            /* Reducing the padding so the player controls are not cut off */
+            .video-card { 
+                padding: 4px; 
+                box-shadow: 8px 8px 0px var(--puan-yellow); 
+            }
         }
 
         @media (max-width: 600px) {
             .content-main { padding-top: 90px; }
             h1 { font-size: 2.8rem; }
             .inpui-btn { padding: 8px 18px; font-size: 0.65rem; }
-            .mobile-lyrics-stack { font-size: 1rem; line-height: 1.7; }
         }
     </style>
 </head>
@@ -212,29 +182,14 @@ iframe {
     <div class="content-main">
         <header>
             <h1>Video <span style="font-style: italic; color: var(--puan-green);">Chawchawrawi</span></h1>
-            <div class="by-line">by Hyderabaddies</div>
+            <div class="by-line">by the Hyderabaddies</div>
         </header>
 
         <div class="stage">
             <aside class="lyrics-col left-lyrics">
-                <div class="verse">
-                    Ka lunglen tuar zo lo chhawl ang ka uai,<br>
-                    Tu zunah nge chhuihthangvala ka uai;<br>
-                    A len hian a leng thin zunzam tang bei,<br>
-                    Ladies hostel lanu zunzam em ni?
-                </div>
-                <div class="verse chorus-style">
-                    Ka hmangaih em avang che hianin e,<br>
-                    Suihlung hi a phang thin nang tawn loh chuan;<br>
-                    I tiam thu di a cham reng lairilah,<br>
-                    Aw Bawihte, i hmangaihna rose par nen.
-                </div>
-                <div class="verse">
-                    East campus, South Shopcom, Yoga centre<br>
-                    Sls, cis, ssb nen<br>
-                    Good will lam hrut rualin, north shop com lam<br>
-                    Lung min hnem an awmlo night canteen ah
-                </div>
+                <div class="verse">Ka lunglen tuar zo lo chhawl ang ka uai,<br>Tu zunah nge chhuihthangvala ka uai;<br>A len hian a leng thin zunzam tang bei,<br>Ladies hostel lanu zunzam em ni?</div>
+                <div class="verse chorus-style">Ka hmangaih em avang che hianin e,<br>Suihlung hi a phang thin nang tawn loh chuan;<br>I tiam thu di a cham reng lairilah,<br>Aw Bawihte, i hmangaihna rose par nen.</div>
+                <div class="verse">East campus, South Shopcom, Yoga centre<br>Sls, cis, ssb nen<br>Good will lam hrut rualin, north shop com lam<br>Lung min hnem an awmlo night canteen ah</div>
             </aside>
 
             <section class="video-wrapper">
@@ -246,28 +201,13 @@ iframe {
             </section>
 
             <aside class="lyrics-col right-lyrics">
-                <div class="verse">
-                    Mush room rocks, High rocks leh Buffalo lake,<br>
-                    Peacock lake, virgin rocks lawn mah ila<br>
-                    Gops ah pawh lunch eiin ṭhu mah ila<br>
-                    Ka lunglen a banglo lunglam ka vai
-                </div>
-                <div class="verse">
-                    Chutin South lam kan han zawh thui zel a,<br>
-                    Men Hostel lamah tumah an awm lo,<br>
-                    D Mart ah bazarin kal mah ila,<br>
-                    Ka fang chhuak ka lung len a bang chuang lo
-                </div>
-                <div class="verse">
-                    Lam ang letin North Gate ah min lo dang,<br>
-                    Masjid Bandha lamah irani chai,<br>
-                    Hyderabad chhim leh hmar, chhak leh thlangah<br>
-                    HCU aia nuam alo awmlo
-                </div>
+                <div class="verse">Mush room rocks, High rocks leh Buffalo lake,<br>Peacock lake, virgin rocks lawn mah ila<br>Gops ah pawh lunch eiin ṭhu mah ila<br>Ka lunglen a banglo lunglam ka vai</div>
+                <div class="verse">Chutin South lam kan han zawh thui zel a,<br>Men Hostel lamah tumah an awm lo,<br>D Mart ah bazarin kal mah ila,<br>Ka fang chhuak ka lung len a bang chuang lo</div>
+                <div class="verse">Lam ang letin North Gate ah min lo dang,<br>Masjid Bandha lamah irani chai,<br>Hyderabad chhim leh hmar, chhak leh thlangah<br>HCU aia nuam alo awmlo</div>
             </aside>
         </div>
 
-        <article class="mobile-lyrics-stack">
+       <article class="mobile-lyrics-stack">
             <div class="verse">
                 Ka lunglen tuar zo lo chhawl ang ka uai,<br>
                 Tu zunah nge chhuihthangvala ka uai;<br>
@@ -308,7 +248,7 @@ iframe {
     </div>
 
     <footer>
-        <div class="footer-tag">Ka ṭap tlat</div>
+        <div class="footer-tag">HYD_B // FINAL_CUT // 2026</div>
     </footer>
 
 </body>
