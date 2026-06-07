@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSV Process na </title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<style>
+  :root {
+    --bg: #f7f6f2;
+    --card: #ffffff;
+    --border: #e4e2da;
+    --accent: #2d6a4f;
+    --accent-light: #e8f4ee;
+    --accent-dark: #1b4332;
+    --txt: #1a1a18;
+    --sub: #8a8880;
+    --err: #c0392b;
+    --success: #2d6a4f;
+    --tag-bg: #f0ede6;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--txt);
+    min-height: 100vh;
+    padding: 40px 20px 80px;
+  }
+
+  .wrap {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  header {
+    margin-bottom: 36px;
+    animation: fadeUp 0.5s ease both;
+  }
+  header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    color: var(--txt);
+    line-height: 1.2;
+  }
+  header p {
+    font-size: 0.85rem;
+    color: var(--sub);
+    margin-top: 6px;
+    font-weight: 300;
+  }
+  .dot { color: var(--accent); }
+
+  /* Cards */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 16px;
+    animation: fadeUp 0.5s ease both;
+  }
+  .card:nth-child(2) { animation-delay: 0.05s; }
+  .card:nth-child(3) { animation-delay: 0.10s; }
+  .card:nth-child(4) { animation-delay: 0.15s; }
+  .card:nth-child(5) { animation-delay: 0.20s; }
+
+  .card-title {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sub);
+    margin-bottom: 16px;
+  }
+
+  /* Upload zone */
+  .upload-zone {
+    border: 2px dashed var(--border);
+    border-radius: 8px;
+    padding: 32px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--bg);
+    position: relative;
+  }
+  .upload-zone:hover, .upload-zone.drag { border-color: var(--accent); background: var(--accent-light); }
+  .upload-zone input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+  .upload-icon { font-size: 1.8rem; margin-bottom: 8px; }
+  .upload-zone p { font-size: 0.9rem; color: var(--sub); }
+  .upload-zone .filename {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--accent);
+    margin-top: 8px;
+    font-weight: 500;
+  }
+
+  /* Checkboxes */
+  .check-group { display: flex; flex-direction: column; gap: 10px; }
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    transition: all 0.15s;
+    background: var(--bg);
+  }
+  .check-item:hover { border-color: var(--accent); background: var(--accent-light); }
+  .check-item input[type=checkbox] { display: none; }
+  .check-box {
+    width: 18px; height: 18px;
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s;
+    background: white;
+  }
+  .check-item.checked .check-box {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  .check-item.checked .check-box::after {
+    content: '';
+    width: 5px; height: 9px;
+    border: 2px solid white;
+    border-top: none; border-left: none;
+    transform: rotate(45deg) translateY(-1px);
+  }
+  .check-item.checked { border-color: var(--accent); background: var(--accent-light); }
+  .check-label { flex: 1; }
+  .check-label strong { font-size: 0.9rem; font-weight: 500; display: block; }
+  .check-label span {
+    font-size: 0.78rem; color: var(--sub);
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* Tags */
+  .tag {
+    display: inline-block;
+    background: var(--tag-bg);
+    border-radius: 4px;
+    padding: 2px 7px;
+    font-size: 0.72rem;
+    font-family: 'DM Mono', monospace;
+    color: var(--sub);
+    margin: 2px 2px 0 0;
+  }
+
+  /* Process button */
+  .btn-process {
+    width: 100%;
+    padding: 16px;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    animation: fadeUp 0.5s 0.25s ease both;
+  }
+  .btn-process:hover { background: var(--accent-dark); transform: translateY(-1px); }
+  .btn-process:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  /* Progress bar */
+  .progress-wrap {
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    margin-top: 14px;
+    overflow: hidden;
+    display: none;
+  }
+  .progress-bar {
+    height: 100%;
+    background: var(--accent);
+    width: 0%;
+    border-radius: 2px;
+    transition: width 0.3s;
+  }
+  .progress-bar.indeterminate {
+    width: 40%;
+    animation: slide 1.2s infinite ease-in-out;
+  }
+  @keyframes slide {
+    0%   { transform: translateX(-100%); }
+    100% { transform: translateX(350%); }
+  }
+
+  /* Status / result */
+  .status {
+    margin-top: 14px;
+    font-size: 0.85rem;
+    color: var(--sub);
+    min-height: 20px;
+    animation: fadeUp 0.3s ease both;
+  }
+  .status.ok  { color: var(--success); font-weight: 500; }
+  .status.err { color: var(--err); }
+
+  /* Result card */
+  .result-card {
+    display: none;
+    background: var(--accent-light);
+    border: 1px solid var(--accent);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    animation: fadeUp 0.4s ease both;
+  }
+  .result-card h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--accent-dark);
+    margin-bottom: 8px;
+  }
+  .result-card p { font-size: 0.85rem; color: var(--accent-dark); margin-bottom: 12px; }
+  .btn-download {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--accent);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+    transition: background 0.2s;
+  }
+  .btn-download:hover { background: var(--accent-dark); }
+
+  /* Variable preview */
+  .vars-preview { margin-top: 12px; }
+  .vars-preview p { font-size: 0.78rem; color: var(--sub); margin-bottom: 6px; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  hr { border: none; border-top: 1px solid var(--border); margin: 4px 0 16px; }
+
+  footer {
+    text-align: center;
+    font-size: 0.78rem;
+    color: var(--sub);
+    margin-top: 40px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>CSV Process na<span class="dot">.</span></h1>
+    <p>Political Awareness &amp; Engagement — Mizoram Youth Study</p>
+  </header>
+
+  <!-- Upload -->
+  <div class="card" id="card-upload">
+    <div class="card-title">Input CSV</div>
+    <div class="upload-zone" id="dropzone">
+      <input type="file" id="file-input" accept=".csv">
+      <div class="upload-icon">📂</div>
+      <p>CSV file drag &amp; drop/browse na</p>
+      <div class="filename" id="filename-display"></div>
+    </div>
+  </div>
+
+  <!-- Multi-select groups -->
+  <div class="card">
+    <div class="card-title">Columns expand tur</div>
+    <div class="check-group" id="group-checks">
+
+      <label class="check-item checked" data-group="media">
+        <input type="checkbox" checked>
+        <div class="check-box"></div>
+        <div class="check-label">
+          <strong>Media Outlet</strong>
+          <span>IG, Whatsapp, Facebook, Youtube, Cable, Newspaper, Radio, X, Family, Rally, None → 11 binary cols</span>
+        </div>
+      </label>
+
+      <label class="check-item checked" data-group="vote">
+        <input type="checkbox" checked>
+        <div class="check-box"></div>
+        <div class="check-label">
+          <strong>Elections Voted In</strong>
+          <span>National, State, Local, No Vote → 4 binary cols</span>
+        </div>
+      </label>
+
+      <label class="check-item checked" data-group="part">
+        <input type="checkbox" checked>
+        <div class="check-box"></div>
+        <div class="check-label">
+          <strong>Political Participation</strong>
+          <span>None, Rally, Online, Discuss, Campaign → 5 binary cols</span>
+        </div>
+      </label>
+
+    </div>
+  </div>
+
+  <!-- Additional options -->
+  <div class="card">
+    <div class="card-title">Additional variables to generate</div>
+    <div class="check-group">
+
+      <label class="check-item checked" data-opt="drop">
+        <input type="checkbox" checked>
+        <div class="check-box"></div>
+        <div class="check-label">
+          <strong>Original columns output file a drop na</strong>
+          <span>Multi-select raw columns chu output CSV atangin a sawn</span>
+        </div>
+      </label>
+
+      <label class="check-item checked" data-opt="composite">
+        <input type="checkbox" checked>
+        <div class="check-box"></div>
+        <div class="check-label">
+          <strong>Composite variables</strong>
+          <div style="margin-top:4px">
+            <span class="tag">media_count</span>
+            <span class="tag">media_social</span>
+            <span class="tag">media_traditional</span>
+            <span class="tag">engage_score</span>
+            <span class="tag">vote_count</span>
+            <span class="tag">age_numeric</span>
+          </div>
+        </div>
+      </label>
+
+      <label class="check-item checked" data-opt="awareness">
+        <input type="checkbox" checked>
+        <div class="check-box"></div>
+        <div class="check-label">
+          <strong>Political awareness score (0–4)</strong>
+          <span>Knowledge questions atangin score a generate</span>
+        </div>
+      </label>
+
+      <label class="check-item checked" data-opt="likert">
+        <input type="checkbox" checked>
+        <div class="check-box"></div>
+        <div class="check-label">
+          <strong>Likert → numeric recoding</strong>
+          <div style="margin-top:4px">
+            <span class="tag">media_freq</span>
+            <span class="tag">media_attention</span>
+            <span class="tag">media_trust</span>
+            <span class="tag">pol_interest</span>
+            <span class="tag">pol_discuss_freq</span>
+            <span class="tag">self_understand</span>
+            <span class="tag">self_confident</span>
+          </div>
+        </div>
+      </label>
+
+    </div>
+  </div>
+
+  <!-- Result card -->
+  <div class="result-card" id="result-card">
+    <h3>✓ Done!</h3>
+    <p id="result-msg"></p>
+    <button class="btn-download" id="btn-download">⬇ CSV a download</button>
+    <div class="vars-preview">
+      <p>Variables thar zawng:</p>
+      <div id="vars-tags"></div>
+    </div>
+  </div>
+
+  <!-- Process button -->
+  <button class="btn-process" id="btn-process">
+    <span>▶</span> CSV Process na
+  </button>
+  <div class="progress-wrap" id="progress-wrap">
+    <div class="progress-bar indeterminate" id="progress-bar"></div>
+  </div>
+  <div class="status" id="status">Ready.</div>
+
+  <footer>
+    CSV file hi browser atanga process a ni — server-ah data a thawn lo.
+  </footer>
+
+</div>
+
+<script>
+// ── Definitions ───────────────────────────────────────────────────────────────
+const MULTI_SELECT = {
+  media: {
+    col: "What media outlet do you frequent for Political News/Updates (Multiple Selection can be made)",
+    options: {
+      media_IG: "IG", media_Whatsapp: "Whatsapp", media_Facebook: "Facebook",
+      media_Youtube: "Youtube", media_Cable: "Cable news Channel",
+      media_Newspaper: "Newspaper", media_Radio: "Radio/Podcast",
+      media_X: "X", media_Family: "Conversation with family/friends",
+      media_Rally: "Political rallies and campaigns",
+      media_None: "I don't do politics."
+    }
+  },
+  vote: {
+    col: "I cast my votes in the following elections ( Multiple answer is possible)",
+    options: {
+      vote_National: "National election", vote_State: "State Election",
+      vote_Local: "Local Election", vote_NoVote: "I do not cast my vote"
+    }
+  },
+  part: {
+    col: "Have you participated in any of the following during the past year? (Multiple responses allowed)",
+    options: {
+      part_None: "None of the above", part_Rally: "Attended a political meeting/rally",
+      part_Online: "Shared political content online",
+      part_Discuss: "Discussed politics publicly", part_Campaign: "Participated in a campaign"
+    }
+  }
+};
+
+const AWARENESS_QUESTIONS = [
+  { col: "Which branch of government is responsible for making laws?",  correct: "Legislature",             name: "know_branch" },
+  { col: "What is the minimum voting age in India?",                    correct: "18",                      name: "know_age" },
+  { col: "Which institution conducts elections in India?",              correct: "Election Commission",      name: "know_institution" },
+  { col: "  Members of the Rajya Sabha are primarily elected by  ",    correct: "State Legislative Assemblies", name: "know_rajyasabha" },
+];
+
+const LIKERT_MAPS = {
+  "How frequently do you follow political news through any media source?": {
+    col: "media_freq",
+    map: { "Never": 1, "Rarely": 2, "Once a week": 3, "Several times a week": 4, "Daily": 5 }
+  },
+  "How much attention do you pay when political news appears?": {
+    col: "media_attention",
+    map: { "Little Attention": 1, "Some Attention": 2, "A great deal": 3 }
+  },
+  "How much do you trust political information from the media?": {
+    col: "media_trust",
+    map: { "Somewhat Distrust": 1, "Somewhat Trust": 2, "Trust": 3 }
+  },
+  "  How interested are you in politics generally?  ": {
+    col: "pol_interest",
+    map: { "Uninterested": 1, "Not very interested": 2, "Interested": 3, "Very interested": 4 }
+  },
+  "How often do you discuss political issues?": {
+    col: "pol_discuss_freq",
+    map: { "Never": 1, "Rarely": 2, "Once a week": 3, "Several times a week": 4, "Daily": 5 }
+  },
+  "I understand how government policies affect my daily life.": {
+    col: "self_understand",
+    map: { "Do not understand": 1, "Somewhat do not understand": 2, "Somewhat understand": 3, "Strongly understand": 4 }
+  },
+  "I feel confident in evaluating political candidates and their policies.": {
+    col: "self_confident",
+    map: { "Uncertain": 1, "Somewhat uncertain": 2, "Somewhat confident": 3, "Very Confident": 4 }
+  }
+};
+
+const AGE_MAP = { "18-19": 1, "20-21": 2, "22-23": 3, "24-25": 4, "26+": 5 };
+
+// ── State ─────────────────────────────────────────────────────────────────────
+let parsedData = null;
+let outputCSV  = null;
+
+// ── Checkbox toggle ───────────────────────────────────────────────────────────
+document.querySelectorAll('.check-item').forEach(item => {
+  item.addEventListener('click', () => {
+    const cb = item.querySelector('input[type=checkbox]');
+    cb.checked = !cb.checked;
+    item.classList.toggle('checked', cb.checked);
+  });
+});
+
+// ── File upload ───────────────────────────────────────────────────────────────
+const fileInput = document.getElementById('file-input');
+const dropzone  = document.getElementById('dropzone');
+const fnDisplay = document.getElementById('filename-display');
+
+fileInput.addEventListener('change', e => loadFile(e.target.files[0]));
+
+dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('drag'); });
+dropzone.addEventListener('dragleave', () => dropzone.classList.remove('drag'));
+dropzone.addEventListener('drop', e => {
+  e.preventDefault();
+  dropzone.classList.remove('drag');
+  loadFile(e.dataTransfer.files[0]);
+});
+
+function loadFile(file) {
+  if (!file) return;
+  fnDisplay.textContent = file.name;
+  setStatus('CSV a parse mek...', '');
+  Papa.parse(file, {
+    header: true,
+    skipEmptyLines: true,
+    complete: res => {
+      parsedData = res.data;
+      setStatus(`✓ ${parsedData.length} rows, ${Object.keys(parsedData[0]).length} columns a load tawh.`, 'ok');
+    },
+    error: err => setStatus('Error: ' + err.message, 'err')
+  });
+}
+
+// ── Process ───────────────────────────────────────────────────────────────────
+document.getElementById('btn-process').addEventListener('click', processCSV);
+
+function isChecked(attr) {
+  const el = document.querySelector(`[data-opt="${attr}"] input`);
+  return el ? el.checked : false;
+}
+function isGroupChecked(attr) {
+  const el = document.querySelector(`[data-group="${attr}"] input`);
+  return el ? el.checked : false;
+}
+
+function processCSV() {
+  if (!parsedData) { setStatus('Select an input CSV file.', 'err'); return; }
+
+  showProgress(true);
+  setStatus('Processing...', '');
+  document.getElementById('btn-process').disabled = true;
+
+  setTimeout(() => {
+    try {
+      const rows  = parsedData.map(r => ({ ...r }));
+      const added = [];
+      const cols  = Object.keys(rows[0]);
+
+      const dropOrig     = isChecked('drop');
+      const doComposite  = isChecked('composite');
+      const doAwareness  = isChecked('awareness');
+      const doLikert     = isChecked('likert');
+
+      // ── 1. Binary dummies ─────────────────────────────────────────────────
+      const toDrop = [];
+      for (const [key, info] of Object.entries(MULTI_SELECT)) {
+        if (!isGroupChecked(key)) continue;
+        const col = info.col;
+        if (!cols.includes(col)) continue;
+        for (const [varName, label] of Object.entries(info.options)) {
+          rows.forEach(r => {
+            r[varName] = (r[col] || '').includes(label) ? 1 : 0;
+          });
+          added.push(varName);
+        }
+        if (dropOrig) toDrop.push(col);
+      }
+      if (toDrop.length) {
+        rows.forEach(r => toDrop.forEach(c => delete r[c]));
+      }
+
+      // ── 2. Composite variables ────────────────────────────────────────────
+      if (doComposite) {
+        const social       = ["media_IG","media_Whatsapp","media_Facebook","media_Youtube","media_X"];
+        const traditional  = ["media_Cable","media_Newspaper","media_Radio"];
+        const interpersonal= ["media_Family","media_Rally"];
+
+        const sum = (r, keys) => keys.filter(k => k in r).reduce((a, k) => a + (r[k]||0), 0);
+
+        rows.forEach(r => {
+          r.media_social           = sum(r, social);
+          r.media_uses_social      = r.media_social > 0 ? 1 : 0;
+          r.media_traditional      = sum(r, traditional);
+          r.media_uses_traditional = r.media_traditional > 0 ? 1 : 0;
+          r.media_interpersonal    = sum(r, interpersonal);
+          r.media_count            = sum(r, [...social, ...traditional, ...interpersonal]);
+          r.engage_score           = sum(r, ["part_Rally","part_Online","part_Discuss","part_Campaign"]);
+          r.vote_count             = sum(r, ["vote_National","vote_State","vote_Local"]);
+          r.age_numeric            = AGE_MAP[r["Age"]] || '';
+        });
+        added.push('media_social','media_uses_social','media_traditional',
+                   'media_uses_traditional','media_interpersonal','media_count',
+                   'engage_score','vote_count','age_numeric');
+      }
+
+      // ── 3. Awareness score ────────────────────────────────────────────────
+      if (doAwareness) {
+        const scoreKeys = [];
+        AWARENESS_QUESTIONS.forEach(q => {
+          if (!cols.includes(q.col)) return;
+          rows.forEach(r => {
+            r[q.name] = (r[q.col] || '').trim().includes(q.correct) ? 1 : 0;
+          });
+          added.push(q.name);
+          scoreKeys.push(q.name);
+        });
+        if (scoreKeys.length) {
+          rows.forEach(r => {
+            r.awareness_score = scoreKeys.reduce((a, k) => a + (r[k]||0), 0);
+          });
+          added.push('awareness_score');
+        }
+      }
+
+      // ── 4. Likert recoding ────────────────────────────────────────────────
+      if (doLikert) {
+        for (const [qCol, info] of Object.entries(LIKERT_MAPS)) {
+          if (!cols.includes(qCol)) continue;
+          rows.forEach(r => {
+            const val = (r[qCol] || '').trim();
+            r[info.col] = info.map[val] !== undefined ? info.map[val] : '';
+          });
+          added.push(info.col);
+        }
+      }
+
+      // ── Build CSV ─────────────────────────────────────────────────────────
+      outputCSV = Papa.unparse(rows);
+
+      // Show result
+      document.getElementById('result-msg').textContent =
+        `${added.length} variables thar zawng a add tawh.`;
+      document.getElementById('vars-tags').innerHTML =
+        added.map(v => `<span class="tag">${v}</span>`).join('');
+      document.getElementById('result-card').style.display = 'block';
+
+      setStatus(`✓ Done! ${added.length} variables thar a add tawh.`, 'ok');
+    } catch(e) {
+      setStatus('Error: ' + e.message, 'err');
+    }
+
+    showProgress(false);
+    document.getElementById('btn-process').disabled = false;
+  }, 100);
+}
+
+// ── Download ──────────────────────────────────────────────────────────────────
+document.getElementById('btn-download').addEventListener('click', () => {
+  if (!outputCSV) return;
+  const blob = new Blob([outputCSV], { type: 'text/csv' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href     = url;
+  a.download = 'processed_spss.csv';
+  a.click();
+  URL.revokeObjectURL(url);
+});
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+function setStatus(msg, type) {
+  const el = document.getElementById('status');
+  el.textContent = msg;
+  el.className = 'status' + (type ? ' ' + type : '');
+}
+function showProgress(show) {
+  document.getElementById('progress-wrap').style.display = show ? 'block' : 'none';
+}
+</script>
+</body>
+</html>
