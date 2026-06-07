@@ -328,7 +328,6 @@
         <div class="check-box"></div>
         <div class="check-label">
           <strong>Original columns output file a drop na</strong>
-          <span>Multi-select raw columns chu output CSV atangin a sawn</span>
         </div>
       </label>
 
@@ -353,7 +352,6 @@
         <div class="check-box"></div>
         <div class="check-label">
           <strong>Political awareness score (0–4)</strong>
-          <span>Knowledge questions atangin score a generate</span>
         </div>
       </label>
 
@@ -381,9 +379,9 @@
   <div class="result-card" id="result-card">
     <h3>✓ Done!</h3>
     <p id="result-msg"></p>
-    <button class="btn-download" id="btn-download">⬇ CSV a download</button>
+    <button class="btn-download" id="btn-download">⬇ CSV siam downloadna </button>
     <div class="vars-preview">
-      <p>Variables thar zawng:</p>
+      <p>Variables thar:</p>
       <div id="vars-tags"></div>
     </div>
   </div>
@@ -398,7 +396,7 @@
   <div class="status" id="status">Ready.</div>
 
   <footer>
-    CSV file hi browser atanga process a ni — server-ah data a thawn lo.
+    CSV file hi browser atanga process a ni.
   </footer>
 
 </div>
@@ -630,7 +628,7 @@ function processCSV() {
         added.map(v => `<span class="tag">${v}</span>`).join('');
       document.getElementById('result-card').style.display = 'block';
 
-      setStatus(`✓ Done! ${added.length} variables thar a add tawh.`, 'ok');
+      setStatus(`✓ Done! ${added.length} variables thar a add a ni.`, 'ok');
     } catch(e) {
       setStatus('Error: ' + e.message, 'err');
     }
