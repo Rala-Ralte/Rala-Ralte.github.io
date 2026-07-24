@@ -104,7 +104,7 @@
         .verse { margin-bottom: 45px; }
         .chorus-style { color: var(--puan-red); font-weight: 700; font-style: normal; }
 
-        /* --- THE PLAYER FIX --- */
+
         .video-wrapper {
             flex: 2;
             max-width: 750px;
@@ -113,35 +113,33 @@
             top: 120px;
             height: fit-content;
             z-index: 10;
+            min-width: 0; /* Prevents flexbox from forcing the container wider */
         }
+        
         .video-card {
-            background: var(--puan-black);
-            padding: 10px; /* Desktop Padding */
+            background: #000;
+            border: 10px solid var(--puan-black); /* Swapped padding for a strict border */
             box-shadow: 15px 15px 0px var(--puan-yellow);
-            transition: box-shadow 0.3s ease;
             width: 100%;
-            box-sizing: border-box; /* Forces padding to be calculated inward */
+            box-sizing: border-box;
         }
+        
         .video-container {
             position: relative;
-            width: 100%; /* Forces container to obey the card's width */
-            max-width: 100%;
-            padding-bottom: 56.25%;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 Ratio */
             height: 0;
-            background: #000;
             overflow: hidden;
-            display: block;
         }
         
         iframe {
             position: absolute;
             top: 0;
             left: 0;
-            width: 100% !important; /* Strict enforcement */
-            height: 100% !important;
-            max-width: 100%;
+            width: 100%;
+            height: 100%;
             border: none;
-        }        
+        }   
 
 
         /* Full Lyrics Stack (Mobile) */
@@ -171,29 +169,34 @@
         }
         .footer-tag { color: rgba(255,255,255,0.4); font-family: 'Fira Code', monospace; font-size: 0.7rem; letter-spacing: 2px; }
 
+        /* --- MOBILE FIXES --- */
         @media (max-width: 1150px) {
             .lyrics-col { display: none; }
             .mobile-lyrics-stack { display: block; }
             
+            .stage { 
+                display: block; /* Disables flexbox on mobile to strictly enforce widths */
+                padding: 0 15px; 
+            }
+        
             .video-wrapper { 
                 position: relative; 
                 top: 0; 
-                width: 90%; 
+                width: 100%; 
                 max-width: 600px; 
-                margin: 0 auto;
-                /* Padding added here to leave room for the shadow securely */
+                margin: 0 auto; 
+                /* Dedicated space so the 8px shadow perfectly fits without causing scrolling */
                 padding-right: 8px;
                 padding-bottom: 8px;
+                box-sizing: border-box;
             }
             
-            .stage { padding: 0 10px; }
             .nav-container { right: 20px; top: 30px; }
         
             .video-card {
-                padding: 4px;
+                border: 4px solid var(--puan-black); /* Mobile border size */
                 box-shadow: 8px 8px 0px var(--puan-yellow);
                 width: 100%;
-                margin: 0; /* Removed the problematic margins */
             }
         }
 
