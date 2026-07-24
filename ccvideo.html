@@ -125,7 +125,7 @@
 
         .video-container {
             position: relative;
-            padding-bottom: 56.25%;
+            padding-bottom: 56.25%; /* Maintains perfect 16:9 aspect ratio */
             height: 0;
             background: #000;
             overflow: hidden;
@@ -133,10 +133,10 @@
 
         iframe {
             position: absolute;
-            top: -44px;
+            top: 0;
             left: 0;
             width: 100%;
-            height: calc(100% + 44px);
+            height: 100%;
             border: none;
         }
 
@@ -171,14 +171,25 @@
         @media (max-width: 1150px) {
             .lyrics-col { display: none; }
             .mobile-lyrics-stack { display: block; }
-            .video-wrapper { position: relative; top: 0; max-width: 95%; width: 95%; margin: 0 auto; }
+            
+            .video-wrapper { 
+                position: relative; 
+                top: 0; 
+                /* Reduced from 95% to 90% to leave room for the shadow */
+                width: 90%; 
+                max-width: 600px; 
+                margin: 0 auto; 
+            }
+            
             .stage { padding: 0 10px; }
             .nav-container { right: 20px; top: 30px; }
 
-            /* Reducing the padding so the player controls are not cut off */
             .video-card {
                 padding: 4px;
                 box-shadow: 8px 8px 0px var(--puan-yellow);
+                /* Adds space to the right/bottom so the shadow doesn't overflow the screen */
+                margin-right: 8px;
+                margin-bottom: 8px; 
             }
         }
 
