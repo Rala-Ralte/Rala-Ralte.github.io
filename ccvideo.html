@@ -114,31 +114,35 @@
             height: fit-content;
             z-index: 10;
         }
-
         .video-card {
             background: var(--puan-black);
             padding: 10px; /* Desktop Padding */
             box-shadow: 15px 15px 0px var(--puan-yellow);
             transition: box-shadow 0.3s ease;
             width: 100%;
+            box-sizing: border-box; /* Forces padding to be calculated inward */
         }
-
         .video-container {
             position: relative;
-            padding-bottom: 56.25%; /* Maintains perfect 16:9 aspect ratio */
+            width: 100%; /* Forces container to obey the card's width */
+            max-width: 100%;
+            padding-bottom: 56.25%;
             height: 0;
             background: #000;
             overflow: hidden;
+            display: block;
         }
-
+        
         iframe {
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 100% !important; /* Strict enforcement */
+            height: 100% !important;
+            max-width: 100%;
             border: none;
-        }
+        }        
+
 
         /* Full Lyrics Stack (Mobile) */
         .mobile-lyrics-stack {
@@ -167,7 +171,6 @@
         }
         .footer-tag { color: rgba(255,255,255,0.4); font-family: 'Fira Code', monospace; font-size: 0.7rem; letter-spacing: 2px; }
 
-        /* --- MOBILE FIXES --- */
         @media (max-width: 1150px) {
             .lyrics-col { display: none; }
             .mobile-lyrics-stack { display: block; }
@@ -175,21 +178,22 @@
             .video-wrapper { 
                 position: relative; 
                 top: 0; 
-                /* Reduced from 95% to 90% to leave room for the shadow */
                 width: 90%; 
                 max-width: 600px; 
-                margin: 0 auto; 
+                margin: 0 auto;
+                /* Padding added here to leave room for the shadow securely */
+                padding-right: 8px;
+                padding-bottom: 8px;
             }
             
             .stage { padding: 0 10px; }
             .nav-container { right: 20px; top: 30px; }
-
+        
             .video-card {
                 padding: 4px;
                 box-shadow: 8px 8px 0px var(--puan-yellow);
-                /* Adds space to the right/bottom so the shadow doesn't overflow the screen */
-                margin-right: 8px;
-                margin-bottom: 8px; 
+                width: 100%;
+                margin: 0; /* Removed the problematic margins */
             }
         }
 
