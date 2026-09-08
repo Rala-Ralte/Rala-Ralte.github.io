@@ -217,7 +217,7 @@
   </nav>
 
   <div class="match-board">
-    <div class="match-label">Game Scoreboard</div>
+    <div class="match-label">Games Score tarlanna</div>
     <div class="match-main">
       <div class="m-team">
         <span class="m-name teamA-txt">Team A</span>
@@ -349,7 +349,7 @@
 
     if (curTotalA >= 21 || curTotalB >= 21) {
       const winner = curTotalA >= 21 ? (nameAInput.value || "Team A") : (nameBInput.value || "Team B");
-      alert(`🎉 ${winner.toUpperCase()} AN CHAK E!`);
+      alert(`🎉 ${winner.toUpperCase()} TUN GAME AN CHAK E!`);
       if (curTotalA >= 21) matchWinsA++; else matchWinsB++;
       collapsed[gameNumber] = true; pastGames.push({id: gameNumber, rounds: [...currentRounds]});
       currentRounds = []; curTotalA = 0; curTotalB = 0; gameNumber++;
