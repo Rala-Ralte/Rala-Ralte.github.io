@@ -203,6 +203,27 @@
 
     .btn-reset { margin: 50px 0; background: transparent; color: var(--danger); border: 1px solid var(--danger); padding: 10px 24px; border-radius: 99px; font-size: 0.8rem; font-weight: 600; cursor: pointer; }
 
+    /* --- Current-game badge --- */
+    .badge-live { background: var(--success); color: #fff; font-size: 0.6rem; font-weight: 800; padding: 2px 8px; border-radius: 99px; letter-spacing: 0.5px; }
+
+    /* --- Team name overflow fix --- */
+    .m-name { max-width: 100%; }
+    th { max-width: 90px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+    /* --- Toast (replaces blocking alert on game win) --- */
+    .toast-wrap { position: fixed; top: 70px; left: 0; right: 0; display: flex; justify-content: center; z-index: 2000; pointer-events: none; }
+    .toast {
+      background: #1C1C1E; color: #fff; padding: 14px 22px; border-radius: 16px;
+      font-size: 0.9rem; font-weight: 700; box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+      opacity: 0; transform: translateY(-15px); transition: all 0.35s cubic-bezier(.34,1.56,.64,1);
+      max-width: 90vw; text-align: center;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    /* --- Match-over banner --- */
+    /* --- Empty state --- */
+    .empty-hint { text-align: center; color: #8E8E93; font-size: 0.8rem; padding: 20px 0; }
+
     @media (max-width: 400px) {
       .btn-radio label { width: 38px; height: 38px; }
     }
@@ -216,6 +237,8 @@
     <a href="/index.html" class="nav-link">Inpui Kalna</a>
   </nav>
 
+  <div class="toast-wrap"><div class="toast" id="toast"></div></div>
+
   <div class="match-board">
     <div class="match-label">Games Score tarlanna</div>
     <div class="match-main">
@@ -225,7 +248,7 @@
       </div>
       <div class="m-vs">VS</div>
       <div class="m-team">
-        <span class="m-name teamB-txt">Team B</span>
+        <span class="m-name teamB-txt">Team AW</span>
         <span class="m-wins" id="m-wins-b">0</span>
       </div>
     </div>
@@ -240,11 +263,11 @@
     <span class="control-label" style="text-align: center; margin-bottom: 12px;">Team hming chhutluhna</span>
     <div class="team-grid">
       <div class="t-input-wrap">
-        <input type="text" id="in-nameA" class="t-input" placeholder="Team A">
+        <input type="text" id="in-nameA" class="t-input" placeholder="Team A" maxlength="16">
         <span class="edit-icon">✎</span>
       </div>
       <div class="t-input-wrap">
-        <input type="text" id="in-nameB" class="t-input" placeholder="Team B">
+        <input type="text" id="in-nameB" class="t-input" placeholder="Team AW" maxlength="16">
         <span class="edit-icon">✎</span>
       </div>
     </div>
@@ -255,7 +278,7 @@
         <div class="radio-group" id="grp-a"></div>
       </div>
       <div class="dawl-box">
-        <span class="control-label" id="dawl-label-b">Team B dawl hmuh zat</span>
+        <span class="control-label" id="dawl-label-b">Team AW dawl hmuh zat</span>
         <div class="radio-group" id="grp-b"></div>
       </div>
     </div>
@@ -264,7 +287,7 @@
       <span class="control-label" style="text-align: center;">Phit a chak</span>
       <div class="phit-ui">
         <label><input type="radio" name="phit" value="A" id="phit-a"> <span class="teamA-txt">Team A</span></label>
-        <label><input type="radio" name="phit" value="B" id="phit-b"> <span class="teamB-txt">Team B</span></label>
+        <label><input type="radio" name="phit" value="B" id="phit-b"> <span class="teamB-txt">Team AW</span></label>
       </div>
     </div>
 
@@ -279,7 +302,32 @@
   <button class="btn-reset" onclick="resetMatch()">Match Pumpuhlûm Reset-na</button>
 
 <script>
-  let matchWinsA = 0, matchWinsB = 0, gameNumber = 1, currentRounds = [], pastGames = [], collapsed = {};
+  const STORAGE_KEY = 'dawlchuh-scorer-state-v3';
+  const WIN_SCORE = 21;   // game ends as soon as either side reaches this
+
+  let state = {
+    nameA: '', nameB: '',
+    matchWinsA: 0, matchWinsB: 0,
+    gameNumber: 1,
+    currentRounds: [],
+    pastGames: [],
+    collapsed: {}
+  };
+
+  function saveState() {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+    catch (e) { /* storage unavailable — game still works, just won't persist */ }
+  }
+
+  function loadState() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        state = Object.assign(state, parsed);
+      }
+    } catch (e) { /* ignore corrupt storage */ }
+  }
 
   function createRadios(containerId, name) {
     const container = document.getElementById(containerId);
@@ -287,7 +335,7 @@
       const div = document.createElement('div');
       div.className = 'btn-radio';
       div.innerHTML = `<input type="radio" name="${name}" id="${name}_${i}" value="${i}" ${i===2?'checked':''}>
-                       <label for="${name}_${i}" onclick="syncDawls('${name}', ${i})">${i}</label>`;
+                       <label for="${name}_${i}">${i}</label>`;
       container.appendChild(div);
     }
   }
@@ -295,10 +343,18 @@
   createRadios('grp-a', 'dawlA');
   createRadios('grp-b', 'dawlB');
 
+  document.getElementById('grp-a').addEventListener('click', e => {
+    if (e.target.tagName === 'LABEL') { const val = parseInt(e.target.getAttribute('for').split('_')[1]); syncDawls('dawlA', val); }
+  });
+  document.getElementById('grp-b').addEventListener('click', e => {
+    if (e.target.tagName === 'LABEL') { const val = parseInt(e.target.getAttribute('for').split('_')[1]); syncDawls('dawlB', val); }
+  });
+
   function syncDawls(name, val) {
     const other = (name === 'dawlA') ? 'dawlB' : 'dawlA';
     document.getElementById(`${other}_${4 - val}`).checked = true;
-    setTimeout(updatePhitLock, 10);
+    document.getElementById(`${name}_${val}`).checked = true;
+    updatePhitLock();
   }
 
   function updatePhitLock() {
@@ -310,73 +366,130 @@
   }
 
   const nameAInput = document.getElementById('in-nameA'), nameBInput = document.getElementById('in-nameB');
+
+  function teamName(which) {
+    return which === 'A' ? (state.nameA.trim() || 'Team A') : (state.nameB.trim() || 'Team AW');
+  }
+
   function refreshNames() {
-    const valA = nameAInput.value.trim() || "Team A", valB = nameBInput.value.trim() || "Team B";
-    
-    // Update simple team name texts
+    state.nameA = nameAInput.value; state.nameB = nameBInput.value;
+    const valA = teamName('A'), valB = teamName('B');
     document.querySelectorAll('.teamA-txt').forEach(t => t.textContent = valA);
     document.querySelectorAll('.teamB-txt').forEach(t => t.textContent = valB);
-    
-    // Update Dynamic Dawl Labels
     document.getElementById('dawl-label-a').textContent = `${valA} dawl hmuh zat`;
     document.getElementById('dawl-label-b').textContent = `${valB} dawl hmuh zat`;
-    
+    saveState();
     updateUI();
   }
   nameAInput.oninput = refreshNames; nameBInput.oninput = refreshNames;
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(showToast._timer);
+    showToast._timer = setTimeout(() => t.classList.remove('show'), 2600);
+  }
+
+  function gameTotals(rounds) {
+    return {
+      a: rounds.reduce((s, r) => s + r.sa, 0),
+      b: rounds.reduce((s, r) => s + r.sb, 0)
+    };
+  }
+
+  function checkGameOver(a, b) {
+    return a >= WIN_SCORE || b >= WIN_SCORE;
+  }
 
   function addRound() {
     const da = parseInt(document.querySelector('input[name="dawlA"]:checked').value), db = parseInt(document.querySelector('input[name="dawlB"]:checked').value);
     const phit = document.querySelector('input[name="phit"]:checked');
     let sa, sb, pw = null;
     if (da !== db) { sa = (da > db) ? da + 1 : da; sb = (db > da) ? db + 1 : db; }
-    else { if (!phit) { alert("Phit a chak thlang rawh!"); return; } pw = phit.value; sa = (pw === 'A') ? 3 : 2; sb = (pw === 'B') ? 3 : 2; }
-    currentRounds.push({da, db, sa, sb, pw});
+    else { if (!phit) { showToast("Phit a chak thlang rawh!"); return; } pw = phit.value; sa = (pw === 'A') ? 3 : 2; sb = (pw === 'B') ? 3 : 2; }
+    state.currentRounds.push({da, db, sa, sb, pw});
+    saveState();
     updateUI(); resetInputs();
   }
 
   function undoRound() {
-    if (currentRounds.length > 0) { currentRounds.pop(); updateUI(); }
-    else { alert("Round undo tur a awm lo!"); }
+    if (state.currentRounds.length > 0) {
+      state.currentRounds.pop();
+      saveState();
+      updateUI();
+      return;
+    }
+    // No rounds in the current game — pull the last finished game back open
+    if (state.pastGames.length > 0) {
+      const lastGame = state.pastGames.pop();
+      const totals = gameTotals(lastGame.rounds);
+      if (totals.a > totals.b) state.matchWinsA--; else state.matchWinsB--;
+      state.gameNumber = lastGame.id;
+      state.currentRounds = lastGame.rounds;
+      state.currentRounds.pop();
+      delete state.collapsed[lastGame.id];
+      saveState();
+      updateUI();
+      return;
+    }
+    showToast("Round sut tur a awm lo!");
   }
 
   function resetInputs() { document.getElementById('dawlA_2').checked = true; document.getElementById('dawlB_2').checked = true; updatePhitLock(); }
-  function toggleCollapse(id) { collapsed[id] = !collapsed[id]; updateUI(); }
+  function toggleCollapse(id) { state.collapsed[id] = !state.collapsed[id]; saveState(); updateUI(); }
 
   function updateUI() {
     const hist = document.getElementById('match-history'); hist.innerHTML = "";
-    let curTotalA = currentRounds.reduce((a, r) => a + r.sa, 0), curTotalB = currentRounds.reduce((a, r) => a + r.sb, 0);
+    const cur = gameTotals(state.currentRounds);
+    let curTotalA = cur.a, curTotalB = cur.b;
 
-    if (curTotalA >= 21 || curTotalB >= 21) {
-      const winner = curTotalA >= 21 ? (nameAInput.value || "Team A") : (nameBInput.value || "Team B");
-      alert(`🎉 ${winner.toUpperCase()} TUN GAME AN CHAK E!`);
-      if (curTotalA >= 21) matchWinsA++; else matchWinsB++;
-      collapsed[gameNumber] = true; pastGames.push({id: gameNumber, rounds: [...currentRounds]});
-      currentRounds = []; curTotalA = 0; curTotalB = 0; gameNumber++;
+    if (checkGameOver(curTotalA, curTotalB)) {
+      const gameWinner = curTotalA > curTotalB ? 'A' : 'B';
+      if (gameWinner === 'A') state.matchWinsA++; else state.matchWinsB++;
+      state.collapsed[state.gameNumber] = true;
+      state.pastGames.push({id: state.gameNumber, rounds: [...state.currentRounds]});
+      showToast(`${teamName(gameWinner).toUpperCase()} TEIN GAME ${state.gameNumber}-NA AN CHAK E!`, 1250);
+      state.currentRounds = []; curTotalA = 0; curTotalB = 0; state.gameNumber++;
+      saveState();
     }
 
-    document.getElementById('m-wins-a').textContent = matchWinsA; document.getElementById('m-wins-b').textContent = matchWinsB;
-    const tA = pastGames.reduce((acc, g) => acc + g.rounds.reduce((s, r) => s + r.sa, 0), 0) + curTotalA;
-    const tB = pastGames.reduce((acc, g) => acc + g.rounds.reduce((s, r) => s + r.sb, 0), 0) + curTotalB;
+    document.getElementById('m-wins-a').textContent = state.matchWinsA;
+    document.getElementById('m-wins-b').textContent = state.matchWinsB;
+    const tA = state.pastGames.reduce((acc, g) => acc + gameTotals(g.rounds).a, 0) + curTotalA;
+    const tB = state.pastGames.reduce((acc, g) => acc + gameTotals(g.rounds).b, 0) + curTotalB;
     document.getElementById('m-pts-a').textContent = tA; document.getElementById('m-pts-b').textContent = tB;
     document.getElementById('live-display').textContent = `${curTotalA} — ${curTotalB}`;
 
-    if (currentRounds.length > 0) renderGame(gameNumber, currentRounds, hist, false);
-    for (let i = pastGames.length - 1; i >= 0; i--) renderGame(pastGames[i].id, pastGames[i].rounds, hist, true);
+    if (state.currentRounds.length > 0) renderGame(state.gameNumber, state.currentRounds, hist, true);
+    else if (state.pastGames.length === 0) {
+      hist.innerHTML = '<div class="empty-hint">Round tin score lanna tur</div>';
+    }
+    for (let i = state.pastGames.length - 1; i >= 0; i--) renderGame(state.pastGames[i].id, state.pastGames[i].rounds, hist, false);
   }
 
-  function renderGame(id, rounds, container, isHistory) {
-    const isCollapsed = collapsed[id] || false;
-    const valA = (nameAInput.value.trim() || "A").substring(0, 8), valB = (nameBInput.value.trim() || "B").substring(0, 8);
+  function renderGame(id, rounds, container, isLive) {
+    const isCollapsed = state.collapsed[id] || false;
+    const valA = teamName('A'), valB = teamName('B');
     const div = document.createElement('div');
     div.className = `game-card ${isCollapsed ? 'collapsed' : ''}`;
-    div.innerHTML = `<div class="game-header" onclick="toggleCollapse(${id})">GAME ${id}</div><div class="game-body"><table><thead><tr><th>${valA}</th><th>${valB}</th><th>Score</th><th>Score</th></tr></thead><tbody>${[...rounds].reverse().map(r => `<tr><td>${r.da}</td><td>${r.db}</td><td>${r.sa}${r.pw==='A'?'<span class="p-marker">(P)</span>':''}</td><td>${r.sb}${r.pw==='B'?'<span class="p-marker">(P)</span>':''}</td></tr>`).join('')}</tbody></table></div>`;
+    div.innerHTML = `<div class="game-header" onclick="toggleCollapse(${id})">GAME ${id} ${isLive ? '<span class="badge-live">LIVE</span>' : ''}</div><div class="game-body"><table><thead><tr><th title="${valA}">${valA}</th><th title="${valB}">${valB}</th><th>Score</th><th>Score</th></tr></thead><tbody>${[...rounds].reverse().map(r => `<tr><td>${r.da}</td><td>${r.db}</td><td>${r.sa}${r.pw==='A'?'<span class="p-marker">(P)</span>':''}</td><td>${r.sb}${r.pw==='B'?'<span class="p-marker">(P)</span>':''}</td></tr>`).join('')}</tbody></table></div>`;
     container.appendChild(div);
   }
 
-  function resetMatch() { if (confirm("Match pumpuhlûm Reset i duh maw?")) { matchWinsA = 0; matchWinsB = 0; gameNumber = 1; currentRounds = []; pastGames = []; collapsed = {}; updateUI(); } }
-  
-  // Initialize labels on load
+  function resetMatch() {
+    if (confirm("Match pumpuhlûm Reset i duh maw?")) {
+      state.matchWinsA = 0; state.matchWinsB = 0; state.gameNumber = 1;
+      state.currentRounds = []; state.pastGames = []; state.collapsed = {};
+      saveState();
+      updateUI();
+    }
+  }
+
+  // Init
+  loadState();
+  nameAInput.value = state.nameA || '';
+  nameBInput.value = state.nameB || '';
   refreshNames();
   updatePhitLock();
 </script>
