@@ -196,10 +196,9 @@
     .game-card.collapsed .game-header::after { transform: rotate(-90deg); }
     .game-card.collapsed .game-body { display: none; }
 
-    table { width: 100%; border-collapse: collapse; }
-    th { padding: 10px; background: #FAFAFA; font-size: 0.65rem; text-transform: uppercase; color: #8E8E93; border-bottom: 1px solid #F2F2F7; }
-    td { padding: 12px; text-align: center; font-size: 0.9rem; border-bottom: 1px solid #F2F2F7; }
-    .p-marker { color: var(--primary); font-weight: 800; font-size: 0.7rem; margin-left: 3px; }
+	table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+	th { padding: 10px; background: #FAFAFA; font-size: 0.65rem; text-transform: uppercase; color: #8E8E93; border-bottom: 1px solid #F2F2F7; white-space: normal; overflow: visible; text-overflow: clip; word-break: break-word; }
+	td { padding: 12px; text-align: center; font-size: 0.9rem; border-bottom: 1px solid #F2F2F7; word-break: break-word; }
 
     .btn-reset { margin: 50px 0; background: transparent; color: var(--danger); border: 1px solid var(--danger); padding: 10px 24px; border-radius: 99px; font-size: 0.8rem; font-weight: 600; cursor: pointer; }
 
@@ -219,6 +218,18 @@
       max-width: 90vw; text-align: center;
     }
     .toast.show { opacity: 1; transform: translateY(0); }
+	
+	.toast.win {
+  background: linear-gradient(135deg, #0d2818 0%, #1C1C1E 60%);
+  border: 1px solid rgba(52,199,89,0.3);
+}
+.toast-score {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.6);
+}
 
     /* --- Match-over banner --- */
     /* --- Empty state --- */
@@ -383,13 +394,15 @@
   }
   nameAInput.oninput = refreshNames; nameBInput.oninput = refreshNames;
 
-  function showToast(msg) {
-    const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.classList.add('show');
-    clearTimeout(showToast._timer);
-    showToast._timer = setTimeout(() => t.classList.remove('show'), 2600);
-  }
+function showToast(msg, subMsg) {
+  const t = document.getElementById('toast');
+  t.innerHTML = subMsg
+    ? `${msg}<span class="toast-score">${subMsg}</span>`
+    : msg;
+  t.classList.add('show');
+  clearTimeout(showToast._timer);
+  showToast._timer = setTimeout(() => t.classList.remove('show'), 2800);
+}
 
   function gameTotals(rounds) {
     return {
@@ -436,7 +449,12 @@
     showToast("Round sut tur a awm lo!");
   }
 
-  function resetInputs() { document.getElementById('dawlA_2').checked = true; document.getElementById('dawlB_2').checked = true; updatePhitLock(); }
+	  function resetInputs() {
+	  document.getElementById('dawlA_2').checked = true;
+	  document.getElementById('dawlB_2').checked = true;
+	  document.querySelectorAll('input[name="phit"]').forEach(r => r.checked = false);
+	  updatePhitLock();
+	}
   function toggleCollapse(id) { state.collapsed[id] = !state.collapsed[id]; saveState(); updateUI(); }
 
   function updateUI() {
@@ -444,16 +462,16 @@
     const cur = gameTotals(state.currentRounds);
     let curTotalA = cur.a, curTotalB = cur.b;
 
-    if (checkGameOver(curTotalA, curTotalB)) {
-      const gameWinner = curTotalA > curTotalB ? 'A' : 'B';
-      if (gameWinner === 'A') state.matchWinsA++; else state.matchWinsB++;
-      state.collapsed[state.gameNumber] = true;
-      state.pastGames.push({id: state.gameNumber, rounds: [...state.currentRounds]});
-      showToast(`${teamName(gameWinner).toUpperCase()} TEIN GAME ${state.gameNumber}-NA AN CHAK E!`, 1250);
-      state.currentRounds = []; curTotalA = 0; curTotalB = 0; state.gameNumber++;
-      saveState();
-    }
-
+	if (checkGameOver(curTotalA, curTotalB)) {
+	  const gameWinner = curTotalA > curTotalB ? 'A' : 'B';
+	  if (gameWinner === 'A') state.matchWinsA++; else state.matchWinsB++;
+	  state.collapsed[state.gameNumber] = true;
+	  state.pastGames.push({id: state.gameNumber, rounds: [...state.currentRounds]});
+	  const scoreLine = `${teamName('A')} ${state.matchWinsA}-${state.matchWinsB} ${teamName('B')}`;
+	  showToast(`${teamName(gameWinner)} TEIN GAME ${state.gameNumber}-NA AN CHAK E!`, scoreLine);
+	  state.currentRounds = []; curTotalA = 0; curTotalB = 0; state.gameNumber++;
+	  saveState();
+	}
     document.getElementById('m-wins-a').textContent = state.matchWinsA;
     document.getElementById('m-wins-b').textContent = state.matchWinsB;
     const tA = state.pastGames.reduce((acc, g) => acc + gameTotals(g.rounds).a, 0) + curTotalA;
@@ -468,15 +486,20 @@
     for (let i = state.pastGames.length - 1; i >= 0; i--) renderGame(state.pastGames[i].id, state.pastGames[i].rounds, hist, false);
   }
 
-  function renderGame(id, rounds, container, isLive) {
-    const isCollapsed = state.collapsed[id] || false;
-    const valA = teamName('A'), valB = teamName('B');
-    const div = document.createElement('div');
-    div.className = `game-card ${isCollapsed ? 'collapsed' : ''}`;
-    div.innerHTML = `<div class="game-header" onclick="toggleCollapse(${id})">GAME ${id} ${isLive ? '<span class="badge-live">LIVE</span>' : ''}</div><div class="game-body"><table><thead><tr><th title="${valA}">${valA}</th><th title="${valB}">${valB}</th><th>Score</th><th>Score</th></tr></thead><tbody>${[...rounds].reverse().map(r => `<tr><td>${r.da}</td><td>${r.db}</td><td>${r.sa}${r.pw==='A'?'<span class="p-marker">(P)</span>':''}</td><td>${r.sb}${r.pw==='B'?'<span class="p-marker">(P)</span>':''}</td></tr>`).join('')}</tbody></table></div>`;
-    container.appendChild(div);
-  }
-
+	function renderGame(id, rounds, container, isLive) {
+	  const isCollapsed = state.collapsed[id] || false;
+	  const valA = teamName('A'), valB = teamName('B');
+	  const div = document.createElement('div');
+	  div.className = `game-card ${isCollapsed ? 'collapsed' : ''}`;
+	  div.innerHTML = `<div class="game-header" onclick="toggleCollapse(${id})">GAME ${id} ${isLive ? '<span class="badge-live">LIVE</span>' : ''}</div><div class="game-body"><table><thead><tr><th title="${valA}">${valA}</th><th title="${valB}">${valB}</th></tr></thead><tbody>${[...rounds].reverse().map(r => {
+		const kawtA = r.da === 0 && r.db === 4;
+		const kawtB = r.db === 0 && r.da === 4;
+		const cellA = kawtA ? '<span style="color:var(--danger);font-weight:800;">KÂWT</span>' : `${r.sa}${r.pw==='A'?'<span class="p-marker">(P)</span>':''}`;
+		const cellB = kawtB ? '<span style="color:var(--danger);font-weight:800;">KÂWT</span>' : `${r.sb}${r.pw==='B'?'<span class="p-marker">(P)</span>':''}`;
+		return `<tr><td>${cellA}</td><td>${cellB}</td></tr>`;
+	  }).join('')}</tbody></table></div>`;
+	  container.appendChild(div);
+	}
   function resetMatch() {
     if (confirm("Match pumpuhlûm Reset i duh maw?")) {
       state.matchWinsA = 0; state.matchWinsB = 0; state.gameNumber = 1;
