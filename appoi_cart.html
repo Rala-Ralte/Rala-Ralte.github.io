@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>MPSC Appointments &middot; Mizoram, 2026</title>
+<meta name="description" content="Where Mizoram Public Service Commission's 2026 appointments came from, mapped by home district and service group.">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f3efe4;
+    --paper-raised: #faf8f1;
+    --panel: #1d2240;
+    --panel-raised: #262c50;
+    --panel-line: #3a4270;
+    --line: #ddd5bf;
+    --ink: #1a1d2e;
+    --muted: #857e68;
+    --muted-panel: #9aa1cc;
+
+    /* choropleth ramp — total appointments */
+    --scale-0: #e9e3d0;
+    --scale-1: #d9ede9;
+    --scale-2: #b6dcd6;
+    --scale-3: #8cc7bf;
+    --scale-4: #5aa89f;
+    --scale-5: #2f7f79;
+
+    /* group identity colors — kept distinct in both fill and text form */
+    --group-a: #4a5f9e;
+    --group-a-soft: #dde2f3;
+    --group-b: #2f7f79;
+    --group-b-soft: #dbeeeb;
+    --group-bng: #b3672e;
+    --group-bng-soft: #f4e2ce;
+    --tie: #8a8360;
+    --tie-soft: #ece7d3;
+
+    --radius-sm: 3px;
+    --radius-md: 6px;
+    --shadow-1: 0 3px 14px rgba(20, 24, 46, 0.14);
+    --shadow-2: 0 -6px 26px rgba(10, 12, 26, 0.28);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+  }
+  :focus-visible {
+    outline: 2px solid var(--group-b);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+
+  /* ===================== HEADER ===================== */
+  header {
+    padding: 11px 20px;
+    background: var(--panel);
+    color: var(--paper);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    row-gap: 8px;
+    gap: 18px;
+    border-bottom: 1px solid var(--panel-line);
+  }
+  header .title-block { min-width: 0; flex-shrink: 1; overflow: hidden; }
+  header .title-block h1 {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-size: 17px;
+    font-weight: 600;
+    margin: 0 0 1px;
+    letter-spacing: -0.01em;
+    color: var(--paper);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  header .title-block p {
+    font-size: 11.5px;
+    color: var(--muted-panel);
+    margin: 0;
+  }
+  header .record-count {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-size: 12px;
+    color: var(--muted-panel);
+    white-space: nowrap;
+    text-align: right;
+    flex-shrink: 0;
+    margin-left: auto;
+  }
+  header .record-count strong {
+    color: var(--paper);
+    font-weight: 600;
+    font-size: 15px;
+  }
+
+  /* ===================== GROUP FILTER (inline pills) ===================== */
+  #group-filter {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+  #controls-group-filter-wrap {
+    display: none;
+  }
+  #controls-group-filter-wrap .group-filter-inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 11px;
+    padding-top: 11px;
+    border-top: 1px solid var(--line);
+  }
+  .group-pill {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 10px;
+    border-radius: 999px;
+    border: 1px solid var(--panel-line);
+    background: transparent;
+    color: var(--muted-panel);
+    font-family: inherit;
+    font-size: 11.5px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.12s ease, border-color 0.12s ease, color 0.12s ease;
+  }
+  .group-pill:hover { border-color: var(--muted-panel); }
+  .group-pill.active {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.3);
+    color: var(--paper);
+  }
+  .group-pill .pill-dot {
+    width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+  }
+  .group-pill .pill-count {
+    font-variant-numeric: tabular-nums;
+    opacity: 0.85;
+  }
+  #controls-group-filter-wrap .group-pill {
+    border-color: var(--line);
+    color: var(--muted);
+  }
+  #controls-group-filter-wrap .group-pill:hover { border-color: var(--muted); }
+  #controls-group-filter-wrap .group-pill.active {
+    background: var(--panel);
+    border-color: var(--panel);
+    color: var(--paper);
+  }
+
+  /* ===================== MAIN LAYOUT ===================== */
+  #main {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+  }
+  #map { flex: 1; background: var(--paper); }
+
+  .leaflet-container { background: var(--paper); font-family: inherit; }
+  .leaflet-interactive:focus { outline: none; }
+  path.leaflet-interactive { outline: none; }
+  .leaflet-container svg, .leaflet-container svg *, .leaflet-pane svg, .leaflet-zoom-box { outline: none !important; }
+  svg:focus, path:focus, g:focus { outline: none !important; }
+  .leaflet-control-zoom { border: none !important; box-shadow: var(--shadow-1) !important; }
+  .leaflet-control-zoom a {
+    background: var(--paper-raised) !important;
+    color: var(--panel) !important;
+    border-color: var(--line) !important;
+  }
+  .leaflet-control-zoom a:hover { background: var(--scale-2) !important; }
+
+  /* ===================== CONTROLS ===================== */
+  #controls {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    z-index: 1000;
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    padding: 12px 14px;
+    box-shadow: var(--shadow-1);
+    font-size: 12.5px;
+    max-width: 226px;
+  }
+  #controls .mode-label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 11px;
+    letter-spacing: 0.02em;
+    color: var(--muted);
+  }
+  .mode-btn {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 7px 10px;
+    margin-bottom: 5px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: var(--paper-raised);
+    color: var(--ink);
+    font-size: 12.5px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+  }
+  .mode-btn:hover { border-color: var(--group-a); }
+  .mode-btn.active { background: var(--panel); border-color: var(--panel); color: var(--paper); }
+  .mode-btn:last-child { margin-bottom: 0; }
+
+  #search-wrap {
+    margin-top: 11px;
+    padding-top: 11px;
+    border-top: 1px solid var(--line);
+    position: relative;
+  }
+  #post-search {
+    width: 100%;
+    padding: 7px 26px 7px 9px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    font-size: 12.5px;
+    background: var(--paper);
+    color: var(--ink);
+  }
+  #post-search::placeholder { color: var(--muted); }
+  #search-clear {
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    margin-top: -1px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 14px;
+    padding: 2px 4px;
+    display: none;
+    line-height: 1;
+  }
+  #search-wrap.has-value #search-clear { display: block; }
+  #search-hint {
+    font-size: 10.5px;
+    color: var(--muted);
+    margin-top: 5px;
+    min-height: 13px;
+  }
+
+  #capital-toggle-wrap {
+    margin-top: 11px;
+    padding-top: 11px;
+    border-top: 1px solid var(--line);
+  }
+  #capital-toggle-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+    cursor: pointer;
+  }
+  #capital-toggle-row input {
+    margin: 2px 0 0;
+    flex-shrink: 0;
+    accent-color: var(--group-bng);
+  }
+  #capital-toggle-row span {
+    font-size: 11.5px;
+    line-height: 1.35;
+    color: var(--ink);
+  }
+  #capital-note-wrap.visible {
+    margin-top: 9px;
+    padding-top: 9px;
+    border-top: 1px solid var(--line);
+  }
+  #capital-note {
+    font-size: 10.5px;
+    line-height: 1.4;
+    color: var(--group-bng);
+  }
+
+  /* ===================== LEGEND ===================== */
+  #legend {
+    position: absolute;
+    bottom: 20px;
+    left: 16px;
+    z-index: 1000;
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    padding: 12px 14px;
+    box-shadow: var(--shadow-1);
+    font-size: 12px;
+    color: var(--muted);
+  }
+  #legend .legend-title {
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 11px;
+    letter-spacing: 0.02em;
+    color: var(--muted);
+  }
+  .legend-row { display: flex; align-items: center; gap: 7px; margin-bottom: 4px; }
+  .legend-row:last-child { margin-bottom: 0; }
+  .legend-swatch { width: 13px; height: 13px; border-radius: 3px; flex-shrink: 0; border: 1px solid rgba(26,29,46,0.12); }
+  .legend-scale-bar {
+    display: flex; height: 10px; border-radius: 3px; overflow: hidden;
+    margin-bottom: 6px; border: 1px solid rgba(26,29,46,0.12);
+  }
+  .legend-scale-bar span { flex: 1; }
+  .legend-scale-labels { display: flex; justify-content: space-between; font-size: 10.5px; color: var(--muted); }
+
+  /* ===================== SIDE PANEL ===================== */
+  #panel {
+    width: 336px;
+    flex-shrink: 0;
+    border-left: 1px solid var(--panel-line);
+    background: var(--panel);
+    color: var(--paper);
+    overflow-y: auto;
+    padding: 22px 22px 34px;
+  }
+  #panel.empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted-panel);
+    font-size: 13px;
+    text-align: center;
+    padding: 40px 28px;
+    font-style: italic;
+    font-family: "Source Serif 4", Georgia, serif;
+  }
+  #panel h2 {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-size: 22px;
+    margin: 0 0 4px;
+    font-weight: 600;
+    color: var(--paper);
+  }
+  #panel .total-line {
+    font-size: 13px;
+    color: var(--muted-panel);
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--panel-line);
+  }
+  #panel .total-line strong { color: var(--paper); font-weight: 600; }
+  #panel .tie-note {
+    display: block;
+    margin-top: 6px;
+    font-size: 11.5px;
+    color: var(--group-bng);
+  }
+  .stat-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 8px 0; border-bottom: 1px solid var(--panel-line);
+    font-size: 13px; color: var(--muted-panel);
+  }
+  .stat-row .stat-count {
+    font-family: "Source Serif 4", Georgia, serif; font-weight: 600;
+    color: var(--paper); font-size: 15px;
+  }
+  .stat-row .stat-bar-wrap { flex: 1; margin: 0 12px; height: 5px; border-radius: 3px; background: var(--panel-line); overflow: hidden; }
+  .stat-row .stat-bar-fill { height: 100%; border-radius: 3px; }
+  #panel h3 {
+    font-size: 11px; letter-spacing: 0.02em; color: var(--muted-panel);
+    font-weight: 600; margin: 22px 0 10px;
+    display: flex; align-items: baseline; justify-content: space-between;
+  }
+  #panel h3 .count-hint { font-weight: 400; color: var(--muted-panel); opacity: 0.75; }
+  #town-sort {
+    background: var(--panel-raised);
+    border: 1px solid var(--panel-line);
+    color: var(--muted-panel);
+    font-size: 10.5px;
+    border-radius: var(--radius-sm);
+    padding: 3px 6px;
+    font-family: inherit;
+    cursor: pointer;
+  }
+  .record { padding: 10px 0; border-bottom: 1px solid var(--panel-line); }
+  .record:last-child { border-bottom: none; }
+  .record .rec-town { font-size: 13.5px; font-weight: 600; color: var(--paper); }
+  .record .rec-meta { font-size: 12px; color: var(--muted-panel); margin-top: 2px; }
+  .badge {
+    display: inline-block; font-size: 10px; padding: 2px 7px; border-radius: 3px;
+    margin-left: 6px; font-weight: 500;
+  }
+  .badge.group-a { background: rgba(74,95,158,0.24); color: #a6b6ec; }
+  .badge.group-b { background: rgba(47,127,121,0.22); color: #7fd4ca; }
+  .badge.non-gaz { background: rgba(179,103,46,0.22); color: #e3a26a; }
+  .no-match { font-size: 12.5px; color: var(--muted-panel); font-style: italic; padding: 8px 0; }
+
+  #status {
+    position: absolute; top: 16px; right: 16px; z-index: 1000;
+    font-size: 12px; color: var(--muted); background: var(--paper-raised);
+    border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 9px 13px;
+    max-width: 260px;
+  }
+  #status.error { color: #a33; border-color: #d9b3ae; }
+
+  .district-tooltip {
+    background: rgba(29,34,64,0.94); color: var(--paper); border: none;
+    border-radius: var(--radius-sm); padding: 4px 9px; font-size: 12px;
+    font-weight: 500; box-shadow: none; font-family: "Inter", sans-serif;
+  }
+  .district-tooltip::before { display: none; }
+
+  #footnote {
+    position: absolute; bottom: 16px; right: 16px; z-index: 999;
+    font-size: 10.5px; color: var(--muted); background: rgba(243,239,228,0.92);
+    padding: 5px 10px; border-radius: var(--radius-sm); max-width: 250px;
+    text-align: right; line-height: 1.4;
+  }
+
+  #panel-close { display: none; }
+
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+  }
+
+  /* ============ MOBILE ============ */
+  @media (max-width: 720px) {
+    body { overflow: hidden; }
+    header { padding: 10px 14px; gap: 10px; }
+    header .title-block h1 { font-size: 14.5px; }
+    header .title-block p { font-size: 10.5px; }
+    header .record-count { font-size: 10.5px; }
+    header .record-count strong { font-size: 15px; }
+
+    #group-filter { display: none; }
+    #controls-group-filter-wrap { display: block; }
+
+    #main { flex-direction: column; }
+    #map { flex: 1; min-height: 0; }
+
+    #controls {
+      top: 10px; left: 10px; right: 10px; max-width: none;
+      padding: 8px 9px;
+    }
+    #controls-top-row { display: flex; align-items: center; gap: 6px; }
+    #controls .mode-label { display: none; }
+    .mode-btn { flex: 1; text-align: center; padding: 9px 4px; margin-bottom: 0; font-size: 11.5px; }
+    #search-wrap { margin-top: 8px; padding-top: 8px; }
+
+    #legend { bottom: 10px; left: 10px; padding: 8px 10px; max-width: 168px; }
+    #legend.collapsed .legend-body { display: none; }
+    #legend .legend-title { display: flex; align-items: center; justify-content: space-between; cursor: pointer; margin-bottom: 0; }
+    #legend.expanded .legend-title { margin-bottom: 8px; }
+    #legend .legend-caret { font-size: 10px; }
+
+    #footnote { display: none; }
+    #status { right: 10px; top: 10px; font-size: 11px; padding: 8px 11px; max-width: 60vw; }
+
+    #panel {
+      position: fixed; left: 0; right: 0; bottom: 0; width: 100%;
+      max-height: 68vh; border-left: none; border-top: 1px solid var(--panel-line);
+      border-radius: 14px 14px 0 0; box-shadow: var(--shadow-2);
+      transform: translateY(100%); transition: transform 0.24s ease;
+      z-index: 1400; padding-top: 10px;
+      padding-bottom: max(24px, env(safe-area-inset-bottom));
+    }
+    #panel.sheet-open { transform: translateY(0); }
+    #panel.empty { display: none; }
+
+    #panel-close {
+      display: block; width: 36px; height: 4px; border-radius: 2px;
+      background: var(--panel-line); margin: 0 auto 14px; border: none; padding: 0;
+    }
+
+    #panel-backdrop {
+      display: none; position: fixed; inset: 0;
+      background: rgba(15,17,32,0.4); z-index: 1300;
+    }
+    #panel-backdrop.visible { display: block; }
+  }
+
+  @media (max-width: 720px) and (orientation: landscape) {
+    #panel { max-height: 82vh; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="title-block">
+    <h1>MPSC appointments by home district</h1>
+    <p>Mizoram, 2026</p>
+  </div>
+  <div id="group-filter" role="tablist" aria-label="Filter by service group"></div>
+  <div class="record-count" id="record-count"></div>
+</header>
+
+<div id="main">
+  <div id="map" role="application" aria-label="Map of Mizoram districts, shaded by appointment data"></div>
+
+  <div id="controls">
+    <div id="controls-top-row">
+      <div class="mode-label">Shade by</div>
+      <button class="mode-btn active" data-mode="count" aria-pressed="true">Total</button>
+      <button class="mode-btn" data-mode="capita" aria-pressed="false">Per capita</button>
+      <button class="mode-btn" data-mode="group" aria-pressed="false">Group</button>
+    </div>
+    <div id="search-wrap">
+      <label for="post-search" class="sr-only">Search by post or town</label>
+      <input type="text" id="post-search" placeholder="Search post or town&hellip;" autocomplete="off">
+      <button id="search-clear" aria-label="Clear search">&times;</button>
+      <div id="search-hint" aria-live="polite"></div>
+    </div>
+    <div id="controls-group-filter-wrap"></div>
+    <div id="capital-toggle-wrap">
+      <label id="capital-toggle-row">
+        <input type="checkbox" id="capital-toggle">
+        <span>Exclude Aizawl from scale</span>
+      </label>
+    </div>
+    <div id="capital-note-wrap">
+      <div id="capital-note" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <div id="legend"></div>
+  <div id="status">Loading data&hellip;</div>
+  <div id="footnote">Sample size is small in several districts &mdash; a single appointment can shift the shade shown. Aizawl's count reflects its role as the capital as much as anything district-specific; use the scale toggle to look past it.</div>
+
+  <div id="panel-backdrop"></div>
+  <div id="panel" class="empty">Select a district to see its record</div>
+</div>
+
+<script>
+const GROUP_ORDER = ["Group A", "Group B", "Group B Non-Gazetted"];
+const GROUP_COLORS = {
+  "Group A": "#4a5f9e",
+  "Group B": "#2f7f79",
+  "Group B Non-Gazetted": "#b3672e"
+};
+const GROUP_SHORT = {
+  "Group A": "Group A",
+  "Group B": "Group B",
+  "Group B Non-Gazetted": "Group B (Non-Gaz.)"
+};
+const GROUP_BADGE_CLASS = {
+  "Group A": "badge group-a",
+  "Group B": "badge group-b",
+  "Group B Non-Gazetted": "badge non-gaz"
+};
+const TIE_COLOR = "#8a8360";
+const NO_DATA_COLOR = "#e9e3d0";
+const COUNT_STOPS = ["#e9e3d0", "#d9ede9", "#b6dcd6", "#8cc7bf", "#5aa89f", "#2f7f79"];
+const CAPITA_STOPS = ["#e9e3d0", "#f2e2d4", "#eec9a8", "#e2a86e", "#cf8541", "#b3672e"];
+
+// 2011 Census base, with post-2019 reorganized districts (Saitual, Khawzawl,
+// Hnahthial carved out of Aizawl/Champhai/Lunglei) estimated as noted.
+// Aizawl, Lunglei, and Champhai figures are post-bifurcation estimates
+// (midpoint of a published range), not exact census counts.
+const DISTRICT_POPULATION = {
+  "Aizawl": 352500,
+  "Lunglei": 132940,
+  "Lawngtlai": 117894,
+  "Mamit": 86364,
+  "Kolasib": 83955,
+  "Serchhip": 64937,
+  "Saiha": 56574,
+  "Champhai": 52500,
+  "Saitual": 50575,
+  "Khawzawl": 36381,
+  "Hnahthial": 28488
+};
+const ESTIMATED_POPULATION_DISTRICTS = new Set(["Aizawl", "Lunglei", "Champhai"]);
+
+let geojsonData = null;
+let records = [];
+let byDistrict = {};
+let maxTotal = 1;
+let scaleMaxTotal = 1;
+let maxCapita = 1;
+let mode = "count";
+let excludeAizawlFromScale = false;
+const CAPITAL_DISTRICT = "Aizawl";
+let activeGroupFilter = null; // null = all groups
+let searchTerm = "";
+let townSort = "count"; // "count" | "alpha"
+let map, geoLayer;
+let selectedDistrict = null;
+
+async function loadData() {
+  const status = document.getElementById('status');
+  try {
+    const [geoRes, dataRes] = await Promise.all([
+      fetch('data/districts.geojson'),
+      fetch('data/appointments.json')
+    ]);
+    if (!geoRes.ok || !dataRes.ok) throw new Error('fetch failed: ' + geoRes.status + '/' + dataRes.status);
+    geojsonData = await geoRes.json();
+    records = await dataRes.json();
+    status.remove();
+    init();
+  } catch (err) {
+    status.textContent = 'Could not load the data files. If you are viewing this locally, serve the folder with a local web server rather than opening index.html directly (file:// blocks fetch).';
+    status.classList.add('error');
+    console.error(err);
+  }
+}
+
+function filteredRecords() {
+  let r = records;
+  if (activeGroupFilter) r = r.filter(x => x.group === activeGroupFilter);
+  if (searchTerm) {
+    const t = searchTerm.toLowerCase();
+    r = r.filter(x => x.post.toLowerCase().includes(t) || x.town_village.toLowerCase().includes(t));
+  }
+  return r;
+}
+
+function perCapitaRate(name) {
+  const d = byDistrict[name];
+  const pop = DISTRICT_POPULATION[name];
+  if (!d || !pop) return 0;
+  return (d.total / pop) * 100000; // appointments per 100,000 population
+}
+
+function aggregate() {
+  byDistrict = {};
+  const active = filteredRecords();
+  active.forEach(r => {
+    if (!byDistrict[r.district]) byDistrict[r.district] = { total: 0, groups: {}, records: [] };
+    byDistrict[r.district].total++;
+    byDistrict[r.district].groups[r.group] = (byDistrict[r.district].groups[r.group] || 0) + 1;
+    byDistrict[r.district].records.push(r);
+  });
+  maxTotal = Math.max(...Object.values(byDistrict).map(d => d.total), 1);
+
+  // scaleMaxTotal drives the color ramp ceiling. Aizawl is Mizoram's capital and
+  // draws outsized numbers for structural reasons (many candidates default to it
+  // as a home address, and it has the deepest educational and administrative
+  // reach) rather than any per-district difference the map is trying to show.
+  // Excluding it from the ceiling lets the other districts' real variation show.
+  if (excludeAizawlFromScale) {
+    const others = Object.entries(byDistrict)
+      .filter(([name]) => name !== CAPITAL_DISTRICT)
+      .map(([, d]) => d.total);
+    scaleMaxTotal = Math.max(...others, 1);
+  } else {
+    scaleMaxTotal = maxTotal;
+  }
+
+  maxCapita = Math.max(...Object.keys(byDistrict).map(perCapitaRate), 0.1);
+
+  const suffix = (activeGroupFilter || searchTerm) ? ` of ${records.length}` : '';
+  document.getElementById('record-count').innerHTML =
+    `<strong>${active.length}</strong>appointment${active.length === 1 ? '' : 's'}${suffix}`;
+}
+
+/* Dominant group with explicit tie handling — never silently pick a winner */
+function dominantGroupInfo(distName) {
+  const d = byDistrict[distName];
+  if (!d || d.total === 0) return { state: "empty" };
+  let top = [];
+  let topCount = -1;
+  GROUP_ORDER.forEach(g => {
+    const c = d.groups[g] || 0;
+    if (c === 0) return;
+    if (c > topCount) { top = [g]; topCount = c; }
+    else if (c === topCount) { top.push(g); }
+  });
+  if (top.length === 1) return { state: "single", group: top[0], count: topCount };
+  return { state: "tie", groups: top, count: topCount };
+}
+
+function countColor(total) {
+  if (total === 0) return NO_DATA_COLOR;
+  const t = total / scaleMaxTotal; // intentionally not maxTotal — see scaleMaxTotal comment
+  const idx = Math.min(COUNT_STOPS.length - 1, Math.ceil(t * (COUNT_STOPS.length - 1)));
+  return COUNT_STOPS[idx];
+}
+
+function capitaColor(name) {
+  const d = byDistrict[name];
+  if (!d || d.total === 0 || !DISTRICT_POPULATION[name]) return NO_DATA_COLOR;
+  const rate = perCapitaRate(name);
+  const t = rate / maxCapita;
+  const idx = Math.min(CAPITA_STOPS.length - 1, Math.ceil(t * (CAPITA_STOPS.length - 1)));
+  return CAPITA_STOPS[idx];
+}
+
+function groupColor(distName) {
+  const info = dominantGroupInfo(distName);
+  if (info.state === "empty") return NO_DATA_COLOR;
+  if (info.state === "tie") return TIE_COLOR;
+  return GROUP_COLORS[info.group] || "#999999";
+}
+
+function styleFeature(feature) {
+  const name = feature.properties.dtname;
+  let fill;
+  if (mode === "count") fill = countColor((byDistrict[name] || { total: 0 }).total);
+  else if (mode === "capita") fill = capitaColor(name);
+  else fill = groupColor(name);
+  const isSelected = name === selectedDistrict;
+  return {
+    fillColor: fill,
+    fillOpacity: 0.88,
+    color: isSelected ? "#c97b3e" : "#1d2240",
+    weight: isSelected ? 2.5 : 1,
+    opacity: isSelected ? 0.9 : 0.4
+  };
+}
+
+function buildPanelHTML(name) {
+  const d = byDistrict[name];
+  const isFiltered = !!(activeGroupFilter || searchTerm);
+  if (!d) {
+    const reason = isFiltered ? 'No appointments matching the current filter in this district.' : 'No appointments recorded in this district.';
+    return `<h2>${escapeHtml(name)}</h2><div class="total-line">${reason}</div>`;
+  }
+
+  let html = `<h2>${escapeHtml(name)}</h2>`;
+  html += `<div class="total-line"><strong>${d.total}</strong> appointment${d.total === 1 ? '' : 's'}${isFiltered ? ' matching current filter' : ' on record'}`;
+  if (DISTRICT_POPULATION[name]) {
+    const rate = perCapitaRate(name);
+    const estTag = ESTIMATED_POPULATION_DISTRICTS.has(name) ? ' (est. population)' : '';
+    html += `<span class="tie-note" style="color:var(--muted-panel)">${rate.toFixed(1)} per 100,000 population${estTag}</span>`;
+  }
+
+  const info = dominantGroupInfo(name);
+  if (info.state === "tie") {
+    html += `<span class="tie-note">Tied between ${info.groups.map(g => GROUP_SHORT[g]).join(' and ')} at ${info.count} each</span>`;
+  }
+  if (name === CAPITAL_DISTRICT) {
+    html += `<span class="tie-note">As the capital, Aizawl draws more appointments partly because candidates default to it as a home address \u2014 its count isn't necessarily a sign of stronger MPSC access there.</span>`;
+  }
+  html += `</div>`;
+
+  GROUP_ORDER.forEach(g => {
+    const c = d.groups[g] || 0;
+    if (c > 0) {
+      const pct = Math.round((c / d.total) * 100);
+      html += `<div class="stat-row">
+        <span>${GROUP_SHORT[g]}</span>
+        <span class="stat-bar-wrap"><span class="stat-bar-fill" style="width:${pct}%;background:${GROUP_COLORS[g]}"></span></span>
+        <span class="stat-count">${c}</span>
+      </div>`;
+    }
+  });
+
+  let recs = d.records.slice();
+  if (townSort === "alpha") {
+    recs.sort((a, b) => a.town_village.localeCompare(b.town_village));
+  } else {
+    // group by town, most appointments first, then alpha within tie
+    const counts = {};
+    recs.forEach(r => counts[r.town_village] = (counts[r.town_village] || 0) + 1);
+    recs.sort((a, b) => (counts[b.town_village] - counts[a.town_village]) || a.town_village.localeCompare(b.town_village));
+  }
+
+  html += `<h3>Towns &amp; villages <span class="count-hint">${recs.length} record${recs.length === 1 ? '' : 's'}</span></h3>`;
+  recs.forEach(r => {
+    const badgeClass = GROUP_BADGE_CLASS[r.group] || "badge";
+    html += `<div class="record">
+      <div class="rec-town">${escapeHtml(r.town_village)}</div>
+      <div class="rec-meta">${escapeHtml(r.post)}<span class="${badgeClass}">${GROUP_SHORT[r.group]}</span></div>
+    </div>`;
+  });
+  return html;
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+const isMobile = () => window.matchMedia('(max-width: 720px)').matches;
+
+function showPanel(name) {
+  selectedDistrict = name;
+  const panel = document.getElementById('panel');
+  const backdrop = document.getElementById('panel-backdrop');
+  panel.classList.remove('empty');
+  let html = '';
+  if (isMobile()) html += `<button id="panel-close" aria-label="Close"></button>`;
+  html += buildPanelHTML(name);
+  panel.innerHTML = html;
+  if (isMobile()) {
+    panel.classList.add('sheet-open');
+    backdrop.classList.add('visible');
+    const closeBtn = document.getElementById('panel-close');
+    if (closeBtn) closeBtn.addEventListener('click', closePanel);
+  }
+  if (geoLayer) geoLayer.eachLayer(l => geoLayer.resetStyle(l));
+}
+
+function closePanel() {
+  const panel = document.getElementById('panel');
+  const backdrop = document.getElementById('panel-backdrop');
+  panel.classList.remove('sheet-open');
+  backdrop.classList.remove('visible');
+}
+
+document.getElementById('panel-backdrop').addEventListener('click', closePanel);
+
+function refreshSelectedPanel() {
+  if (!selectedDistrict) return;
+  const panel = document.getElementById('panel');
+  if (panel.classList.contains('empty')) return;
+  let html = '';
+  if (isMobile() && panel.classList.contains('sheet-open')) html += `<button id="panel-close" aria-label="Close"></button>`;
+  html += buildPanelHTML(selectedDistrict);
+  panel.innerHTML = html;
+  const closeBtn = document.getElementById('panel-close');
+  if (closeBtn) closeBtn.addEventListener('click', closePanel);
+}
+
+function renderLayer() {
+  if (geoLayer) map.removeLayer(geoLayer);
+  geoLayer = L.geoJSON(geojsonData, {
+    style: styleFeature,
+    onEachFeature: (feature, layer) => {
+      const name = feature.properties.dtname;
+      const d = byDistrict[name];
+      const total = d ? d.total : 0;
+      layer.options.keyboard = true;
+      layer.on({
+        mouseover: (e) => { if (name !== selectedDistrict) e.target.setStyle({ weight: 2, opacity: 0.75 }); },
+        mouseout: (e) => { geoLayer.resetStyle(e.target); },
+        click: (e) => {
+          showPanel(name);
+          map.fitBounds(e.target.getBounds(), { maxZoom: 9, padding: [20, 20] });
+        }
+      });
+      layer.bindTooltip(`${name} &middot; ${total}`, { sticky: true, direction: 'top', className: 'district-tooltip' });
+    }
+  }).addTo(map);
+  if (!selectedDistrict) map.fitBounds(geoLayer.getBounds(), { padding: [10, 10] });
+}
+
+function renderLegend() {
+  const legend = document.getElementById('legend');
+  const caret = isMobile() ? `<span class="legend-caret">${legend.classList.contains('expanded') ? '&#9660;' : '&#9654;'}</span>` : '';
+  let title, body;
+  if (mode === "count") {
+    title = "Total appointments";
+    body = `
+      <div class="legend-body">
+        <div class="legend-scale-bar">${COUNT_STOPS.map(c => `<span style="background:${c}"></span>`).join('')}</div>
+        <div class="legend-scale-labels"><span>0</span><span>${scaleMaxTotal}${excludeAizawlFromScale && maxTotal > scaleMaxTotal ? '+' : ''}</span></div>
+      </div>
+    `;
+  } else if (mode === "capita") {
+    title = "Per 100,000 population";
+    body = `
+      <div class="legend-body">
+        <div class="legend-scale-bar">${CAPITA_STOPS.map(c => `<span style="background:${c}"></span>`).join('')}</div>
+        <div class="legend-scale-labels"><span>0</span><span>${maxCapita.toFixed(1)}</span></div>
+      </div>
+    `;
+  } else {
+    let rows = GROUP_ORDER.map(g => `<div class="legend-row"><span class="legend-swatch" style="background:${GROUP_COLORS[g]}"></span>${GROUP_SHORT[g]}</div>`).join('');
+    rows += `<div class="legend-row"><span class="legend-swatch" style="background:${TIE_COLOR}"></span>Tied</div>`;
+    rows += `<div class="legend-row"><span class="legend-swatch" style="background:${NO_DATA_COLOR}"></span>No data</div>`;
+    title = "Leading group";
+    body = `<div class="legend-body">${rows}</div>`;
+  }
+  legend.innerHTML = `<div class="legend-title">${title}${caret}</div>${body}`;
+
+  if (isMobile()) {
+    if (!legend.classList.contains('expanded')) legend.classList.add('collapsed');
+    legend.querySelector('.legend-title').addEventListener('click', () => {
+      legend.classList.toggle('collapsed');
+      legend.classList.toggle('expanded');
+      renderLegend();
+    });
+  } else {
+    legend.classList.remove('collapsed', 'expanded');
+  }
+}
+
+function renderStatStrip() {
+  const totalCount = records.length;
+  const groupCounts = {};
+  GROUP_ORDER.forEach(g => groupCounts[g] = records.filter(r => r.group === g).length);
+
+  let html = `<button class="group-pill ${!activeGroupFilter ? 'active' : ''}" data-group="" role="tab" aria-selected="${!activeGroupFilter}">
+    All <span class="pill-count">${totalCount}</span>
+  </button>`;
+  GROUP_ORDER.forEach(g => {
+    html += `<button class="group-pill ${activeGroupFilter === g ? 'active' : ''}" data-group="${escapeHtml(g)}" role="tab" aria-selected="${activeGroupFilter === g}">
+      <span class="pill-dot" style="background:${GROUP_COLORS[g]}"></span>${GROUP_SHORT[g]} <span class="pill-count">${groupCounts[g]}</span>
+    </button>`;
+  });
+
+  const bindClicks = (container) => {
+    container.querySelectorAll('.group-pill').forEach(chip => {
+      chip.addEventListener('click', () => {
+        activeGroupFilter = chip.dataset.group || null;
+        applyFilters();
+      });
+    });
+  };
+
+  const desktopStrip = document.getElementById('group-filter');
+  desktopStrip.innerHTML = html;
+  bindClicks(desktopStrip);
+
+  const mobileWrap = document.getElementById('controls-group-filter-wrap');
+  mobileWrap.innerHTML = `<div class="group-filter-inner">${html}</div>`;
+  bindClicks(mobileWrap);
+}
+
+function applyFilters() {
+  aggregate();
+  renderLayer();
+  renderLegend();
+  renderStatStrip();
+  renderCapitalNote();
+  refreshSelectedPanel();
+
+  const hint = document.getElementById('search-hint');
+  if (searchTerm) {
+    const n = filteredRecords().length;
+    hint.textContent = `${n} match${n === 1 ? '' : 'es'} across ${Object.keys(byDistrict).length} district${Object.keys(byDistrict).length === 1 ? '' : 's'}`;
+  } else {
+    hint.textContent = '';
+  }
+}
+
+function init() {
+  aggregate();
+  map = L.map('map', { zoomControl: false, attributionControl: false, scrollWheelZoom: true });
+  L.control.zoom({ position: isMobile() ? 'bottomright' : 'topleft' }).addTo(map);
+  renderLayer();
+  renderLegend();
+  renderStatStrip();
+  renderCapitalNote();
+
+  document.querySelectorAll('.mode-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      mode = btn.dataset.mode;
+      document.querySelectorAll('.mode-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
+      btn.classList.add('active');
+      btn.setAttribute('aria-pressed', 'true');
+      renderLayer();
+      renderLegend();
+      renderCapitalNote();
+      document.getElementById('capital-toggle-wrap').style.display = mode === 'count' ? '' : 'none';
+    });
+  });
+  document.getElementById('capital-toggle-wrap').style.display = mode === 'count' ? '' : 'none';
+
+  const searchInput = document.getElementById('post-search');
+  const searchWrap = document.getElementById('search-wrap');
+  const searchClear = document.getElementById('search-clear');
+  let debounceTimer;
+  searchInput.addEventListener('input', () => {
+    clearTimeout(debounceTimer);
+    searchWrap.classList.toggle('has-value', !!searchInput.value);
+    debounceTimer = setTimeout(() => {
+      searchTerm = searchInput.value.trim();
+      applyFilters();
+    }, 150);
+  });
+  searchClear.addEventListener('click', () => {
+    searchInput.value = '';
+    searchWrap.classList.remove('has-value');
+    searchTerm = '';
+    applyFilters();
+    searchInput.focus();
+  });
+
+  const capitalToggle = document.getElementById('capital-toggle');
+  capitalToggle.addEventListener('change', () => {
+    excludeAizawlFromScale = capitalToggle.checked;
+    applyFilters();
+  });
+
+  window.addEventListener('resize', () => {
+    renderLegend();
+  });
+}
+
+function renderCapitalNote() {
+  const note = document.getElementById('capital-note');
+  const wrap = document.getElementById('capital-note-wrap');
+  const aizawlData = byDistrict[CAPITAL_DISTRICT];
+  if (mode === "count") {
+    const showNote = aizawlData && aizawlData.total > 0 &&
+      aizawlData.total === Math.max(...Object.values(byDistrict).map(d => d.total));
+    if (showNote) {
+      note.textContent = excludeAizawlFromScale
+        ? `Aizawl (${aizawlData.total}) is capped at the deepest shade rather than stretching the scale.`
+        : `Aizawl leads with ${aizawlData.total} \u2014 likely reflecting its role as the capital, not stronger MPSC access there.`;
+      wrap.classList.add('visible');
+    } else {
+      wrap.classList.remove('visible');
+    }
+  } else if (mode === "capita") {
+    note.textContent = `Population figures are 2011 Census-based; Aizawl, Lunglei and Champhai use post-2019 reorganization estimates.`;
+    wrap.classList.add('visible');
+  } else {
+    wrap.classList.remove('visible');
+  }
+}
+
+loadData();
+</script>
+
+</body>
+</html>
