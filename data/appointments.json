@@ -1,0 +1,770 @@
+[
+  {
+    "id": "1",
+    "district": "Aizawl",
+    "town_village": "Khatla Bethel",
+    "group": "Group B Non-Gazetted",
+    "year": "2026",
+    "post": "X-Ray Technician"
+  },
+  {
+    "id": "2",
+    "district": "Lunglei",
+    "town_village": "Zotlang",
+    "group": "Group B Non-Gazetted",
+    "year": "2026",
+    "post": "X-Ray Technician"
+  },
+  {
+    "id": "3",
+    "district": "Aizawl",
+    "town_village": "Laipuitlang",
+    "group": "Group B Non-Gazetted",
+    "year": "2026",
+    "post": "X-Ray Technician"
+  },
+  {
+    "id": "4",
+    "district": "Aizawl",
+    "town_village": "Vaivakawn",
+    "group": "Group B Non-Gazetted",
+    "year": "2026",
+    "post": "X-Ray Technician"
+  },
+  {
+    "id": "5",
+    "district": "Aizawl",
+    "town_village": "Leitan Ramthar",
+    "group": "Group B Non-Gazetted",
+    "year": "2026",
+    "post": "X-Ray Technician"
+  },
+  {
+    "id": "6",
+    "district": "Aizawl",
+    "town_village": "Chawnpui Veng",
+    "group": "Group B Non-Gazetted",
+    "year": "2026",
+    "post": "Medical Record Technician"
+  },
+  {
+    "id": "7",
+    "district": "Aizawl",
+    "town_village": "Bungkawn",
+    "group": "Group B Non-Gazetted",
+    "year": "2026",
+    "post": "Medical Record Technician"
+  },
+  {
+    "id": "8",
+    "district": "Aizawl",
+    "town_village": "Falkland",
+    "group": "Group B Non-Gazetted",
+    "year": "2026",
+    "post": "Medical Record Technician"
+  },
+  {
+    "id": "9",
+    "district": "Lunglei",
+    "town_village": "Buarpui",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AAO(W)"
+  },
+  {
+    "id": "10",
+    "district": "Aizawl",
+    "town_village": "Tlangnuam",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AA&AO"
+  },
+  {
+    "id": "11",
+    "district": "Kolasib",
+    "town_village": "College Veng",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AA&AO"
+  },
+  {
+    "id": "12",
+    "district": "Aizawl",
+    "town_village": "Lamchhip",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AA&AO"
+  },
+  {
+    "id": "13",
+    "district": "Aizawl",
+    "town_village": "Zemabawk North",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AA&AO"
+  },
+  {
+    "id": "14",
+    "district": "Aizawl",
+    "town_village": "Venghnuai",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AAO(W)"
+  },
+  {
+    "id": "15",
+    "district": "Aizawl",
+    "town_village": "Maubawk",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AA&AO"
+  },
+  {
+    "id": "16",
+    "district": "Aizawl",
+    "town_village": "Dinthar",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AA&AO"
+  },
+  {
+    "id": "17",
+    "district": "Aizawl",
+    "town_village": "Nursery Veng",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AAO(T)"
+  },
+  {
+    "id": "18",
+    "district": "Champhai",
+    "town_village": "Vaikhawtlang",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AA&AO"
+  },
+  {
+    "id": "19",
+    "district": "Aizawl",
+    "town_village": "Muallungthu",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AA&AO"
+  },
+  {
+    "id": "20",
+    "district": "Champhai",
+    "town_village": "Kahrawt Veng",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AAO(T)"
+  },
+  {
+    "id": "21",
+    "district": "Lunglei",
+    "town_village": "Electric Veng",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AAO(W)"
+  },
+  {
+    "id": "22",
+    "district": "Aizawl",
+    "town_village": "Republic Vengthlang",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AAO(W)"
+  },
+  {
+    "id": "23",
+    "district": "Lawngtlai",
+    "town_village": "Electric Veng",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AAO(W)"
+  },
+  {
+    "id": "24",
+    "district": "Aizawl",
+    "town_village": "Aizawl Venglai",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AAO(T)"
+  },
+  {
+    "id": "25",
+    "district": "Lunglei",
+    "town_village": "Pukpui",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AAO(T)"
+  },
+  {
+    "id": "26",
+    "district": "Champhai",
+    "town_village": "Khawbung",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AAO(W)"
+  },
+  {
+    "id": "27",
+    "district": "Aizawl",
+    "town_village": "Salem Veng",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AAO(T)"
+  },
+  {
+    "id": "28",
+    "district": "Aizawl",
+    "town_village": "Bungkawn",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AAO(T)"
+  },
+  {
+    "id": "29",
+    "district": "Serchhip",
+    "town_village": "P&E Veng",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AAO(W)"
+  },
+  {
+    "id": "30",
+    "district": "Aizawl",
+    "town_village": "Durtlang Mel 5",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AAO(T)"
+  },
+  {
+    "id": "31",
+    "district": "Aizawl",
+    "town_village": "Republic Vengthlang",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AAO(T)"
+  },
+  {
+    "id": "32",
+    "district": "Aizawl",
+    "town_village": "Maubawk",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AAO(W)"
+  },
+  {
+    "id": "33",
+    "district": "Aizawl",
+    "town_village": "Ailawng",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AAO(W)"
+  },
+  {
+    "id": "34",
+    "district": "Aizawl",
+    "town_village": "Chaltlang Mual Veng",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AAO(T)"
+  },
+  {
+    "id": "35",
+    "district": "Aizawl",
+    "town_village": "Bawngkawn Biak In Veng",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AAO(T)"
+  },
+  {
+    "id": "36",
+    "district": "Aizawl",
+    "town_village": "Republic Vengthlang",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AAO(T)"
+  },
+  {
+    "id": "37",
+    "district": "Aizawl",
+    "town_village": "Salem Veng",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AAO(T)"
+  },
+  {
+    "id": "38",
+    "district": "Aizawl",
+    "town_village": "Leitan Durtlang",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AAO(T)"
+  },
+  {
+    "id": "39",
+    "district": "Serchhip",
+    "town_village": "N. Vanlaiphai",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AAO(T)"
+  },
+  {
+    "id": "40",
+    "district": "Aizawl",
+    "town_village": "Armed Veng South",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AAO(W)"
+  },
+  {
+    "id": "41",
+    "district": "Saiha",
+    "town_village": "New Colony",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AAO(W)"
+  },
+  {
+    "id": "42",
+    "district": "Aizawl",
+    "town_village": "Tuikual South",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AAO(W)"
+  },
+  {
+    "id": "43",
+    "district": "Serchhip",
+    "town_village": "N. Vanlaiphai",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AAO(T)"
+  },
+  {
+    "id": "44",
+    "district": "Aizawl",
+    "town_village": "Seling",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AAO(W)"
+  },
+  {
+    "id": "45",
+    "district": "Aizawl",
+    "town_village": "Saikhamakawn",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AAO(W)"
+  },
+  {
+    "id": "46",
+    "district": "Lawngtlai",
+    "town_village": "Electric Veng",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AAO(W)"
+  },
+  {
+    "id": "47",
+    "district": "Champhai",
+    "town_village": "Kahrawt",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AAO(W)"
+  },
+  {
+    "id": "48",
+    "district": "Aizawl",
+    "town_village": "Armed Veng",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AAO(W)"
+  },
+  {
+    "id": "49",
+    "district": "Lunglei",
+    "town_village": "Bazar Veng",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AAO(W)"
+  },
+  {
+    "id": "50",
+    "district": "Lunglei",
+    "town_village": "Ramzotlang Serkawn",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AAO(W)"
+  },
+  {
+    "id": "51",
+    "district": "Kolasib",
+    "town_village": "Hortoki",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AAO(W)"
+  },
+  {
+    "id": "52",
+    "district": "Aizawl",
+    "town_village": "Chhinga Veng",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AAO(W)"
+  },
+  {
+    "id": "53",
+    "district": "Serchhip",
+    "town_village": "Chhiahtlang",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AAO(T)"
+  },
+  {
+    "id": "54",
+    "district": "Aizawl",
+    "town_village": "Salem Veng",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AAO(W)"
+  },
+  {
+    "id": "55",
+    "district": "Aizawl",
+    "town_village": "Durtlang Leitan",
+    "group": "Group B",
+    "year": "2026",
+    "post": "AAO(T)"
+  },
+  {
+    "id": "56",
+    "district": "Aizawl",
+    "town_village": "Bungkawn Vengthar",
+    "group": "Group B Non-Gazetted",
+    "year": "2026",
+    "post": "Field Facilitator"
+  },
+  {
+    "id": "57",
+    "district": "Saiha",
+    "town_village": "Meisavaih E",
+    "group": "Group B Non-Gazetted",
+    "year": "2026",
+    "post": "Field Facilitator"
+  },
+  {
+    "id": "58",
+    "district": "Mamit",
+    "town_village": "Venghlun",
+    "group": "Group B Non-Gazetted",
+    "year": "2026",
+    "post": "Field Facilitator"
+  },
+  {
+    "id": "59",
+    "district": "Aizawl",
+    "town_village": "Tuikual North",
+    "group": "Group A",
+    "year": "2026",
+    "post": "Jr. Grade MES (PWD)"
+  },
+  {
+    "id": "60",
+    "district": "Aizawl",
+    "town_village": "Republic Hmar Veng",
+    "group": "Group A",
+    "year": "2026",
+    "post": "Jr. Grade MES (PWD)"
+  },
+  {
+    "id": "61",
+    "district": "Serchhip",
+    "town_village": "E. Lungdar",
+    "group": "Group A",
+    "year": "2026",
+    "post": "Jr. Grade MES (PWD)"
+  },
+  {
+    "id": "62",
+    "district": "Aizawl",
+    "town_village": "Tlangnuam Vengthar",
+    "group": "Group A",
+    "year": "2026",
+    "post": "Jr. Grade MES (PWD)"
+  },
+  {
+    "id": "63",
+    "district": "Lawngtlai",
+    "town_village": "Sangau",
+    "group": "Group A",
+    "year": "2026",
+    "post": "Jr. Grade MES (PWD)"
+  },
+  {
+    "id": "64",
+    "district": "Aizawl",
+    "town_village": "Chawlhhmun",
+    "group": "Group A",
+    "year": "2026",
+    "post": "Jr. Grade MES (PWD)"
+  },
+  {
+    "id": "65",
+    "district": "Aizawl",
+    "town_village": "Kulikawn",
+    "group": "Group A",
+    "year": "2026",
+    "post": "Jr. Grade MES (PWD)"
+  },
+  {
+    "id": "66",
+    "district": "Aizawl",
+    "town_village": "Durtlang Leitan South",
+    "group": "Group A",
+    "year": "2026",
+    "post": "Jr. Grade MES (PWD)"
+  },
+  {
+    "id": "67",
+    "district": "Aizawl",
+    "town_village": "Bethlehem Vengthlang",
+    "group": "Group A",
+    "year": "2026",
+    "post": "Jr. Grade MES (PWD)"
+  },
+  {
+    "id": "68",
+    "district": "Saiha",
+    "town_village": "New Siaha East-II",
+    "group": "Group A",
+    "year": "2026",
+    "post": "Jr. Grade MES (PWD)"
+  },
+  {
+    "id": "69",
+    "district": "Aizawl",
+    "town_village": "Ramhlun North",
+    "group": "Group A",
+    "year": "2026",
+    "post": "Jr. Grade MES (PWD)"
+  },
+  {
+    "id": "70",
+    "district": "Serchhip",
+    "town_village": "Chanmari Vengthar",
+    "group": "Group A",
+    "year": "2026",
+    "post": "Jr. Grade MES (PWD)"
+  },
+  {
+    "id": "71",
+    "district": "Aizawl",
+    "town_village": "Kanan Veng",
+    "group": "Group A",
+    "year": "2026",
+    "post": "Jr. Grade MES (PWD)"
+  },
+  {
+    "id": "72",
+    "district": "Lunglei",
+    "town_village": "Zotlang",
+    "group": "Group A",
+    "year": "2026",
+    "post": "Jr. Grade MES (PWD)"
+  },
+  {
+    "id": "73",
+    "district": "Aizawl",
+    "town_village": "Durtlang Leitan",
+    "group": "Group A",
+    "year": "2026",
+    "post": "Jr. Grade MES (PWD)"
+  },
+  {
+    "id": "74",
+    "district": "Aizawl",
+    "town_village": "Bethlehem Vengthlang",
+    "group": "Group A",
+    "year": "2026",
+    "post": "Jr. Grade MES (PWD)"
+  },
+  {
+    "id": "75",
+    "district": "Aizawl",
+    "town_village": "Bethlehem Veng",
+    "group": "Group A",
+    "year": "2026",
+    "post": "Jr. Grade MES (P&E)"
+  },
+  {
+    "id": "76",
+    "district": "Aizawl",
+    "town_village": "Chawnpui Veng",
+    "group": "Group A",
+    "year": "2026",
+    "post": "Jr. Grade MES (P&E)"
+  },
+  {
+    "id": "77",
+    "district": "Lawngtlai",
+    "town_village": "Chandmary",
+    "group": "Group A",
+    "year": "2026",
+    "post": "Jr. Grade MES (P&E)"
+  },
+  {
+    "id": "78",
+    "district": "Kolasib",
+    "town_village": "Khuangpuilam",
+    "group": "Group A",
+    "year": "2026",
+    "post": "Jr. Grade MES (P&E)"
+  },
+  {
+    "id": "79",
+    "district": "Aizawl",
+    "town_village": "Bungkawn",
+    "group": "Group A",
+    "year": "2026",
+    "post": "Jr. Grade MES (P&E)"
+  },
+  {
+    "id": "80",
+    "district": "Aizawl",
+    "town_village": "Zuangtui",
+    "group": "Group A",
+    "year": "2026",
+    "post": "Jr. Grade MES (P&E)"
+  },
+  {
+    "id": "81",
+    "district": "Aizawl",
+    "town_village": "Leitan Ramthar",
+    "group": "Group A",
+    "year": "2026",
+    "post": "Jr. Grade MES (P&E)"
+  },
+  {
+    "id": "82",
+    "district": "Aizawl",
+    "town_village": "Edenthar Vengchhak",
+    "group": "Group A",
+    "year": "2026",
+    "post": "Jr. Grade MES (P&E)"
+  },
+  {
+    "id": "83",
+    "district": "Aizawl",
+    "town_village": "Chanmari",
+    "group": "Group A",
+    "year": "2026",
+    "post": "Jr. Grade MES (P&E)"
+  },
+  {
+    "id": "84",
+    "district": "Kolasib",
+    "town_village": "Bilkhawthlir",
+    "group": "Group A",
+    "year": "2026",
+    "post": "Jr. Grade MES (P&E)"
+  },
+  {
+    "id": "85",
+    "district": "Lawngtlai",
+    "town_village": "Bungmual",
+    "group": "Group A",
+    "year": "2026",
+    "post": "Jr. Grade MES (P&E)"
+  },
+  {
+    "id": "86",
+    "district": "Lunglei",
+    "town_village": "Serkawn",
+    "group": "Group A",
+    "year": "2026",
+    "post": "Jr. Grade MES (P&E)"
+  },
+  {
+    "id": "87",
+    "district": "Serchhip",
+    "town_village": "Chhingchhip Venglai",
+    "group": "Group A",
+    "year": "2026",
+    "post": "Jr. Grade MES (P&E)"
+  },
+  {
+    "id": "88",
+    "district": "Aizawl",
+    "town_village": "Ramhlun South",
+    "group": "Group A",
+    "year": "2026",
+    "post": "Jr. Grade MES (P&E)"
+  },
+  {
+    "id": "89",
+    "district": "Serchhip",
+    "town_village": "North Vanlaiphai",
+    "group": "Group A",
+    "year": "2026",
+    "post": "Jr. Grade MES (P&E)"
+  },
+  {
+    "id": "90",
+    "district": "Aizawl",
+    "town_village": "Luangmual",
+    "group": "Group A",
+    "year": "2026",
+    "post": "Jr. Grade MES (PHED)"
+  },
+  {
+    "id": "91",
+    "district": "Aizawl",
+    "town_village": "Zonuam",
+    "group": "Group A",
+    "year": "2026",
+    "post": "Jr. Grade MES (PHED)"
+  },
+  {
+    "id": "92",
+    "district": "Aizawl",
+    "town_village": "Tlangnuam Vengthar",
+    "group": "Group A",
+    "year": "2026",
+    "post": "Jr. Grade MES (PHED)"
+  },
+  {
+    "id": "93",
+    "district": "Saiha",
+    "town_village": "New Siaha West II",
+    "group": "Group A",
+    "year": "2026",
+    "post": "Jr. Grade MES (PHED)"
+  },
+  {
+    "id": "94",
+    "district": "Mamit",
+    "town_village": "Bazar Veng",
+    "group": "Group A",
+    "year": "2026",
+    "post": "Jr. Grade MES (PHED)"
+  },
+  {
+    "id": "95",
+    "district": "Aizawl",
+    "town_village": "Tlangnuam Vengthar",
+    "group": "Group A",
+    "year": "2026",
+    "post": "Jr. Grade MES (PHED)"
+  },
+  {
+    "id": "96",
+    "district": "Aizawl",
+    "town_village": "Chawnpui Veng",
+    "group": "Group A",
+    "year": "2026",
+    "post": "Jr. Grade MES (PHED)"
+  }
+]
