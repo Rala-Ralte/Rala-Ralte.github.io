@@ -415,6 +415,52 @@
   .record:last-child { border-bottom: none; }
   .record .rec-town { font-size: 13.5px; font-weight: 600; color: var(--paper); }
   .record .rec-meta { font-size: 12px; color: var(--muted-panel); margin-top: 2px; }
+
+  .town-group { border-bottom: 1px solid var(--panel-line); }
+  .town-group:last-child { border-bottom: none; }
+  .town-group-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    text-align: left;
+  }
+  .town-group-header .town-group-dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+  .town-group-header .rec-town { flex: 1; min-width: 0; }
+  .town-group-header .town-group-count {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-size: 12.5px;
+    color: var(--muted-panel);
+    flex-shrink: 0;
+  }
+  .town-group-header .town-group-caret {
+    font-size: 9px;
+    color: var(--muted-panel);
+    flex-shrink: 0;
+    transition: transform 0.15s ease;
+  }
+  .town-group-header[aria-expanded="true"] .town-group-caret {
+    transform: rotate(90deg);
+  }
+  .town-group-body {
+    padding: 0 0 6px 16px;
+    border-left: 1px solid var(--panel-line);
+    margin-left: 3px;
+  }
+  .town-group-body[hidden] { display: none; }
+  .town-group-record {
+    padding: 6px 0;
+    border-bottom: none;
+  }
+  .town-group-record .rec-meta { margin-top: 0; }
+
   .badge {
     display: inline-block; font-size: 10px; padding: 2px 7px; border-radius: 3px;
     margin-left: 6px; font-weight: 500;
@@ -814,22 +860,58 @@ function buildPanelHTML(name) {
   });
 
   let recs = d.records.slice();
+
+  // Group by town first — this is what actually needs to scale as more
+  // appointments come in, since the number of distinct towns grows a lot
+  // slower than the raw record count once a town has multiple entries.
+  const townGroups = {};
+  recs.forEach(r => {
+    if (!townGroups[r.town_village]) townGroups[r.town_village] = [];
+    townGroups[r.town_village].push(r);
+  });
+  let townNames = Object.keys(townGroups);
   if (townSort === "alpha") {
-    recs.sort((a, b) => a.town_village.localeCompare(b.town_village));
+    townNames.sort((a, b) => a.localeCompare(b));
   } else {
-    // group by town, most appointments first, then alpha within tie
-    const counts = {};
-    recs.forEach(r => counts[r.town_village] = (counts[r.town_village] || 0) + 1);
-    recs.sort((a, b) => (counts[b.town_village] - counts[a.town_village]) || a.town_village.localeCompare(b.town_village));
+    townNames.sort((a, b) => (townGroups[b].length - townGroups[a].length) || a.localeCompare(b));
   }
 
-  html += `<h3>Towns &amp; villages <span class="count-hint">${recs.length} record${recs.length === 1 ? '' : 's'}</span></h3>`;
-  recs.forEach(r => {
-    const badgeClass = GROUP_BADGE_CLASS[r.group] || "badge";
-    html += `<div class="record">
-      <div class="rec-town">${escapeHtml(r.town_village)}</div>
-      <div class="rec-meta">${escapeHtml(r.post)}<span class="${badgeClass}">${GROUP_SHORT[r.group]}</span></div>
-    </div>`;
+  html += `<h3>Towns &amp; villages <span class="count-hint">${townNames.length} town${townNames.length === 1 ? '' : 's'}, ${recs.length} record${recs.length === 1 ? '' : 's'}</span></h3>`;
+
+  townNames.forEach((town, i) => {
+    const townRecs = townGroups[town];
+    const groupId = `town-${name.replace(/\W+/g, '')}-${i}`;
+    if (townRecs.length === 1) {
+      // A single-record town doesn't need a collapse step — just show it.
+      const r = townRecs[0];
+      const badgeClass = GROUP_BADGE_CLASS[r.group] || "badge";
+      html += `<div class="record">
+        <div class="rec-town">${escapeHtml(town)}</div>
+        <div class="rec-meta">${escapeHtml(r.post)}<span class="${badgeClass}">${GROUP_SHORT[r.group]}</span></div>
+      </div>`;
+      return;
+    }
+    // Multi-record town: collapsed by default, dominant-group dot as a
+    // quick visual cue, expands to the individual posts on click.
+    const groupCounts = {};
+    townRecs.forEach(r => groupCounts[r.group] = (groupCounts[r.group] || 0) + 1);
+    let topGroup = null, topCount = -1;
+    GROUP_ORDER.forEach(g => { const c = groupCounts[g] || 0; if (c > topCount) { topCount = c; topGroup = g; } });
+    html += `<div class="town-group">
+      <button class="town-group-header" data-target="${groupId}" aria-expanded="false">
+        <span class="town-group-dot" style="background:${GROUP_COLORS[topGroup]}"></span>
+        <span class="rec-town">${escapeHtml(town)}</span>
+        <span class="town-group-count">${townRecs.length}</span>
+        <span class="town-group-caret">&#9656;</span>
+      </button>
+      <div class="town-group-body" id="${groupId}" hidden>`;
+    townRecs.forEach(r => {
+      const badgeClass = GROUP_BADGE_CLASS[r.group] || "badge";
+      html += `<div class="record town-group-record">
+        <div class="rec-meta">${escapeHtml(r.post)}<span class="${badgeClass}">${GROUP_SHORT[r.group]}</span></div>
+      </div>`;
+    });
+    html += `</div></div>`;
   });
   return html;
 }
@@ -867,6 +949,19 @@ function closePanel() {
 }
 
 document.getElementById('panel-backdrop').addEventListener('click', closePanel);
+
+/* Expand/collapse for multi-record town groups. Delegated on #panel since
+   its content (including .town-group-header buttons) is rebuilt via
+   innerHTML on every district change or filter update. */
+document.getElementById('panel').addEventListener('click', (e) => {
+  const header = e.target.closest('.town-group-header');
+  if (!header) return;
+  const body = document.getElementById(header.dataset.target);
+  if (!body) return;
+  const isOpen = !body.hidden;
+  body.hidden = isOpen;
+  header.setAttribute('aria-expanded', String(!isOpen));
+});
 
 /* Swipe-down-to-dismiss for the mobile bottom sheet.
    Delegated on #panel itself since its inner content (including
