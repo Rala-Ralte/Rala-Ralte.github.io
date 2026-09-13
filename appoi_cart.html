@@ -862,10 +862,71 @@ function closePanel() {
   const panel = document.getElementById('panel');
   const backdrop = document.getElementById('panel-backdrop');
   panel.classList.remove('sheet-open');
+  panel.style.transform = '';
   backdrop.classList.remove('visible');
 }
 
 document.getElementById('panel-backdrop').addEventListener('click', closePanel);
+
+/* Swipe-down-to-dismiss for the mobile bottom sheet.
+   Delegated on #panel itself since its inner content (including
+   #panel-close) is rebuilt via innerHTML on every district change. */
+(function setupSheetDrag() {
+  const panel = document.getElementById('panel');
+  let startY = null;
+  let currentY = 0;
+  let dragging = false;
+  const DISMISS_THRESHOLD = 90; // px of downward drag that counts as "close"
+
+  function onStart(e) {
+    if (!isMobile() || !panel.classList.contains('sheet-open')) return;
+    // Only start a drag from the handle or the panel's own top padding area,
+    // not from inside scrollable record content, so normal list scrolling
+    // still works.
+    const target = e.target;
+    const isHandle = target.id === 'panel-close' || target.closest('#panel-close');
+    const panelRect = panel.getBoundingClientRect();
+    const touchY = (e.touches ? e.touches[0].clientY : e.clientY);
+    const nearTop = touchY - panelRect.top < 40;
+    if (!isHandle && !nearTop) return;
+    startY = touchY;
+    currentY = 0;
+    dragging = true;
+    panel.style.transition = 'none';
+  }
+
+  function onMove(e) {
+    if (!dragging || startY === null) return;
+    const touchY = (e.touches ? e.touches[0].clientY : e.clientY);
+    const delta = touchY - startY;
+    currentY = Math.max(0, delta); // only allow dragging downward
+    panel.style.transform = `translateY(${currentY}px)`;
+    if (currentY > 0 && e.cancelable) e.preventDefault();
+  }
+
+  function onEnd() {
+    if (!dragging) return;
+    dragging = false;
+    panel.style.transition = '';
+    if (currentY > DISMISS_THRESHOLD) {
+      closePanel();
+    } else {
+      panel.style.transform = '';
+    }
+    startY = null;
+    currentY = 0;
+  }
+
+  panel.addEventListener('touchstart', onStart, { passive: true });
+  panel.addEventListener('touchmove', onMove, { passive: false });
+  panel.addEventListener('touchend', onEnd);
+  panel.addEventListener('touchcancel', onEnd);
+
+  // Mouse equivalent, useful for testing in a resized desktop browser.
+  panel.addEventListener('mousedown', onStart);
+  window.addEventListener('mousemove', onMove);
+  window.addEventListener('mouseup', onEnd);
+})();
 
 function refreshSelectedPanel() {
   if (!selectedDistrict) return;
