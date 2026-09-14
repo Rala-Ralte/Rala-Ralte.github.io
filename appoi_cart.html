@@ -637,7 +637,7 @@
 
   <div id="legend"></div>
   <div id="status">Loading data&hellip;</div>
-  <div id="footnote">Sample size is small in several districts &mdash; a single appointment can shift the shade shown. Aizawl's count reflects its role as the capital as much as anything district-specific; use the scale toggle to look past it.</div>
+  <div id="footnote">Sample size is small in several districts, a single appointment can shift the shade shown. Aizawl's count reflects its role as the capital as much as anything district-specific; use the scale toggle to look past it.</div>
 
   <div id="panel-backdrop"></div>
   <div id="panel" class="empty">Select a district to see its record</div>
@@ -843,7 +843,7 @@ function buildPanelHTML(name) {
     html += `<span class="tie-note">Tied between ${info.groups.map(g => GROUP_SHORT[g]).join(' and ')} at ${info.count} each</span>`;
   }
   if (name === CAPITAL_DISTRICT) {
-    html += `<span class="tie-note">As the capital, Aizawl draws more appointments partly because candidates default to it as a home address \u2014 its count isn't necessarily a sign of stronger MPSC access there.</span>`;
+    html += `<span class="tie-note">As the capital, Aizawl draws more appointments partly because candidates default to it as a home address, its count isn't necessarily a sign of stronger MPSC access there.</span>`;
   }
   html += `</div>`;
 
